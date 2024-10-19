@@ -14,4 +14,4 @@ DeltaChan is a lightweight imageboard software written in PHP.
 4. Follow the further instructions on the install page.
 
 ## Disclaimer
-DeltaChan is still in early stages of development. If you encounter any issues please report them.
+DeltaChan is still in early stages of development. There may be compatibility breaking changes. If you encounter any issues please report them.
