@@ -5,6 +5,7 @@ class ChanInfo
     public $chan_name;
     public $welcome;
     public $rules;
+    public $faq;
 }
 
 function chan_info_read()

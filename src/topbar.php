@@ -16,6 +16,7 @@ include_once "internal/staff_session.php";
 	<p>[</p>
 	<a href=/>home</a>
 	<a href=/rules.php>rules</a>
+	<a href=faq.php>faq</a>
 	<p>]</p>
 
 	<p>[</p>

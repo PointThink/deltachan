@@ -13,6 +13,7 @@ if (count($_POST) > 0)
     $chan_info->chan_name = $_POST["name"];
     $chan_info->rules = $_POST["rules"];
     $chan_info->welcome = $_POST["welcome"];
+	$chan_info->faq = $_POST["faq"];
 
     chan_info_write($chan_info);
 
@@ -42,6 +43,7 @@ if (count($_POST) > 0)
                 ->add_text_field("Chan name", "name", $chan_info->chan_name)
                 ->add_text_area("Welcome message", "welcome", $chan_info->welcome)
                 ->add_text_area("Rules", "rules", $chan_info->rules)
+				->add_text_area("FAQ", "faq", $chan_info->faq)
 				->finalize();
 			?>
 		</div>
