@@ -5,6 +5,7 @@ session_start();
 include_once "../database.php";
 include_once "../bans.php";
 include_once "../staff_session.php";
+include_once "../geolocation.php";
 
 function error_die($error)
 {
@@ -35,18 +36,20 @@ $database = new Database();
 
 // If user is logged in as staff create a staff post
 $is_mod_post = "0";
-$mod_user = "";
+$name = $_POST["name"];
 
 if (staff_session_is_valid())
 {
 	$user = staff_get_current_user();
-	$mod_user = $user->username;
+	$name = $user->username;
 	$is_mod_post = "1";
 }
 
+$geolocation = new IPLocationInfo($_SERVER["REMOTE_ADDR"]);
+
 $result = $database->write_post(
-	$_POST["board"], $_POST["is_reply"], $_POST["replies_to"], trim($_POST["title"]), trim($_POST["comment"]),
-	$_SERVER["REMOTE_ADDR"], "pl", $is_mod_post, $mod_user
+	$_POST["board"], $_POST["is_reply"], $_POST["replies_to"], $name, trim($_POST["title"]), trim($_POST["comment"]),
+	$_SERVER["REMOTE_ADDR"], $geolocation->country, $is_mod_post
 );
 
 if (!is_dir(__DIR__ . "/../../" . $file_upload_dir))
@@ -71,8 +74,12 @@ if ($_FILES["file"]["size"] > 0)
 		$desired_height = floor($height * ($desired_width / $width));
 
 		$virtual_image = imagecreatetruecolor($desired_width, $desired_height);
+		imagealphablending($virtual_image, false);
+		imagesavealpha($virtual_image, true);
+		$color = imagecolorallocatealpha($virtual_image, 0, 0, 0, 127);
+		imagefill($virtual_image, 0, 0, $color);
 		imagecopyresampled($virtual_image, $image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
-		imagejpeg($virtual_image, __DIR__ . "/../../" . $file_upload_dir . "$result->board-$result->id-thumb.jpg");
+		imagewebp($virtual_image, __DIR__ . "/../../" . $file_upload_dir . "$result->board-$result->id-thumb.webp");
 	}
 }
 

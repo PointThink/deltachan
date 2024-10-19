@@ -62,15 +62,14 @@ function setup_board_table($board_id)
 			creation_time datetime not null default current_timestamp,
 			bump_time datetime not null default current_timestamp,
 
+			is_staff_post int not null,
+			name varchar(255) not null default 'Anonymous',
 			title varchar(255),
 			post_body text,
 			image_file_name varchar(255),
 
 			poster_ip varchar(255) not null,
 			poster_country varchar(2),
-
-			is_staff_post int not null,
-			staff_username varchar(255),
 
 			sticky int default 0,
 			approved int not null default 0
@@ -142,8 +141,8 @@ function board_get($board_id, $page = 0)
 	$board->title = $board_array["title"];
 	$board->subtitle = $board_array["subtitle"];
 
-	$post_range_begin = 10 * $page;
-	$post_range_end = 10 * $page + 10;
+	$post_range_begin = 10 * intval($page);
+	$post_range_end = 10 * intval($page) + 10;
 
 	$query_result = $database->query("
 		select id from posts_$board_id

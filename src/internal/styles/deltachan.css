@@ -18,18 +18,6 @@ hr {
 	color: brown;
 }
 
-.post .admin_post {
-	color: red;
-}
-
-.post .mod_post {
-	color: blue;
-}
-
-.post .janny_post {
-	color: green;
-}
-
 .reply {
 	background: #e1e1f7;
 }

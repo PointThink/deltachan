@@ -94,23 +94,10 @@ body {
 	box-sizing: border-box;
 }
 
-.post .your_post {
-	margin: 0px;
-	margin-right: 0.2cm;
-	display: inline-block;
-	font-size: 12px;
-}
-
 .post .post_title {
-	display: inline-block;
-}
-
-.post .admin_post,
-.post .mod_post,
-.post .janny_post {
-	font-weight: normal;
-	font-size: 12px;
-	margin: 0px;
+	font-size: 10pt;
+	font-weight: bold;
+	margin: 0;
 	margin-right: 0.2cm;
 	display: inline-block;
 }
@@ -142,9 +129,32 @@ body {
 
 .post .post_id, .post form, .post .hide_replies_button, .action_link {
 	display: inline;
-	font-size: 12px;
+	font-size: 10pt;
 	margin: 0;
 	margin-right: 0.2cm;
+}
+
+.post .name_segment {
+	font-size: 10pt;
+}
+
+.post .your_post {
+	margin: 0px;
+	margin-right: 0.2cm;
+	display: inline-block;
+}
+
+.post .name {
+	display: inline-block;
+	color: #117743;
+	font-weight: bold;
+	margin: 0;
+	margin-right: 0.2cm;
+}
+
+.post .staff_name {
+	font-weight: normal;
+	color: purple;
 }
 
 .post_form td {
@@ -169,20 +179,16 @@ form .clear_file, form .file_upload {
 
 	float: left;
 	border: none;
-	display: inline-block;
 
 	margin-right: 0.2cm;
-}
-
-.post .post_attachment_expanded {
-	display: none;
+	background: none;
 }
 
 .post .post_attachment_non_image {
 	float: left;
 	margin-right: 0.2cm;
 	width: 100px;
-	font-size: 10px;
+	font-size: 10pt;
 	text-align: center;
 }
 
@@ -201,7 +207,7 @@ form .clear_file, form .file_upload {
 	margin: 0;
 	margin-right: 0.1cm;
 	margin-left: 0.1cm;
-	font-size: 12px;
+	font-size: 9pt;
 	display: inline-block;
 }
 
@@ -242,7 +248,7 @@ form .clear_file, form .file_upload {
 
 .manage_table {
 	text-align: center;
-	font-size: 14px;
+	font-size: 10pt;
 	width: 16cm;
 	margin: auto;
 }
@@ -256,7 +262,7 @@ form .clear_file, form .file_upload {
 	border: 1px solid black;
 
 	width: 25cm;
-	font-size: 14px;
+	font-size: 10pt;
 	margin: auto;
 }
 
@@ -317,7 +323,7 @@ form .clear_file, form .file_upload {
 	display: inline-block;
 	margin: 0.2cm;
 	padding: 0.3cm;
-	font-size: 12px;
+	font-size: 10pt;
 }
 
 .board_pages a p {

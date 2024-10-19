@@ -1,5 +1,6 @@
 <?php
 include_once "../../database.php";
+include_once "../../board.php";
 include_once "../../staff_session.php";
 include_once "../../ui.php";
 

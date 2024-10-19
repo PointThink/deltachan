@@ -18,7 +18,7 @@ function delete_post($id)
 	// first delete the file
 	$post = $database->read_post($board, $id);
 	$file_parts = explode(".", $post->image_file);
-	$thumbnail_path = $file_parts[0] . "-thumb.jpg";
+	$thumbnail_path = $file_parts[0] . "-thumb.webp";
 	unlink(__DIR__ . "/../../../$post->image_file");
 	unlink(__DIR__ . "/../../../$thumbnail_path");	
 	

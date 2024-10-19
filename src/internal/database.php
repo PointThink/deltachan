@@ -19,20 +19,13 @@ class Database
 			$password = openssl_decrypt($deltachan_config["database_password"], "aes-256-ecb", $key);
 		}
 
-		try
-		{
-			$this->mysql_connection = new mysqli($host, $user, $password);
-		}
-		catch (Exception $e)
-		{
-			echo "DB connection error: $e";
-		}
+		$this->mysql_connection = new mysqli($host, $user, $password);
 	}
 
 	public function setup_meta_info_database()
 	{
 		global $deltachan_config;
-		$this->mysql_connection->query("create database if not exists " . $deltachan_config["database_name"] . ";");
+		// $this->mysql_connection->query("create database if not exists " . $deltachan_config["database_name"] . ";");
 		
 		$this->query("
 			create table if not exists board_info (
@@ -63,7 +56,7 @@ class Database
 
 	// Adds a post entry to the posts table
 	// Does not upload any attachments!
-	public function write_post($board_id, $is_reply, $replies_to, $title, $body, $poster_ip, $poster_country, $is_staff_post, $staff_username)
+	public function write_post($board_id, $is_reply, $replies_to, $name, $title, $body, $poster_ip, $poster_country, $is_staff_post)
 	{
 		if (!$is_reply) $replies_to = 0;
 		if (!$is_staff_post) $staff_username = "";
@@ -72,12 +65,13 @@ class Database
 
 		// prevent sql injection
 		$title = $this->sanitize($title);
-		$body = $this->sanitize($body);	
+		$body = $this->sanitize($body);
+		$name = $this->sanitize($name);
 
 		$query = "insert into posts_$board_id(
-			is_reply, replies_to, title, post_body, poster_ip, poster_country, is_staff_post, staff_username, approved
+			is_reply, replies_to, name, title, post_body, poster_ip, poster_country, is_staff_post
 		) values (
-			$is_reply, $replies_to, '$title', '$body', '$poster_ip', '$poster_country', $is_staff_post, '$staff_username', 0
+			$is_reply, $replies_to, '$name', '$title', '$body', '$poster_ip', '$poster_country', $is_staff_post
 		);";
 
 		echo $query;
@@ -138,6 +132,7 @@ class Database
 		$post->creation_time = $post_array["creation_time"];
 		$post->bump_time = $post_array["bump_time"];
 
+		$post->name = $post_array["name"];
 		$post->body = $post_array["post_body"];
 		$post->title = $post_array["title"];
 		$post->image_file = $post_array["image_file_name"];
@@ -146,7 +141,6 @@ class Database
 		$post->poster_country = $post_array["poster_country"];
 
 		$post->is_staff_post = $post_array["is_staff_post"];
-		$post->staff_username = $post_array["staff_username"];
 
 		$post->approved = $post_array["approved"];
 		$post->sticky = $post_array["sticky"];

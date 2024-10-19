@@ -1,0 +1,23 @@
+<h4>How anonymous are my posts?</h4>
+No information about the poster is visible by other users.
+<hr>
+<h4>How do i know if a poster is a staff member?</h4>
+Posts made by staff members have the names highlighted in purple and have their role included after two hashes (<font color=purple><b>staff_user</b> ## admin </font>)
+
+<hr>
+
+<h4>How do i format text?</h4>
+<ul>
+<li> **bold** - <b>bold</b></li>
+<li> *italic* - <i>italic</i></li>
+<li>>greentext - <font class=greentext>>greentext</font></li>
+<li>&#60;orangetext - <font class=orangetext>&#60;orangetext</font></li>
+<li>^bluetext - <font class=bluetext>^bluetext</font></li>
+</ul>
+<br>
+Links are formatted automatically
+
+<hr>
+
+<h4>I noticed a bug on the website</h4>
+This website runs on DeltaChan. Please report any bugs <a href="https://github.com/PointThink/deltachan/issues">here</a>.

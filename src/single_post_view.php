@@ -43,8 +43,13 @@ $post = $database->read_post($board_id, $_GET["id"]);
 					echo "<p id=staff_disclaimer>Posting as staff</p>";
 				echo "<p id=reply_disclaimer>Replying to >$post->id</p>";
 
-				(new PostForm("/internal/actions/post.php", "POST"))
-					->add_text_area("Comment", "comment", $_GET["reply_field_content"], "reply_comment")
+				$form = (new PostForm("/internal/actions/post.php", "POST"));
+
+				if (!staff_session_is_valid())
+					$form->add_text_field("Name", "name", "Anonymous");
+					
+				$form
+					->add_text_area("Comment", "comment")
 					->add_file("File", "file")
 					->add_hidden_data("board", "$board_id")
 					->add_hidden_data("is_reply", 1)

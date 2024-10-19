@@ -83,18 +83,6 @@ a:link, a:visited {
 	color: brown;
 }
 
-.post .admin_post {
-	color: red;
-}
-
-.post .mod_post {
-	color: blue;
-}
-
-.post .janny_post {
-	color: green;
-}
-
 .list .boards_table th {
 	background-color: #eeaa88
 }
@@ -113,4 +101,8 @@ a:link, a:visited {
 	border-left: 1px solid rgba(255, 255, 255, 0.5);
 	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 	border-right: 1px solid rgba(0, 0, 0, 0.25);
-  }
+}
+
+.post_title {
+	color: #d00;
+}

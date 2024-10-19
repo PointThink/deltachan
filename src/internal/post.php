@@ -14,6 +14,7 @@ class Post
 	public $creation_time;
 	public $bump_time;
 
+	public $name;
 	public $title;
 	public $body;
 	public $image_file;
@@ -22,7 +23,6 @@ class Post
 	public $poster_country;
 
 	public $is_staff_post;
-	public $staff_username;
 
 	public $approved;
 	public $sticky;
@@ -39,7 +39,7 @@ class Post
 		else if (str_starts_with($mime_type, "image"))
 		{
 			$file_parts = explode(".", $this->image_file);
-			$thumb_file_name = $file_parts[0] . "-thumb.jpg";
+			$thumb_file_name = $file_parts[0] . "-thumb.webp";
 			echo "<a href=/$this->image_file><img class=post_attachment src='/$thumb_file_name'></a>";
 		}
 		else
@@ -118,21 +118,31 @@ class Post
 		if ($this->sticky)
 			echo "<img class=pin src=/pin.png>";
 
-		if (!$this->is_reply)
-			echo "<a class=post_id href=/$this->board/post.php?id=$this->id>>>$this->id | $this->creation_time</a>";
-		else
-			echo "<p class=post_id>>>$this->id | $this->creation_time</p>";
 
-		if ($this->is_staff_post)
+		echo "<span class=name_segment>";
+
+		if ($this->title != "")
+			echo "<p class=post_title>$this->title</p>";	
+
+		if (!$this->is_staff_post)
+			echo "<p class=name>$this->name</p>";
+		else
 		{
-			$staff_user = read_staff_account($this->staff_username);
-			echo "<h4 class=" . $staff_user->role. "_post>$this->staff_username - $staff_user->role</h4>";
+			$role = read_staff_account($this->name)->role;
+			echo "<p class='name staff_name'><b>$this->name</b> ## $role</p>";
 		}
 
 		if	($_SESSION["users_posts"] != NULL)
 			if (in_array($this->id, $_SESSION["users_posts"]))
 				echo "<p class=your_post>(You)</p>";
 	
+		echo "</span>";
+
+		if (!$this->is_reply)
+			echo "<a class=post_id href=/$this->board/post.php?id=$this->id>>>$this->id | $this->creation_time</a>";
+		else
+			echo "<p class=post_id>>>$this->id | $this->creation_time</p>";
+
 		if ($this->is_reply)
 		{
 			$quote_content = "";
@@ -190,9 +200,6 @@ class Post
 				}
 			}
 		}
-
-		if ($this->title != "")
-			echo "<br><h4 class=post_title>$this->title</h4>";	
 
 		echo "<div class=post_comment>";
 		$this->format_and_show_text($this->body);

@@ -55,7 +55,12 @@ function show_pages()
 				if (staff_session_is_valid())
 					echo "<p id=staff_disclaimer>Posting as staff</p>";
 
-				(new PostForm("/internal/actions/post.php", "POST"))
+				$form = (new PostForm("/internal/actions/post.php", "POST"));
+
+				if (!staff_session_is_valid())
+					$form->add_text_field("Name", "name", "Anonymous");
+					
+				$form
 					->add_text_field("Title", "title")
 					->add_text_area("Comment", "comment")
 					->add_file("File", "file")
