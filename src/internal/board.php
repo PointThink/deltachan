@@ -11,20 +11,16 @@ function board_create($id, $title, $subtitle = "")
 		mkdir(__DIR__ . "/../$id");
 
 		$index_file = fopen(__DIR__ . "/../$id/index.php", "w");
-		fwrite($index_file, "
-<?php
+		fwrite($index_file, "<?php
 \$board_id = '$id';
-include __DIR__ . '/../board_index.php';
-		");
+include __DIR__ . '/../board_index.php';");
 
 		fclose($index_file);
 
 		$post_view_file = fopen(__DIR__ . "/../$id/post.php", "w");
-		fwrite($post_view_file, "
-<?php
+		fwrite($post_view_file, "<?php
 \$board_id = '$id';
-include __DIR__ . '/../single_post_view.php';
-		");
+include __DIR__ . '/../single_post_view.php';");
 
 		fclose($post_view_file);
 

@@ -1,4 +1,5 @@
 <?php
+include_once "internal/board.php";
 include_once "internal/staff_session.php";
 ?>
 <div id=topbar>
@@ -16,13 +17,11 @@ include_once "internal/staff_session.php";
 	<p>[</p>
 	<a href=/>home</a>
 	<a href=/rules.php>rules</a>
-	<a href=faq.php>faq</a>
+	<a href=/faq.php>faq</a>
 	<p>]</p>
 
 	<p>[</p>
 	<?php
-		include_once "internal/board.php";
-
 		$boards = board_list();
 
 		foreach ($boards as $b)

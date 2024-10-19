@@ -1,19 +1,23 @@
 <?php
 include_once "internal/board.php";
-include_once "internal/ui.php";
 include_once "internal/staff_session.php";
+include_once "internal/ui.php";
 include_once "internal/bans.php";
+include_once "internal/post.php";
 
 function show_pages()
 {
 	echo "<div class=board_pages>Pages: ";
-	global $board;
-	
+	global $board;	
 	$page_count = $board->get_pages_count();
+
+	$page = 0;
+	if (isset($_GET["p"]))
+		$page = $_GET["p"];
 
 	for ($i = 0; $i < $page_count; $i++)
 	{
-		if ($i == $_GET["p"])
+		if ($i == $page)
 			echo "<a class=selected_page href='?p=$i'>[$i]</a>";
 		else
 			echo "<a href='?p=$i'>[$i]</a>";
@@ -28,7 +32,12 @@ function show_pages()
 	<head>
 		<?php
 			$database = new Database();
-			$board = board_get($board_id, $_GET["p"]);
+
+			$page = 0;
+			if (isset($_GET["p"]))
+				$page = $_GET["p"];
+
+			$board = board_get($board_id);
 			echo "<title>/$board->id/ - $board->title</title>";
 		
 			include "internal/link_css.php";

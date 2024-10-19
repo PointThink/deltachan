@@ -1,6 +1,9 @@
 <?php
-session_set_cookie_params(3600 * 24 * 30); // 30 days
-session_start();
+if (session_status() != PHP_SESSION_ACTIVE)
+{
+	session_set_cookie_params(3600 * 24 * 30); // 30 days
+	session_start();
+}
 
 include_once "ui.php";
 
@@ -132,7 +135,7 @@ class Post
 			echo "<p class='name staff_name'><b>$this->name</b> ## $role</p>";
 		}
 
-		if	($_SESSION["users_posts"] != NULL)
+		if	(isset($_SESSION) && $_SESSION["users_posts"] != NULL)
 			if (in_array($this->id, $_SESSION["users_posts"]))
 				echo "<p class=your_post>(You)</p>";
 	

@@ -1,6 +1,9 @@
 <?php
-session_set_cookie_params(3600 * 24 * 30); // 30 days
-session_start();
+if (session_status() != PHP_SESSION_ACTIVE)
+{
+	session_set_cookie_params(3600 * 24 * 30); // 30 days
+	session_start();
+}
 
 include_once "database.php";
 

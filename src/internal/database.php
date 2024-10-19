@@ -74,8 +74,6 @@ class Database
 			$is_reply, $replies_to, '$name', '$title', '$body', '$poster_ip', '$poster_country', $is_staff_post
 		);";
 
-		echo $query;
-
 		$query_result = $this->query($query);
 
 		// return the newly created post
@@ -164,7 +162,6 @@ class Database
 		$board = $this->sanitize($board);
 
 		$replies = array();
-		$this->mysql_connection->select_db("deltachan");
 		$id_str = strval($post);
 
 		$result = $this->query("
