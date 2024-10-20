@@ -74,6 +74,21 @@ body {
 	box-sizing: border-box;
 }
 
+.checkboxes {
+	text-align: left;
+	display: block !important;
+}
+
+.checkboxes label {
+	margin-right: 0.2cm;
+	font-size: 10pt;
+}
+
+.checkbox {
+	text-align: left;
+	width: auto !important;
+}
+
 #footer {
   text-align: center;
   font-size: 12px;

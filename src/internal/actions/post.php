@@ -46,6 +46,8 @@ if (staff_session_is_valid())
 else
 	$name = $_POST["name"];
 
+if (isset($_POST["sage"]))
+	$name .= " SAGE!";
 
 $geolocation = new IPLocationInfo($_SERVER["REMOTE_ADDR"]);
 
@@ -101,7 +103,8 @@ array_push($_SESSION["users_posts"], $result->id);
 
 if (isset($_POST["is_reply"]))
 {
-	$database->bump_post($result->board, $result->replies_to);
+	if (!isset($_POST["sage"]))
+		$database->bump_post($result->board, $result->replies_to);
 	header("Location: /$result->board/post.php?id=$result->replies_to");
 }
 else

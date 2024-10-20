@@ -100,6 +100,20 @@ class PostForm
 		return $this;
 	}
 
+	public function add_checkboxes($label, $boxes)
+	{
+		$this->buffer .= "<tr><th>$label</th><td class=checkboxes>";
+		
+		foreach ($boxes as $box_label => $box_name)
+		{
+			$this->buffer .= "<input class=checkbox id=$box_name type=checkbox name=$box_name><label for=$box_name>$box_label</label>";
+		}
+
+		$this->buffer .= "</td></tr>";
+
+		return $this;
+	}
+
 	public function finalize()
 	{
 		$this->buffer .= "</table>";
