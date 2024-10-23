@@ -44,7 +44,7 @@ $database->setup_meta_info_database();
 if (count(get_staff_accounts()) <= 0)
 	write_staff_account("admin", hash("sha512", "admin"), "admin");
 
-if (!file_exists(__DIR__ . "../chaninfo.json"))
+if (!file_exists(__DIR__ . "/../chaninfo.json"))
 {
 	$chan_info = new ChanInfo();
 	$chan_info->chan_name = "DeltaChan";
