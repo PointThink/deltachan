@@ -80,7 +80,7 @@ class Post
 			$id = intval(substr($match[0], 8));
 			$format = ">>$id ";
 
-			if ($_SESSION["users_posts"] != NULL)
+			if (isset($_SESSION["users_posts"]))
 			{
 				if (in_array($id, $_SESSION["users_posts"]))
 					$format .= "(You)";
@@ -108,15 +108,22 @@ class Post
     	echo "</div>\n";
 	}
 
-	public function display($show_hide_replies_button = false)
+	public function display($show_hide_replies_button = false, $report_mode = false, $report_view_mode = false)
 	{
-		if (!$this->is_reply)
+		if (!$this->is_reply || $report_mode || $report_view_mode)
 			echo "<div class=post id=post_$this->id>";
 		else
 			echo "<div class=reply id=post_$this->id>";
 
 		if ($this->image_file != "")
-			$this->display_attachment();
+			if ($report_mode)
+			{
+				echo "<div class=report_attachment>";
+				$this->display_attachment();
+				echo "</div>";
+			}
+			else
+				$this->display_attachment();
 
 		if ($this->sticky)
 			echo "<img class=pin src=/pin.png>";
@@ -145,6 +152,11 @@ class Post
 			echo "<a class=post_id href=/$this->board/post.php?id=$this->id>>>$this->id | $this->creation_time</a>";
 		else
 			echo "<p class=post_id>>>$this->id | $this->creation_time</p>";
+
+		(new ActionLink("/internal/actions/report.php", "report_$this->id", "Report", "GET"))
+			->add_data("id", $this->id)
+			->add_data("board", $this->board)
+			->finalize();
 
 		if ($this->is_reply)
 		{
@@ -211,10 +223,14 @@ class Post
 		if (count($this->replies) > 0 & $show_hide_replies_button)
 			echo "<a href='#' class=hide_replies_button id=hide_replies_$this->id onclick='hide_replies(\"$this->id\")'>Hide replies</a>";
 
-		echo "<div id=replies_$this->id>";
-		foreach ($this->replies as $reply)
-			$reply->display(true);
-		echo "</div>";
+		if (!$report_mode && !$report_view_mode)
+		{
+			echo "<div id=replies_$this->id>";
+			foreach ($this->replies as $reply)
+				$reply->display(true);
+			echo "</div>";
+
+		}
 
 		echo "</div>";
 	}

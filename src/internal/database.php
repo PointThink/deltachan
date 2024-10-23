@@ -52,6 +52,17 @@ class Database
 				duration int not null default 0
 			);
 		");
+
+		$this->query("
+			create table if not exists reports (
+				report_id int not null auto_increment primary key,
+				report_date datetime not null default current_timestamp,
+				reporter_ip varchar(255) not null, 
+				reported_post_id int not null,
+				reported_post_board varchar(255) not null,
+				report_reason text not null
+			);
+		");
 	}
 
 	// Adds a post entry to the posts table

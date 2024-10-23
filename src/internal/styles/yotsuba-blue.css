@@ -10,7 +10,7 @@ hr {
     height: 0;
 }
 
-.title {
+.title, .report_header {
 	color: #AF0A0F;
 }
 

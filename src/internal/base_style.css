@@ -199,6 +199,10 @@ form .clear_file, form .file_upload {
 	background: none;
 }
 
+.report_attachment {
+	filter: blur(20px);
+}
+
 .post .post_attachment_non_image {
 	float: left;
 	margin-right: 0.2cm;
@@ -348,4 +352,9 @@ form .clear_file, form .file_upload {
 .board_pages .selected_page {
 	margin: 0.1cm;
 	font-weight: bold;
+}
+
+.report_header {
+	font-weight: bold;
+	font-size: 10pt;
 }

@@ -1,6 +1,7 @@
 <?php
 include_once "../../database.php";
 include_once "../../staff_session.php";
+include_once "../../report.php";
 
 $board = $_POST["board"];
 $id = $_POST["id"];
@@ -22,8 +23,8 @@ function delete_post($id)
 	unlink(__DIR__ . "/../../../$post->image_file");
 	unlink(__DIR__ . "/../../../$thumbnail_path");	
 	
-
 	$database->remove_post($board, $id);
+	report_delete_for_post($board, $id);
 
 	foreach ($post->replies as $reply)
 		delete_post($reply->id);
@@ -31,4 +32,4 @@ function delete_post($id)
 
 delete_post($id);
 
-header("Location: /$board/");
+header("Location: " . $_SERVER["HTTP_REFERER"]);
