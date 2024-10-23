@@ -2,6 +2,7 @@
 include_once "../database.php";
 include_once "../report.php";
 include_once "../staff_session.php";
+include_once "../ui.php";
 
 if (!staff_session_is_valid() || !staff_is_moderator()) 
 	die("You are not allowed here");
@@ -28,6 +29,11 @@ if (!staff_session_is_valid() || !staff_is_moderator())
             {
                 echo "<hr>";
                 echo "<p class=report_header>Reported for:<br>" . htmlspecialchars($report->reason);
+
+                (new ActionLink("/internal/actions/staff/remove_report.php", "discard_$report->report_id", "Discard"))
+                    ->add_data("report_id", $report->report_id)
+                    ->finalize();
+
                 $post = $database->read_post($report->post_board, $report->post_id);
                 $post->display(false, false, true);
             }
