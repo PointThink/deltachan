@@ -74,6 +74,21 @@ body {
 	box-sizing: border-box;
 }
 
+.checkboxes {
+	text-align: left;
+	display: block !important;
+}
+
+.checkboxes label {
+	margin-right: 0.2cm;
+	font-size: 10pt;
+}
+
+.checkbox {
+	text-align: left;
+	width: auto !important;
+}
+
 #footer {
   text-align: center;
   font-size: 12px;
@@ -182,6 +197,10 @@ form .clear_file, form .file_upload {
 
 	margin-right: 0.2cm;
 	background: none;
+}
+
+.report_attachment {
+	filter: blur(20px);
 }
 
 .post .post_attachment_non_image {
@@ -333,4 +352,9 @@ form .clear_file, form .file_upload {
 .board_pages .selected_page {
 	margin: 0.1cm;
 	font-weight: bold;
+}
+
+.report_header {
+	font-weight: bold;
+	font-size: 10pt;
 }

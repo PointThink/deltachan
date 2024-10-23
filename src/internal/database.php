@@ -52,6 +52,17 @@ class Database
 				duration int not null default 0
 			);
 		");
+
+		$this->query("
+			create table if not exists reports (
+				report_id int not null auto_increment primary key,
+				report_date datetime not null default current_timestamp,
+				reporter_ip varchar(255) not null, 
+				reported_post_id int not null,
+				reported_post_board varchar(255) not null,
+				report_reason text not null
+			);
+		");
 	}
 
 	// Adds a post entry to the posts table
@@ -73,8 +84,6 @@ class Database
 		) values (
 			$is_reply, $replies_to, '$name', '$title', '$body', '$poster_ip', '$poster_country', $is_staff_post
 		);";
-
-		echo $query;
 
 		$query_result = $this->query($query);
 
@@ -164,7 +173,6 @@ class Database
 		$board = $this->sanitize($board);
 
 		$replies = array();
-		$this->mysql_connection->select_db("deltachan");
 		$id_str = strval($post);
 
 		$result = $this->query("

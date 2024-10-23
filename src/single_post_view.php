@@ -50,7 +50,8 @@ $post = $database->read_post($board_id, $_GET["id"]);
 					
 				$form
 					->add_text_area("Comment", "comment")
-					->add_file("File", "file")
+					->add_file("File", "file")	
+					->add_checkboxes("Options", array("Sage!" => "sage"))
 					->add_hidden_data("board", "$board_id")
 					->add_hidden_data("is_reply", 1)
 					->add_hidden_data("replies_to", $post->id)

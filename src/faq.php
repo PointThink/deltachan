@@ -1,3 +1,7 @@
+<?php
+include_once "internal/board.php";
+include_once "internal/staff_session.php";
+?>
 <!DOCTYPE html>
 <html>
 	<head>

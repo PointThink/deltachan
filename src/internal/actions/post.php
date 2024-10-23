@@ -9,7 +9,7 @@ include_once "../geolocation.php";
 
 function error_die($error)
 {
-	if ($_POST["is_reply"])
+	if (isset($_POST["is_reply"]))
 		header("Location: /" . $_POST["board"] . "/post.php?error=" . htmlspecialchars($error) . "&id=" . $_POST["replies_to"]);
 	else		
 		header("Location: /" . $_POST["board"] . "?error=" . htmlspecialchars($error));
@@ -36,7 +36,6 @@ $database = new Database();
 
 // If user is logged in as staff create a staff post
 $is_mod_post = "0";
-$name = $_POST["name"];
 
 if (staff_session_is_valid())
 {
@@ -44,11 +43,24 @@ if (staff_session_is_valid())
 	$name = $user->username;
 	$is_mod_post = "1";
 }
+else
+	$name = $_POST["name"];
+
+if (isset($_POST["sage"]))
+	$name .= " SAGE!";
 
 $geolocation = new IPLocationInfo($_SERVER["REMOTE_ADDR"]);
 
+$replies_to = 0;
+if (isset($_POST["is_reply"]))
+	$replies_to = $_POST["replies_to"];
+
+$title = "";
+if (isset($_POST["title"]))
+	$title = $_POST["title"];
+
 $result = $database->write_post(
-	$_POST["board"], $_POST["is_reply"], $_POST["replies_to"], $name, trim($_POST["title"]), trim($_POST["comment"]),
+	$_POST["board"], isset($_POST["is_reply"]), $replies_to, $name, trim($title), trim($_POST["comment"]),
 	$_SERVER["REMOTE_ADDR"], $geolocation->country, $is_mod_post
 );
 
@@ -89,9 +101,10 @@ if (!isset($_SESSION["users_posts"]))
 
 array_push($_SESSION["users_posts"], $result->id);
 
-if ($_POST["is_reply"])
+if (isset($_POST["is_reply"]))
 {
-	$database->bump_post($result->board, $result->replies_to);
+	if (!isset($_POST["sage"]))
+		$database->bump_post($result->board, $result->replies_to);
 	header("Location: /$result->board/post.php?id=$result->replies_to");
 }
 else
