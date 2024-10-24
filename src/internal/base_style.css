@@ -408,3 +408,7 @@ form .clear_file, form .file_upload {
 	padding: 0.2cm;
 	margin: 0;
 }
+
+.setup_error {
+	color: darkred;
+}

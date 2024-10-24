@@ -1,4 +1,25 @@
 <?php
+function handle_error($errno, $errstr, $errfile, $errline)
+{
+	$error_string = "An error has occured on line <b>$errline</b> in file <b>$errfile</b>:<br> $errstr";
+	header("Location: /first_setup.php?error=" . urlencode($error_string));
+	return true;
+}
+
+function handle_critical_error()
+{
+	$error = error_get_last();
+	// echo var_dump($error_string);
+	$error_line = $error["line"];
+	$error_file = $error["file"];
+	$error_message = $error["message"];
+	$error_string = "An error has occured on line <b>$error_line</b> in file <b>$error_file</b>:<br> $error_message";
+	header("Location: /first_setup.php?error=" . urlencode($error_string));
+}
+
+set_error_handler("handle_error");
+register_shutdown_function("handle_critical_error");
+
 include_once "../chaninfo.php";
 
 // generate crypt key
@@ -56,3 +77,5 @@ if (!file_exists(__DIR__ . "/../chaninfo.json"))
 
 unlink(__DIR__ . "/../../first_run");
 header("Location: /index.php");
+
+

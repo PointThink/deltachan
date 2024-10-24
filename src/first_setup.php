@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -7,6 +8,10 @@
 
 	<body>
 		<div id="setup_page">
+		<?php
+			if (isset($_GET["error"]))
+				echo "<p class=setup_error>" . $_GET["error"] . "</p><br>";
+		?>
 		<form method=POST action=/internal/actions/first_setup.php>
 			<h1>Welcome to DeltaChan!</h1>
 			<p>This page will help you set up your imageboard.</p>

@@ -11,14 +11,19 @@
 			}
 
 			$post_count = 0;
+			$poster_count = 0;
 
 			foreach (board_list() as $board)
 			{
-				$result = $database->query("select count(*) from posts_$board->id");
-				$post_count += intval($result->fetch_assoc()["count(*)"]);
+				$post_result = $database->query("select count(*) from posts_$board->id");
+				$post_count += intval($post_result->fetch_assoc()["count(*)"]);
+
+				$poster_result = $database->query("select count(distinct poster_ip) from posts_$board->id");
+				$poster_count += intval($poster_result->fetch_assoc()["count(distinct poster_ip)"]);
 			}
 
 			echo "<p>$post_count posts</p>";
+			echo "<p>$poster_count unique posters</p>";
 
 			$uploaded_files = scandir("uploads");
 			$file_count = 0;
