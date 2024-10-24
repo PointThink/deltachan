@@ -382,7 +382,7 @@ form .clear_file, form .file_upload {
 }
 
 .recent_images {
-	width: auto;
+	width: 100%;
 	display: inline-block;
 	border: 1px solid #006600 !important;
 	background-color: #eeffee !important;
