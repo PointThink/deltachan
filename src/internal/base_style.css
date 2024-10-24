@@ -359,9 +359,52 @@ form .clear_file, form .file_upload {
 	font-size: 10pt;
 }
 
+.line {
+	display: flex;
+  width: 25cm;
+	font-size: 10pt;
+	margin: auto;
+	align-items: stretch;
+}
+
+.stats {
+	margin-right: 0.5cm;
+	width: 7cm;
+	display: inline-block;
+	background-color: #eeeeff !important;
+	color: #000066 !important;
+	border: 1px solid #000066 !important;
+}
+
+.stats .list_title {
+	background-color: #5599aa !important;
+	color: white !important;
+}
+
+.recent_images {
+	width: auto;
+	display: inline-block;
+	border: 1px solid #006600 !important;
+	background-color: #eeffee !important;
+}
+
+.recent_images .list_title {
+	color: #006600 !important;
+	background-color: #99cc66 !important;
+}
+
 .recent_image {
 	padding: 0.1cm;
 	vertical-align: top;
-	max-height: 200px;
-	max-width: 25%;
+	max-width: 4cm;
+}
+
+.col .list_title {
+	padding: 0.2cm;
+	margin: 0;
+}
+
+.col .list_content {
+	padding: 0.2cm;
+	margin: 0;
 }

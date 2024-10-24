@@ -79,92 +79,9 @@
 		
 		<br>
 
-		<div class="list">
-			<h3 class="list_title">Stats</h3>
-			<div class="list_content">
-				<?php
-					function formatBytes($size, $precision = 2)
-					{
-						$base = log($size, 1024);
-						$suffixes = array('', 'K', 'M', 'G', 'T');   
-					
-						return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)] . "B";
-					}
-
-					$post_count = 0;
-
-					foreach (board_list() as $board)
-					{
-						$result = $database->query("select count(*) from posts_$board->id");
-						$post_count += intval($result->fetch_assoc()["count(*)"]);
-					}
-
-					echo "<p>$post_count posts</p>";
-
-					$uploaded_files = scandir("uploads");
-					$file_count = 0;
-					$file_size = 0;
-
-					foreach($uploaded_files as $file)
-					{
-						if (!str_contains($file, "-thumb") && !str_starts_with($file, "."))
-						{
-							$file_size += filesize("uploads/$file");
-							$file_count++;
-						}
-					}
-
-					$file_size = formatBytes($file_size, 0);
-
-					echo "<p>$file_count uploaded files</p>";
-					echo "<p>$file_size of content</p>";
-				?>
-			</div>
-		</div>
-
-		<br>
-
-		<div class=list>
-			<h3 class=list_title>Recent images</h3>
-			<div class=list_content>
-			
-			<?php
-				$recent_image_count = 4;
-
-				function scan_dir_sorted($dir) {
-				    $ignored = array('.', '..');
-
-				    $files = array();    
-				    foreach (scandir($dir) as $file) {
-				        if (in_array($file, $ignored)) continue;
-				        if (!str_contains($file, "thumb")) continue;
-				        if (!str_starts_with(mime_content_type(__DIR__ . "/uploads/$file"), "image")) continue;
-
-				        $files[$file] = filemtime($dir . '/' . $file);
-				    }
-
-				    arsort($files);
-				    $files = array_keys($files);
-
-				    return $files;
-				}
-
-
-
-				$files = scan_dir_sorted(__DIR__ . "/uploads/");
-
-				for ($i = 0; $i < $recent_image_count && $i < count($files); $i++)
-				{
-					$parts = explode(".", $files[$i]);
-					$parts = explode("-", $parts[0]);
-					$board = $parts[0];
-					$post = $parts[1];
-
-					echo "<a href=/$board/post.php?id=$post><img class=recent_image src=/uploads/" . $files[$i] . ">";
-				}
-			?>
-
-			</div>
+		<div class=line>
+			<?php include "index_stats.php" ?>
+			<?php include "index_recent_images.php" ?>
 		</div>
 
 		<?php include "footer.php"; ?>
