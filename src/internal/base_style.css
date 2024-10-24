@@ -358,3 +358,10 @@ form .clear_file, form .file_upload {
 	font-weight: bold;
 	font-size: 10pt;
 }
+
+.recent_image {
+	padding: 0.1cm;
+	vertical-align: top;
+	max-height: 200px;
+	max-width: 25%;
+}

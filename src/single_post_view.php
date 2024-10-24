@@ -6,6 +6,12 @@ include_once "internal/staff_session.php";
 
 $database = new Database();
 $post = $database->read_post($board_id, $_GET["id"]);
+
+if ($post->is_reply)
+{
+	header("Location: /$post->board/post.php?id=$post->replies_to");
+	die();
+}
 ?>
 
 <!DOCTYPE html>
