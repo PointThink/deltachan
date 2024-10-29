@@ -239,8 +239,9 @@ class Post
 	{
 		echo "<div href=/$this->board/?post=$this->id class=catalog_post>";
 
-		$this->display_attachment();
-
+		if ($this->image_file)
+			$this->display_attachment();
+		
 		echo "<a href=/$this->board/post.php?id=$this->id>>>$this->id</a>";
 
 		if ($this->title != "")
