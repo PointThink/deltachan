@@ -166,12 +166,12 @@ class Post
 
 			(new ActionLink("/$this->board/post.php", "quote_$this->id", "Quote", "GET"))
 				->add_data("id", $this->replies_to)
-				->add_data("reply_field_content", htmlspecialchars($quote_content))
+				->add_data("reply_field_content", urlencode($quote_content))
 				->finalize();
 
 			(new ActionLink("/$this->board/post.php", "reply_$this->id", "Reply", "GET"))
 				->add_data("id", $this->replies_to)
-				->add_data("reply_field_content", htmlspecialchars(">>$this->id"))
+				->add_data("reply_field_content", urlencode(">>$this->id"))
 				->finalize();
 		}
 

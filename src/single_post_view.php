@@ -55,7 +55,7 @@ if ($post->is_reply)
 					$form->add_text_field("Name", "name", "Anonymous");
 					
 				$form
-					->add_text_area("Comment", "comment")
+					->add_text_area("Comment", "comment", urldecode($_GET["reply_field_content"]))
 					->add_file("File", "file")	
 					->add_checkboxes("Options", array("Sage!" => "sage"))
 					->add_hidden_data("board", "$board_id")
