@@ -9,6 +9,7 @@ include_once "internal/board.php";
             include "internal/link_css.php";
             echo "<title>/$board_id/ catalog</title>";
         ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
 
     <body>
