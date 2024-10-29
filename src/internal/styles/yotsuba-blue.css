@@ -1,7 +1,6 @@
 body {
-	background: linear-gradient(180deg, #d1d5ed 0%, #eef2ff 6cm);
+	background: #eef2ff url('/internal/styles/res/fade-blue.png') repeat-x 50% 0%;
 	color: black;
-	background-attachment: fixed;
 }
 
 hr {
