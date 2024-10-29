@@ -140,13 +140,24 @@ function board_get($board_id, $page = 0)
 	$post_range_begin = 10 * intval($page);
 	$post_range_end = 10 * intval($page) + 10;
 
-	$query_result = $database->query("
-		select id from posts_$board_id
-		where is_reply = 0
-		order by sticky desc, bump_time desc
-		limit $post_range_begin, $post_range_end;
-	");
-	
+	if ($page >= 0)
+	{
+		$query_result = $database->query("
+			select id from posts_$board_id
+			where is_reply = 0
+			order by sticky desc, bump_time desc
+			limit $post_range_begin, $post_range_end;
+		");
+	}
+	else
+	{
+		$query_result = $database->query("
+			select id from posts_$board_id
+			where is_reply = 0
+			order by sticky desc, bump_time desc;
+		");
+	}
+
 	while ($post_id = $query_result->fetch_assoc())
 	{
 		array_push($board->posts, $database->read_post($board_id, $post_id["id"]));

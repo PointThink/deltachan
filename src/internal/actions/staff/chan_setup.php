@@ -41,9 +41,9 @@ if (count($_POST) > 0)
 			<?php
 			(new PostForm("/internal/actions/staff/chan_setup.php", "POST"))
                 ->add_text_field("Chan name", "name", $chan_info->chan_name)
-                ->add_text_area("Welcome message", "welcome", $chan_info->welcome)
-                ->add_text_area("Rules", "rules", $chan_info->rules)
-				->add_text_area("FAQ", "faq", $chan_info->faq)
+                ->add_text_area("Welcome message", "welcome", htmlspecialchars($chan_info->welcome))
+                ->add_text_area("Rules", "rules", htmlspecialchars($chan_info->rules))
+				->add_text_area("FAQ", "faq", htmlspecialchars($chan_info->faq))
 				->finalize();
 			?>
 		</div>

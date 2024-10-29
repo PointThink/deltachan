@@ -234,5 +234,23 @@ class Post
 
 		echo "</div>";
 	}
+
+	public function display_catalog()
+	{
+		echo "<div href=/$this->board/?post=$this->id class=catalog_post>";
+
+		$this->display_attachment();
+
+		echo "<a href=/$this->board/post.php?id=$this->id>>>$this->id</a>";
+
+		if ($this->title != "")
+			echo "<b>$this->title</b>";
+
+		echo "<div class=post_comment>";
+		$this->format_and_show_text($this->body);
+		echo "</div>"; 
+
+		echo "</div>";
+	}
 }
 

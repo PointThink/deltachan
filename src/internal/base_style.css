@@ -397,6 +397,7 @@ form .clear_file, form .file_upload {
 	padding: 0.1cm;
 	vertical-align: top;
 	max-width: 4cm;
+	border-radius: 16px;
 }
 
 .col .list_title {
@@ -411,4 +412,61 @@ form .clear_file, form .file_upload {
 
 .setup_error {
 	color: darkred;
+}
+
+.catalog_posts {
+	margin: 0.5cm;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 10px;
+}
+
+@media (min-width: 700px) {
+	.catalog_posts {
+		grid-auto-rows: minmax(0px, auto);
+	}
+}
+
+@media (min-width: 750px) {
+	.catalog_posts { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-width: 1000px) {
+	.catalog_posts { grid-template-columns: repeat(5, 1fr); }
+}
+
+@media (min-width: 1200px) {
+	.catalog_posts { grid-template-columns: repeat(6, 1fr); }
+}
+
+@media (min-width: 1400px) {
+	.catalog_posts { grid-template-columns: repeat(7, 1fr); }
+}
+
+
+.catalog_post {
+	max-height: 5cm;
+	padding: 0.5cm;
+	text-align: center;
+	overflow: scroll;
+}
+
+.catalog_post a, .catalog_post pre {
+	display: block;
+	font-size: 10pt;
+	margin: 0;
+	text-wrap: wrap;
+}
+
+.catalog_post pre {
+	font-size: 8pt;
+}
+
+.catalog_post .post_attachment {
+	min-height: 100px;
+	max-height: 100px;
+}
+
+.catalog_link {
+	margin-left: 0.3cm
 }

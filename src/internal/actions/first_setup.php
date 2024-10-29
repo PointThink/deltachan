@@ -75,7 +75,8 @@ if (!file_exists(__DIR__ . "/../chaninfo.json"))
 	chan_info_write($chan_info);
 }
 
+include_once "../update/board.php";
+update_add_board_catalogs();
+
 unlink(__DIR__ . "/../../first_run");
 header("Location: /index.php");
-
-
