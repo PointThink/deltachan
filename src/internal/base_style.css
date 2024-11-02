@@ -280,7 +280,7 @@ form .clear_file, form .file_upload {
 .list {
 	border: 1px solid black;
 
-	width: 25cm;
+	max-width: 25cm;
 	font-size: 10pt;
 	margin: auto;
 }
@@ -357,4 +357,115 @@ form .clear_file, form .file_upload {
 .report_header {
 	font-weight: bold;
 	font-size: 10pt;
+}
+
+.line {
+	display: flex;
+  width: 25cm;
+	font-size: 10pt;
+	margin: auto;
+	align-items: stretch;
+}
+
+.stats {
+	margin-right: 0.5cm;
+	width: 7cm;
+	display: inline-block;
+	background-color: #eeeeff !important;
+	color: #000066 !important;
+	border: 1px solid #000066 !important;
+}
+
+.stats .list_title {
+	background-color: #5599aa !important;
+	color: white !important;
+}
+
+.recent_images {
+	width: 100%;
+	display: inline-block;
+	border: 1px solid #006600 !important;
+	background-color: #eeffee !important;
+}
+
+.recent_images .list_title {
+	color: #006600 !important;
+	background-color: #99cc66 !important;
+}
+
+.recent_image {
+	padding: 0.1cm;
+	vertical-align: top;
+	max-width: 4cm;
+	border-radius: 16px;
+}
+
+.col .list_title {
+	padding: 0.2cm;
+	margin: 0;
+}
+
+.col .list_content {
+	padding: 0.2cm;
+	margin: 0;
+}
+
+.setup_error {
+	color: darkred;
+}
+
+.catalog_posts {
+	margin: 0.5cm;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 700px) {
+	.catalog_posts {
+		grid-auto-rows: minmax(0px, auto);
+	}
+}
+
+@media (min-width: 750px) {
+	.catalog_posts { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-width: 1000px) {
+	.catalog_posts { grid-template-columns: repeat(5, 1fr); }
+}
+
+@media (min-width: 1200px) {
+	.catalog_posts { grid-template-columns: repeat(6, 1fr); }
+}
+
+@media (min-width: 1400px) {
+	.catalog_posts { grid-template-columns: repeat(7, 1fr); }
+}
+
+
+.catalog_post {
+	max-height: 5cm;
+	padding: 0.5cm;
+	text-align: center;
+	overflow: scroll;
+}
+
+.catalog_post a, .catalog_post pre {
+	display: block;
+	font-size: 10pt;
+	margin: 0;
+	text-wrap: wrap;
+}
+
+.catalog_post pre {
+	font-size: 8pt;
+}
+
+.catalog_post .post_attachment {
+	min-height: 100px;
+	max-height: 100px;
+}
+
+.catalog_link {
+	margin-left: 0.3cm
 }

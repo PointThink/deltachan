@@ -23,6 +23,8 @@ function show_pages()
 			echo "<a href='?p=$i'>[$i]</a>";
 	}
 
+	echo "<a class=catalog_link href=catalog.php>Catalog</a>";
+
 	echo "</div>";
 }
 ?>
@@ -37,11 +39,12 @@ function show_pages()
 			if (isset($_GET["p"]))
 				$page = $_GET["p"];
 
-			$board = board_get($board_id);
+			$board = board_get($board_id, $page);
 			echo "<title>/$board->id/ - $board->title</title>";
 		
 			include "internal/link_css.php";
 		?>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 
 	<body>
@@ -92,12 +95,6 @@ function show_pages()
 					else
 						array_push($posts, $post);
 				}
-
-				function sort_func($o1, $o2)
-				{
-					return $o1->bump_time < $o2->bump_time;
-				}
-
 				
 				foreach ($sticky_posts as $post)
 				{

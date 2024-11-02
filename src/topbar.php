@@ -41,6 +41,9 @@ include_once "internal/staff_session.php";
 
 			foreach ($themes as $theme)
 			{
+				if (is_dir(__DIR__ . "/internal/styles/$theme"))
+					continue;
+
 				if (($theme != "." && $theme != "..") || $theme == "custom" || $theme == "default")
 				{
 					if (!isset($_COOKIE["theme"]) && $theme == "default")

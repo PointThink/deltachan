@@ -14,6 +14,7 @@ if (staff_session_is_valid())
 	<head>
 		<title>Staff login</title>
 		<?php include "internal/link_css.php"; ?>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 
 	<body>

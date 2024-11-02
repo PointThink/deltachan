@@ -6,6 +6,12 @@ include_once "internal/staff_session.php";
 
 $database = new Database();
 $post = $database->read_post($board_id, $_GET["id"]);
+
+if ($post->is_reply)
+{
+	header("Location: /$post->board/post.php?id=$post->replies_to");
+	die();
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +26,7 @@ $post = $database->read_post($board_id, $_GET["id"]);
 		?>
 
 		<script src=/internal/post_display.js></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 
 	<body>
@@ -49,7 +56,7 @@ $post = $database->read_post($board_id, $_GET["id"]);
 					$form->add_text_field("Name", "name", "Anonymous");
 					
 				$form
-					->add_text_area("Comment", "comment")
+					->add_text_area("Comment", "comment", urldecode($_GET["reply_field_content"]))
 					->add_file("File", "file")	
 					->add_checkboxes("Options", array("Sage!" => "sage"))
 					->add_hidden_data("board", "$board_id")

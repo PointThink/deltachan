@@ -166,12 +166,12 @@ class Post
 
 			(new ActionLink("/$this->board/post.php", "quote_$this->id", "Quote", "GET"))
 				->add_data("id", $this->replies_to)
-				->add_data("reply_field_content", htmlspecialchars($quote_content))
+				->add_data("reply_field_content", urlencode($quote_content))
 				->finalize();
 
 			(new ActionLink("/$this->board/post.php", "reply_$this->id", "Reply", "GET"))
 				->add_data("id", $this->replies_to)
-				->add_data("reply_field_content", htmlspecialchars(">>$this->id"))
+				->add_data("reply_field_content", urlencode(">>$this->id"))
 				->finalize();
 		}
 
@@ -231,6 +231,25 @@ class Post
 			echo "</div>";
 
 		}
+
+		echo "</div>";
+	}
+
+	public function display_catalog()
+	{
+		echo "<div href=/$this->board/?post=$this->id class=catalog_post>";
+
+		if ($this->image_file)
+			$this->display_attachment();
+		
+		echo "<a href=/$this->board/post.php?id=$this->id>>>$this->id</a>";
+
+		if ($this->title != "")
+			echo "<b>$this->title</b>";
+
+		echo "<div class=post_comment>";
+		$this->format_and_show_text($this->body);
+		echo "</div>"; 
 
 		echo "</div>";
 	}

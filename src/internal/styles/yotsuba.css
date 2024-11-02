@@ -1,8 +1,6 @@
 body {
-	background: linear-gradient(180deg, #fedab5 0%, #ffffee 6cm);
+	background: #ffe url('/internal/styles/res/fade-yotsuba.png') repeat-x 50% 0%;
 	color: #800000;
-    margin: 0;
-	background-attachment: fixed;
 }
 
 hr {
