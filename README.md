@@ -1,3 +1,6 @@
+Currently on break and working on other projects.
+If you want something added or fixed open an issue.
+
 # DeltaChan
 ## About
 DeltaChan is a lightweight imageboard software written in PHP.
