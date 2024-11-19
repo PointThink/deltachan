@@ -9,6 +9,8 @@
 	include_once "internal/bans.php";
 
 	$database = new Database();
+
+include "internal/locale.php";
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +33,7 @@
 		?>
 
 		<div class="list">
-			<?php echo "<h3 class=\"list_title\">Welcome to $chan_info->chan_name</h3>" ?>
+			<?php echo "<h3 class=\"list_title\">" . localize("welcome") . " $chan_info->chan_name</h3>" ?>
 			<div class="list_content">
 				<?php
 					echo "<pre>$chan_info->welcome</pre>"
@@ -44,11 +46,13 @@
 		<div class=list>
 			<table class="boards_table">
 				<tr>
-					<th>Board</th>
-					<th>Title</th>
-					<th>Subtitle</th>
-					<th>Posts</th>
-					<th>Unique posters</th>
+				<?php echo"
+					<th>" . localize("board") . "</th>
+					<th>" . localize("title") . "</th>
+					<th>" . localize("subtitle") . "</th>
+					<th>" . localize("posts") . "</th>
+					<th>" . localize("unique_posters") . "</th>
+				"; ?>
 				</tr>
 
 				<?php

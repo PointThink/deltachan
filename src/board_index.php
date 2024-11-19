@@ -23,7 +23,7 @@ function show_pages()
 			echo "<a href='?p=$i'>[$i]</a>";
 	}
 
-	echo "<a class=catalog_link href=catalog.php>Catalog</a>";
+	echo "<a class=catalog_link href=catalog.php>" . localize("catalog") . "</a>";
 
 	echo "</div>";
 }

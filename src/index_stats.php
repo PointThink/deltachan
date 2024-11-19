@@ -1,5 +1,5 @@
 <div class="stats col">
-	<h3 class="list_title">Stats</h3>
+	<?php echo "<h3 class=list_title>" . localize("index_stats") . "</h3>"; ?>
 	<div class="list_content">
 		<?php
 			function formatBytes($size, $precision = 2)

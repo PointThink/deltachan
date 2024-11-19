@@ -5,6 +5,7 @@ if (session_status() != PHP_SESSION_ACTIVE)
 	session_start();
 }
 
+include_once "locale.php";
 include_once "ui.php";
 
 class Post
@@ -153,7 +154,7 @@ class Post
 		else
 			echo "<p class=post_id>>>$this->id | $this->creation_time</p>";
 
-		(new ActionLink("/internal/actions/report.php", "report_$this->id", "Report", "GET"))
+		(new ActionLink("/internal/actions/report.php", "report_$this->id", localize("post_report"), "GET"))
 			->add_data("id", $this->id)
 			->add_data("board", $this->board)
 			->finalize();
@@ -164,12 +165,12 @@ class Post
 			foreach (explode("\n", $this->body) as $line)
 				$quote_content .= ">$line\n";
 
-			(new ActionLink("/$this->board/post.php", "quote_$this->id", "Quote", "GET"))
+			(new ActionLink("/$this->board/post.php", "quote_$this->id", localize("post_quote"), "GET"))
 				->add_data("id", $this->replies_to)
 				->add_data("reply_field_content", urlencode($quote_content))
 				->finalize();
 
-			(new ActionLink("/$this->board/post.php", "reply_$this->id", "Reply", "GET"))
+			(new ActionLink("/$this->board/post.php", "reply_$this->id", localize("post_reply"), "GET"))
 				->add_data("id", $this->replies_to)
 				->add_data("reply_field_content", urlencode(">>$this->id"))
 				->finalize();
@@ -221,7 +222,7 @@ class Post
 		echo "</div>";
 
 		if (count($this->replies) > 0 & $show_hide_replies_button)
-			echo "<a href='#' class=hide_replies_button id=hide_replies_$this->id onclick='hide_replies(\"$this->id\")'>Hide replies</a>";
+			echo "<a href='#' class=hide_replies_button id=hide_replies_$this->id onclick='hide_replies(\"$this->id\")'>" . localize("post_replies_hide") . "</a>";
 
 		if (!$report_mode && !$report_view_mode)
 		{
