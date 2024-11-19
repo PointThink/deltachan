@@ -1,0 +1,19 @@
+{
+  "welcome": "Witaj na",
+
+  "board": "Tablica",
+  "title": "Tytuł",
+  "subtitle": "Podtytuł",
+  "posts": "Posty",
+  "unique_posters": "Unikalni użytkownicy",
+
+  "index_stats": "Statystyki",
+  "index_recent_images": "Ostatnie obrazy",
+
+  "post_report": "Zgłoś",
+  "post_quote": "Cytuj",
+  "post_reply": "Odpowiedz",
+  "post_replies_hide": "Schowaj odpowiedzi",
+
+  "catalog": "Katalog"
+}

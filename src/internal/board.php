@@ -24,6 +24,11 @@ include __DIR__ . '/../single_post_view.php';");
 
 		fclose($post_view_file);
 
+		$catalog_file = fopen(__DIR__ . "/../$id/catalog.php", "w");
+        fwrite($catalog_file, "<?php
+\$board_id = '$id';
+include __DIR__ . '/../catalog.php';
+");
 	}
 }
 

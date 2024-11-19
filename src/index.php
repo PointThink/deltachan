@@ -10,7 +10,7 @@
 
 	$database = new Database();
 
-include "internal/locale.php";
+include_once "internal/locale.php";
 ?>
 
 <!DOCTYPE html>
