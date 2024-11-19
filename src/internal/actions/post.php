@@ -24,9 +24,15 @@ if (is_user_banned())
 	die();
 }
 
-if ($_FILES["file"]["size"] <= 0 && trim($_POST["comment"]) == "")
+
+if ( $_FILES["file"]["size"] <= 0 && !isset($_POST["is_reply"]) )
 {
-	error_die("Your post must contain an image or comment");
+	error_die("Your post must contain an image");
+}
+
+if (isset($_POST["is_reply"]) && trim($_POST["comment"]) == "")
+{
+	error_die("Your post must containt a comment");
 }
 
 $file_upload_dir = "uploads/";
