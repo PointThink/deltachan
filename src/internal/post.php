@@ -247,7 +247,10 @@ class Post
 		if ($this->image_file)
 			$this->display_attachment();
 		
-		echo "<a href=/$this->board/post.php?id=$this->id>>>$this->id</a>";
+		echo "<a href=/$this->board/post.php?id=$this->id>>>$this->id ";
+		echo "r: " . count($this->replies) . "</a>";
+
+		echo "<br>";
 
 		if ($this->title != "")
 			echo "<b>$this->title</b>";
