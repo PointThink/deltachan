@@ -44,7 +44,11 @@ class Post
 		{
 			$file_parts = explode(".", $this->image_file);
 			$thumb_file_name = $file_parts[0] . "-thumb.webp";
-			echo "<a href=/$this->image_file><img class=post_attachment src='/$thumb_file_name'></a>";
+			echo "<img class=post_attachment id=post_image_$this->id
+				src='/$thumb_file_name' onclick='expand_image($this->id)'
+				full_size_image=/$this->image_file
+				thumbnail_image=/$thumb_file_name
+			>";
 		}
 		else
 			echo "<a class=post_attachment_non_image href='/$this->image_file'><img class=post_attachment_non_image alt='attachment' src='/attachment.svg'>$base_name</a>";
