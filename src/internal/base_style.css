@@ -202,6 +202,7 @@ form .clear_file, form .file_upload {
 
 .post .post_attachment_expand {
 	display: block;
+	max-height: 700px;
 }
 
 .report_attachment {
