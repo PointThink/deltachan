@@ -5,6 +5,8 @@ if (session_status() != PHP_SESSION_ACTIVE)
 	session_start();
 }
 
+include_once "database.php";
+include_once __DIR__ . "/report.php";
 include_once "locale.php";
 include_once "ui.php";
 
@@ -263,3 +265,20 @@ class Post
 	}
 }
 
+function post_delete($board, $id)
+{
+	$database = new Database();
+	
+	// first delete the file
+	$post = $database->read_post($board, $id);
+	$file_parts = explode(".", $post->image_file);
+	$thumbnail_path = $file_parts[0] . "-thumb.webp";
+	unlink(__DIR__ . "/../$post->image_file");
+	unlink(__DIR__ . "/../$thumbnail_path");	
+	
+	$database->remove_post($board, $id);
+	report_delete_for_post($board, $id);
+
+	foreach ($post->replies as $reply)
+		delete_post($reply->id);
+}

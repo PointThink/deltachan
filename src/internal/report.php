@@ -80,9 +80,11 @@ function report_delete_for_post($board, $id)
 function report_exists($board, $id, $user_ip)
 {
 	$database = new Database();
-	$result = $database->query("
+	$user_ip = $database->sanitize($user_ip);
+	$query = "
 		select count(*) from reports where reported_post_board = '$board' and reported_post_id = $id and reporter_ip = '$user_ip';
-	");
+	";
+	$result = $database->query($query);
 
 	return $result->fetch_assoc()["count(*)"] > 0;
 }
