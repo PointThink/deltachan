@@ -1,7 +1,7 @@
 <?php
 include_once "../staff_session.php";
 
-$status = staff_login($_POST["username"], hash("sha512", $_POST["password"]));
+$status = staff_login($_POST["username"], $_POST["password"]);
 
 $status_str = "";
 

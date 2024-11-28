@@ -19,7 +19,7 @@ if (count($_POST) > 0)
     );
 
     if (isset($_POST["password"]) && $_POST["password"] != "")
-        update_staff_account_password($_POST["username"], hash("sha512", $_POST["password"]));
+        update_staff_account_password($_POST["username"], staff_hash_password_new($_POST["password"]));
 
 	header("Location: /internal/staff_forms/manage_accounts.php");
 }

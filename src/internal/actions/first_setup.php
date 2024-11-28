@@ -61,10 +61,6 @@ include_once "../board.php";
 $database = new Database($host, $user, $password);
 $database->setup_meta_info_database();
 
-// if there are existing staff accounts in the db like when updating skip this step
-if (count(get_staff_accounts()) <= 0)
-	write_staff_account("admin", hash("sha512", "admin"), "admin");
-
 if (!file_exists(__DIR__ . "/../chaninfo.json"))
 {
 	$chan_info = new ChanInfo();
@@ -75,8 +71,34 @@ if (!file_exists(__DIR__ . "/../chaninfo.json"))
 	chan_info_write($chan_info);
 }
 
+$chan_info = chan_info_read();
+
+function generate_salt($length)
+{
+	$characters = "abcdefghijklmnopqrtsuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()";
+	$string = "";
+	$strlen = strlen($characters);
+
+	for ($i = 0; $i < $length; $i++)
+	{
+		$string = $string . substr(mt_rand(0, $strlen - 1), 1);
+	}
+}
+
+if (!isset($chan_info->password_salt))
+{
+	$salt = generate_salt(64);
+	chan_info_write($chan_info);
+}
+
+// if there are existing staff accounts in the db like when updating skip this step
+if (count(get_staff_accounts()) <= 0)
+	write_staff_account("admin", staff_hash_password_new("admin"), "admin");
+
 include_once "../update/board.php";
+include_once "../update/account.php";
 update_add_board_catalogs();
+update_account_passwords();
 
 unlink(__DIR__ . "/../../first_run");
 header("Location: /index.php");
