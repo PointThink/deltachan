@@ -1,5 +1,5 @@
 <div class="recent_images col">
-	<h3 class=list_title>Recent images</h3>
+<?php echo "<h3 class=list_title>" . localize("index_recent_images") . "</h3>"; ?>
 	<div class=list_content>
 	
 	<?php

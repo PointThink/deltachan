@@ -26,7 +26,12 @@
 			<?php
 				$current_user = staff_get_current_user();
 				echo "<h4>Logged in as $current_user->username</h4>";
-				echo "<a href=/internal/actions/staff/logout.php>Log out</a>";	
+				echo "<a href=/internal/actions/staff/logout.php>Log out</a>";
+
+				if ($current_user->needs_update)
+				{
+					echo "<p class=password_warning>Warning: Your account is currently using an insecure password storage method. Please change your password to update it</p>";
+				}	
 			?>
 		</div>
 

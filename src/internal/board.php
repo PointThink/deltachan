@@ -24,6 +24,11 @@ include __DIR__ . '/../single_post_view.php';");
 
 		fclose($post_view_file);
 
+		$catalog_file = fopen(__DIR__ . "/../$id/catalog.php", "w");
+        fwrite($catalog_file, "<?php
+\$board_id = '$id';
+include __DIR__ . '/../catalog.php';
+");
 	}
 }
 
@@ -124,6 +129,7 @@ function board_edit_info($id, $title, $subtitle)
 
 function board_get($board_id, $page = 0)
 {
+	$max_pages = 10;
 	$database = new Database();
 
 	$board_id = $database->sanitize($board_id);
@@ -136,6 +142,24 @@ function board_get($board_id, $page = 0)
 	$board->id = $board_array["id"];
 	$board->title = $board_array["title"];
 	$board->subtitle = $board_array["subtitle"];
+
+	$delete_post_range_begin = 10 * $max_pages;
+	
+	// delete posts that have been bumped off
+	// hacky but works
+	$query_result = $database->query("
+			select id from posts_$board_id
+			where is_reply = 0
+			order by sticky desc, bump_time desc
+			limit $delete_post_range_begin, 18446744073709551615;
+		");
+
+	$posts_to_delete = array();
+
+	while ($post_id = $query_result->fetch_assoc())
+	{
+		post_delete($board_id, $post_id["id"]);
+	}
 
 	$post_range_begin = 10 * intval($page);
 	$post_range_end = 10 * intval($page) + 10;

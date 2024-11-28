@@ -10,7 +10,7 @@ if (count($_POST) > 0)
 {
 	write_staff_account(
 		$_POST["username"],
-		hash("sha512", $_POST["password"]),
+		staff_hash_password_new($_POST["password"]),
 		$_POST["role"],
 		$_POST["contact_email"]
 	);

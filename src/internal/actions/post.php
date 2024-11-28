@@ -7,16 +7,50 @@ include_once "../bans.php";
 include_once "../staff_session.php";
 include_once "../geolocation.php";
 
+function file_upload_max_size() {
+  static $max_size = -1;
+
+  if ($max_size < 0) {
+    // Start with post_max_size.
+    $post_max_size = parse_size(ini_get('post_max_size'));
+    if ($post_max_size > 0) {
+      $max_size = $post_max_size;
+    }
+
+    // If upload_max_size is less, then reduce. Except if upload_max_size is
+    // zero, which indicates no limit.
+    $upload_max = parse_size(ini_get('upload_max_filesize'));
+    if ($upload_max > 0 && $upload_max < $max_size) {
+      $max_size = $upload_max;
+    }
+  }
+  return $max_size;
+}
+
+function parse_size($size) {
+  $unit = preg_replace('/[^bkmgtpezy]/i', '', $size); // Remove the non-unit characters from the size.
+  $size = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
+  if ($unit) {
+    // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
+    return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
+  }
+  else {
+    return round($size);
+  }
+}
+
 function error_die($error)
 {
+	
 	if (isset($_POST["is_reply"]))
-		header("Location: /" . $_POST["board"] . "/post.php?error=" . htmlspecialchars($error) . "&id=" . $_POST["replies_to"]);
-	else		
-		header("Location: /" . $_POST["board"] . "?error=" . htmlspecialchars($error));
+		header("Location: /" . $_POST["board"] . "/post.php?error=" . urlencode($error) . "&id=" . $_POST["replies_to"]);
+	else if (!isset($_POST["is_reply"]) && isset($_POST["board"]))		
+		header("Location: /" . $_POST["board"] . "?error=" . urlencode($error));
+	else
+		header("Location:" . parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH) . "?error=" . urlencode($error));
 	
 	die();
 }
-
 
 if (is_user_banned())
 {
@@ -24,9 +58,17 @@ if (is_user_banned())
 	die();
 }
 
-if ($_FILES["file"]["size"] <= 0 && trim($_POST["comment"]) == "")
+if ($_SERVER['CONTENT_LENGTH'] > file_upload_max_size())
+	error_die("Your file is too big. Max size is " . ini_get("upload_max_filesize"));
+
+if ( $_FILES["file"]["size"] <= 0 && !isset($_POST["is_reply"]) )
 {
-	error_die("Your post must contain an image or comment");
+	error_die("Your post must contain an image");
+}
+
+if (isset($_POST["is_reply"]) && trim($_POST["comment"]) == "")
+{
+	error_die("Your post must containt a comment");
 }
 
 $file_upload_dir = "uploads/";

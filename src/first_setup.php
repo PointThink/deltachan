@@ -9,8 +9,10 @@
 	<body>
 		<div id="setup_page">
 		<?php
-			if (isset($_GET["error"]))
+			if (isset($_GET["error"]) && file_exists("first_run"))
 				echo "<p class=setup_error>" . $_GET["error"] . "</p><br>";
+			else
+				header("Location: /");
 		?>
 		<form method=POST action=/internal/actions/first_setup.php>
 			<h1>Welcome to DeltaChan!</h1>

@@ -5,6 +5,9 @@ if (session_status() != PHP_SESSION_ACTIVE)
 	session_start();
 }
 
+include_once "database.php";
+include_once __DIR__ . "/report.php";
+include_once "locale.php";
 include_once "ui.php";
 
 class Post
@@ -43,7 +46,11 @@ class Post
 		{
 			$file_parts = explode(".", $this->image_file);
 			$thumb_file_name = $file_parts[0] . "-thumb.webp";
-			echo "<a href=/$this->image_file><img class=post_attachment src='/$thumb_file_name'></a>";
+			echo "<img class=post_attachment id=post_image_$this->id
+				src='/$thumb_file_name' onclick='expand_image($this->id)'
+				full_size_image=/$this->image_file
+				thumbnail_image=/$thumb_file_name
+			>";
 		}
 		else
 			echo "<a class=post_attachment_non_image href='/$this->image_file'><img class=post_attachment_non_image alt='attachment' src='/attachment.svg'>$base_name</a>";
@@ -153,7 +160,7 @@ class Post
 		else
 			echo "<p class=post_id>>>$this->id | $this->creation_time</p>";
 
-		(new ActionLink("/internal/actions/report.php", "report_$this->id", "Report", "GET"))
+		(new ActionLink("/internal/actions/report.php", "report_$this->id", localize("post_report"), "GET"))
 			->add_data("id", $this->id)
 			->add_data("board", $this->board)
 			->finalize();
@@ -164,12 +171,12 @@ class Post
 			foreach (explode("\n", $this->body) as $line)
 				$quote_content .= ">$line\n";
 
-			(new ActionLink("/$this->board/post.php", "quote_$this->id", "Quote", "GET"))
+			(new ActionLink("/$this->board/post.php", "quote_$this->id", localize("post_quote"), "GET"))
 				->add_data("id", $this->replies_to)
 				->add_data("reply_field_content", urlencode($quote_content))
 				->finalize();
 
-			(new ActionLink("/$this->board/post.php", "reply_$this->id", "Reply", "GET"))
+			(new ActionLink("/$this->board/post.php", "reply_$this->id", localize("post_reply"), "GET"))
 				->add_data("id", $this->replies_to)
 				->add_data("reply_field_content", urlencode(">>$this->id"))
 				->finalize();
@@ -221,7 +228,7 @@ class Post
 		echo "</div>";
 
 		if (count($this->replies) > 0 & $show_hide_replies_button)
-			echo "<a href='#' class=hide_replies_button id=hide_replies_$this->id onclick='hide_replies(\"$this->id\")'>Hide replies</a>";
+			echo "<a href='#' class=hide_replies_button id=hide_replies_$this->id onclick='hide_replies(\"$this->id\")'>" . localize("post_replies_hide") . "</a>";
 
 		if (!$report_mode && !$report_view_mode)
 		{
@@ -242,7 +249,10 @@ class Post
 		if ($this->image_file)
 			$this->display_attachment();
 		
-		echo "<a href=/$this->board/post.php?id=$this->id>>>$this->id</a>";
+		echo "<a href=/$this->board/post.php?id=$this->id>>>$this->id ";
+		echo "r: " . count($this->replies) . "</a>";
+
+		echo "<br>";
 
 		if ($this->title != "")
 			echo "<b>$this->title</b>";
@@ -255,3 +265,20 @@ class Post
 	}
 }
 
+function post_delete($board, $id)
+{
+	$database = new Database();
+	
+	// first delete the file
+	$post = $database->read_post($board, $id);
+	$file_parts = explode(".", $post->image_file);
+	$thumbnail_path = $file_parts[0] . "-thumb.webp";
+	unlink(__DIR__ . "/../$post->image_file");
+	unlink(__DIR__ . "/../$thumbnail_path");	
+	
+	$database->remove_post($board, $id);
+	report_delete_for_post($board, $id);
+
+	foreach ($post->replies as $reply)
+		delete_post($reply->id);
+}

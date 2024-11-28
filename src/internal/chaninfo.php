@@ -6,6 +6,7 @@ class ChanInfo
     public $welcome;
     public $rules;
     public $faq;
+    public $password_salt;
 }
 
 function chan_info_read()

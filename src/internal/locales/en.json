@@ -1,0 +1,19 @@
+{
+  "welcome": "Welcome to",
+
+  "board": "Board",
+  "title": "Title",
+  "subtitle": "Subtitle",
+  "posts": "Posts",
+  "unique_posters": "Unique Posters",
+
+  "index_stats": "Stats",
+  "index_recent_images": "Recent images",
+
+  "post_report": "Report",
+  "post_quote": "Quote",
+  "post_reply": "Reply",
+  "post_replies_hide": "Hide replies",
+
+  "catalog": "Catalog"
+}
