@@ -475,3 +475,11 @@ form .clear_file, form .file_upload {
 .catalog_link {
 	margin-left: 0.3cm
 }
+
+.nsfw {
+	margin: 0;
+	margin-left: 0.2cm;
+	padding: 0;
+	color: red;
+	display: inline-block;
+}

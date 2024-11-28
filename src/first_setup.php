@@ -11,7 +11,7 @@
 		<?php
 			if (isset($_GET["error"]) && file_exists("first_run"))
 				echo "<p class=setup_error>" . $_GET["error"] . "</p><br>";
-			else
+			if (!file_exists("first_run"))
 				header("Location: /");
 		?>
 		<form method=POST action=/internal/actions/first_setup.php>

@@ -18,3 +18,18 @@ function update_add_board_catalogs()
     ");
     }
 }
+
+function update_boards_nsfw_row()
+{
+    $database = new Database();
+
+    $result = $database->query("SHOW COLUMNS FROM `board_info` LIKE 'nsfw'");
+    $exists = $result->num_rows ? TRUE:FALSE;
+    
+    if (!$exists)
+    {
+        $database->query("
+            alter table board_info add nsfw int default 0 not null;        
+        ");
+    }
+}
