@@ -1,4 +1,6 @@
 <?php
+include_once "turnslite.php";
+
 class PostForm
 {
 	private $buffer = "";
@@ -72,6 +74,15 @@ class PostForm
 		$this->buffer .= "<td><input class=file_upload type=file multiple name=$name><button type=button class=clear_file onclick=clear_file_upload()>Clear</button></td>";
 		$this->buffer .= "</tr>";
 
+		return $this;
+	}
+
+	public function add_captcha($label, $name)
+	{
+		$this->buffer .= "<tr>";
+		$this->buffer .= "<th>$label</th>";
+		$this->buffer .= "<td><div class='cf-turnstile' data-sitekey='" . turnslite_get_site_key() . "'></div></td>";
+		$this->buffer .= "<tr>";
 		return $this;
 	}
 

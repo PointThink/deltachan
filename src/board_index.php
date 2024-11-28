@@ -44,6 +44,7 @@ function show_pages()
 		
 			include "internal/link_css.php";
 		?>
+		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 
@@ -75,8 +76,9 @@ function show_pages()
 				$form
 					->add_text_field("Title", "title")
 					->add_text_area("Comment", "comment")
-					->add_file("File", "file")
 					->add_hidden_data("board", "$board_id")
+					->add_captcha("Captcha", "turnslite")
+					->add_file("File", "file")
 					->finalize();
 			?>
 		</div>

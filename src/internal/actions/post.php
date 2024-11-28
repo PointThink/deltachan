@@ -6,6 +6,7 @@ include_once "../database.php";
 include_once "../bans.php";
 include_once "../staff_session.php";
 include_once "../geolocation.php";
+include_once "../turnslite.php";
 
 function file_upload_max_size() {
   static $max_size = -1;
@@ -52,6 +53,9 @@ function error_die($error)
 	die();
 }
 
+if (!turnslite_verify_response($_POST["cf-turnstile-response"]))
+	error_die("Captcha failed!");
+	
 if (is_user_banned())
 {
 	header("Location: /internal/error_pages/ban.php");

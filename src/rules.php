@@ -6,7 +6,7 @@ include_once "internal/staff_session.php";
 <html>
 	<head>
 		<?php
-		include "internal/chaninfo.php"; 
+		include_once "internal/chaninfo.php"; 
 	
 		$chan_info = chan_info_read();
 		echo "<title>$chan_info->chan_name rules</title>";
