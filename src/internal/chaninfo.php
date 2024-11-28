@@ -7,6 +7,8 @@ class ChanInfo
     public $rules;
     public $faq;
     public $password_salt;
+    public $turnslite_site_key;
+    public $turnslite_secret_key;
 }
 
 function chan_info_read()

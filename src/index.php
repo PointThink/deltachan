@@ -17,7 +17,7 @@ include_once "internal/locale.php";
 <html>
 	<head>
 		<?php
-		include "internal/chaninfo.php"; 
+		include_once "internal/chaninfo.php"; 
 	
 		$chan_info = chan_info_read();
 		echo "<title>$chan_info->chan_name</title>";

@@ -79,6 +79,9 @@ class PostForm
 
 	public function add_captcha($label, $name)
 	{
+		if (!turnslite_is_enabled())
+			return $this;
+
 		$this->buffer .= "<tr>";
 		$this->buffer .= "<th>$label</th>";
 		$this->buffer .= "<td><div class='cf-turnstile' data-sitekey='" . turnslite_get_site_key() . "'></div></td>";

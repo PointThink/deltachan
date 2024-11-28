@@ -1,17 +1,28 @@
 <?php
+include_once "chaninfo.php";
+include_once "../../config.php";
+
 function turnslite_get_site_key()
 {
-    return "1x00000000000000000000AA";
+    $chan_info = chan_info_read();
+    return $chan_info->turnslite_site_key;    
+    //return "1x00000000000000000000AA";
 }
 
 function turnslite_get_secret_key()
 {
-    return "1x0000000000000000000000000000000AA";
+    global $deltachan_config;
+    $key = file_get_contents($deltachan_config["crypt_key_path"]);
+    $chan_info = chan_info_read();
+	$chan_info->turnslite_site_key = $chan_info->turnslite_site_key; 
+    return openssl_decrypt($chan_info->turnslite_secret_key, "aes-256-ecb", $key);
+    // return "1x0000000000000000000000000000000AA";
 }
 
 function turnslite_is_enabled()
 {
-    return true;
+    $chan_info = chan_info_read();
+    return ($chan_info->turnslite_secret_key != null && $chan_info->turnslite_site_key != null);
 }
 
 function turnslite_verify_response($responseToken)
