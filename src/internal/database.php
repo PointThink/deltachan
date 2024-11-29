@@ -31,7 +31,8 @@ class Database
 			create table if not exists board_info (
 				id varchar(255) not null primary key,
 				title varchar(255) not null,
-				subtitle varchar(255)
+				subtitle varchar(255),
+				nsfw int default 0 not null
 			);
 		");
 
@@ -40,7 +41,8 @@ class Database
 				username varchar(30) not null primary key,
 				password_hash varchar(128) not null,
 				role varchar(128) not null,
-				contact_email varchar(128)
+				contact_email varchar(128),
+				needs_update int default 0 not null
 			);
 		");
 
