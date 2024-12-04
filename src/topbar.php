@@ -39,7 +39,7 @@ include_once "internal/staff_session.php";
 		<select onchange="selectThemeFromPicker();" id="theme_selector" autocomplete="off">
 		<?php
 			$themes = scandir(__DIR__ . "/internal/styles/");
-
+			array_push($themes, "default");
 			foreach ($themes as $theme)
 			{
 				if (is_dir(__DIR__ . "/internal/styles/$theme"))

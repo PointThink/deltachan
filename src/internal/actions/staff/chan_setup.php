@@ -15,6 +15,7 @@ if (count($_POST) > 0)
     $chan_info->rules = $_POST["rules"];
     $chan_info->welcome = $_POST["welcome"];
 	$chan_info->faq = $_POST["faq"];
+	$chan_info->default_theme = $_POST["default_theme"];
 
 	$key = file_get_contents($deltachan_config["crypt_key_path"]);
 	$chan_info->turnslite_site_key = $_POST["turnslite_site_key"];
@@ -51,6 +52,7 @@ if (count($_POST) > 0)
                 ->add_text_area("Welcome message", "welcome", htmlspecialchars($chan_info->welcome))
                 ->add_text_area("Rules", "rules", htmlspecialchars($chan_info->rules))
 				->add_text_area("FAQ", "faq", htmlspecialchars($chan_info->faq))
+				->add_text_field("Default theme", "default_theme", $chan_info->default_theme)
 				->add_text_field("Turnslite site key", "turnslite_site_key", $chan_info->turnslite_site_key)
 				->add_text_field("Turnslite secret key", "turnslite_secret_key", openssl_decrypt($chan_info->turnslite_secret_key, "aes-256-ecb", $key))
 				->finalize();
