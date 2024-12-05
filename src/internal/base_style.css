@@ -483,3 +483,12 @@ form .clear_file, form .file_upload {
 	color: red;
 	display: inline-block;
 }
+
+.poster_id {
+	font-size: 10pt;
+	color: white;
+	margin-right: 0.2cm;
+	border-radius: 6px;
+	padding-left: 2px;
+	padding-right: 2px;
+}

@@ -1,6 +1,6 @@
 <?php
 include_once "chaninfo.php";
-include_once "../../config.php";
+include_once "config.php";
 
 function turnslite_get_site_key()
 {

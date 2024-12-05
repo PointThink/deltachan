@@ -56,6 +56,17 @@ class Post
 			echo "<a class=post_attachment_non_image href='/$this->image_file'><img class=post_attachment_non_image alt='attachment' src='/attachment.svg'>$base_name</a>";
 	}
 
+	public function generate_id()
+	{
+		$parent_id = $this->id;
+		if ($this->is_reply)
+			$parent_id = $this->replies_to;
+			
+		$str = $this->board . $parent_id . $this->poster_ip;
+
+		return substr(md5($str), -6);
+	}
+
 	public function format_and_show_text($text)
 	{
 		$text = htmlspecialchars($text);
@@ -152,7 +163,10 @@ class Post
 		if	(isset($_SESSION["user_posts"]) && $_SESSION["users_posts"] != NULL)
 			if (in_array($this->id, $_SESSION["users_posts"]))
 				echo "<p class=your_post>(You)</p>";
-	
+
+		$poster_id = $this->generate_id();
+		echo "<span class=poster_id style='background-color:#$poster_id;'>$poster_id</span>";
+
 		echo "</span>";
 
 		if (!$this->is_reply)
