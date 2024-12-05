@@ -294,5 +294,5 @@ function post_delete($board, $id)
 	report_delete_for_post($board, $id);
 
 	foreach ($post->replies as $reply)
-		delete_post($reply->id);
+		post_delete($board, $reply->id);
 }
