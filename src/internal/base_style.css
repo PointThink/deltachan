@@ -178,7 +178,7 @@ body {
 	color: purple;
 }
 
-.post_form td {
+.post_form .file_upload_row {
 	display: flex;
 	flex-direction: row;
 }
@@ -497,4 +497,10 @@ form .clear_file, form .file_upload {
 	border-radius: 6px;
 	padding-left: 2px;
 	padding-right: 2px;
+}
+
+.max_upload {
+	margin: 0;
+	font-size: 9pt;
+	display: inline-block;
 }
