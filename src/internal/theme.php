@@ -10,10 +10,19 @@ $css_file_name = "";
 if (!isset($_COOKIE["theme"]))
 {
     setcookie("theme", "default", time() + 60*60*24*30, "/");
-    $css_file_name = "default";
+
+    if ($chan_info->default_theme == null)
+        $css_file_name = "yotsuba-blue.css";
+    else
+        $css_file_name = $chan_info->default_theme;
 }
 else if ($_COOKIE["theme"] == "default")
-    $css_file_name = $chan_info->default_theme;
+{
+    if ($chan_info->default_theme == null)
+        $css_file_name = "yotsuba-blue.css";
+    else
+        $css_file_name = $chan_info->default_theme;
+}
 else
     $css_file_name = $_COOKIE["theme"];
 
