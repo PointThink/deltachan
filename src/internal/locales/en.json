@@ -13,7 +13,8 @@
   "post_report": "Report",
   "post_quote": "Quote",
   "post_reply": "Reply",
-  "post_replies_hide": "Hide replies",
-
+  "post_replies_hide": "View entire thread",
+  "post_replies_last5": "Showing last 5 replies",
+  
   "catalog": "Catalog"
 }

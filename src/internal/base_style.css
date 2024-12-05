@@ -142,11 +142,17 @@ body {
 	text-wrap: wrap;
 }
 
-.post .post_id, .post form, .post .hide_replies_button, .action_link {
+.post .post_id, .post form, .post .thread_view, .post .replies_last_5, .action_link {
 	display: inline;
 	font-size: 10pt;
 	margin: 0;
 	margin-right: 0.2cm;
+}
+
+.post .replies_last_5, .post .thread_view {
+	font-size: 9pt;
+	opacity: 0.75;
+	font-style: italic;
 }
 
 .post .name_segment {

@@ -126,7 +126,7 @@ class Post
     	echo "</div>\n";
 	}
 
-	public function display($show_hide_replies_button = false, $report_mode = false, $report_view_mode = false)
+	public function display($board_view = false, $report_mode = false, $report_view_mode = false)
 	{
 		if (!$this->is_reply || $report_mode || $report_view_mode)
 			echo "<div class=post id=post_$this->id>";
@@ -241,16 +241,21 @@ class Post
 		$this->format_and_show_text($this->body);
 		echo "</div>";
 
-		if (count($this->replies) > 0 & $show_hide_replies_button)
-			echo "<a href='#' class=hide_replies_button id=hide_replies_$this->id onclick='hide_replies(\"$this->id\")'>" . localize("post_replies_hide") . "</a>";
-
+		if (count($this->replies) > 0 & $board_view)
+		{
+			echo "<p class=replies_last_5>" . localize("post_replies_last5") ."</p>";
+			echo "<a href='/$this->board/post.php?id=$this->id' class=thread_view id=hide_replies_$this->id onclick='hide_replies(\"$this->id\")'>" . localize("post_replies_hide") . "</a>";
+		}
 		if (!$report_mode && !$report_view_mode)
 		{
+			$replies = $this->replies;
+			if ($board_view)
+				$replies = array_slice($this->replies, count($this->replies) - 5, 5); 
+
 			echo "<div id=replies_$this->id>";
-			foreach ($this->replies as $reply)
+			foreach ($replies as $reply)
 				$reply->display(true);
 			echo "</div>";
-
 		}
 
 		echo "</div>";
