@@ -150,10 +150,15 @@ class Post
 		echo "<span class=name_segment>";
 
 		if ($this->title != "")
-			echo "<p class=post_title>$this->title</p>";	
-
+		{
+			$sanitized_title = htmlspecialchars($this->title);
+			echo "<p class=post_title>$sanitized_title</p>";	
+		}
 		if (!$this->is_staff_post)
-			echo "<p class=name>$this->name</p>";
+		{
+			$sanitized_name = htmlspecialchars($this->name);
+			echo "<p class=name>$sanitized_name</p>";
+		}
 		else
 		{
 			$role = read_staff_account($this->name)->role;
