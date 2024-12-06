@@ -246,7 +246,7 @@ class Post
 		$this->format_and_show_text($this->body);
 		echo "</div>";
 
-		if (count($this->replies) > 0 & $board_view)
+		if (count($this->replies) > 5 & $board_view)
 		{
 			echo "<p class=replies_last_5>" . localize("post_replies_last5") ."</p>";
 			echo "<a href='/$this->board/post.php?id=$this->id' class=thread_view id=hide_replies_$this->id onclick='hide_replies(\"$this->id\")'>" . localize("post_replies_hide") . "</a>";
@@ -254,7 +254,7 @@ class Post
 		if (!$report_mode && !$report_view_mode)
 		{
 			$replies = $this->replies;
-			if ($board_view)
+			if ($board_view && count($this->replies) > 5)
 				$replies = array_slice($this->replies, count($this->replies) - 5, 5); 
 
 			echo "<div id=replies_$this->id>";
