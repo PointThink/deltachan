@@ -1,55 +1,46 @@
 body {
-	background: #f0eff9;
-	color: black;
-	background-attachment: fixed;
+    background: #f8f5ea;
+	color: #55372b;
+}
+
+* {
+    font-family: serif !important;
 }
 
 hr {
     border: none;
-    border-top: 1px solid #b7c5d9;
-    height: 0;
-}
-
-.title {
-	color: #AF0A0F;
+    background-color: #91222066;
+    height: 1px;
 }
 
 .post .your_post {
-	color: brown;
-}
-
-.reply {
-	background: #e1e1f7;
+	color: navy;
 }
 
 .post {
     background-color: none;
     margin: 0;
-    font-family: system-ui;
 }
 
 .reply {
-  border-top: 1px solid rgba(255, 255, 255, 0.5);
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  border-right: 1px solid rgba(0, 0, 0, 0.25);
+	background: #f5e5cf;
+  	border-top: 1px solid rgba(255, 255, 255, 0.5);
+  	border-left: 1px solid rgba(255, 255, 255, 0.5);
+  	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  	border-right: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 #topbar {
-    box-shadow: 0 0 10px #00000044;
-    padding: 0.1cm;
-    background: #d0d0f7;
-    border-bottom: 1px solid #373599;
+  border-bottom: none;
 }
 
 .post_form th {
-	background: #8987ff;
-    color: white;
-	border: 1px solid #373599;
+	background: #ddc6a5;
+	border: 1px solid #55372b;
 }
 
 a:link, a:visited {
-  color: navy;
+  color: blue;
 }
 
 #staff_dashboard_content {
@@ -73,8 +64,8 @@ a:link, a:visited {
 }
 
 .manage_table th {
-    border: 1px solid #373599;
-	background-color: #8987ff;
+    border: 1px solid #55372b;
+	background-color: #ddc6a5;
 }
 
 .manage_table td {
@@ -83,19 +74,20 @@ a:link, a:visited {
 
 .list {
 	background: white;
-    border: 1px solid #373599;
+    border: 1px solid #55372b;
 }
 
 .list .list_title {
-	background-color: #8987ff;
-    color: white;
+	background-color: #ddc6a5;
+}
+
+.post .your_post {
+	color: brown;
 }
 
 .list .boards_table th {
-	background-color: #8987ff;
-    color: white;
+	background-color: #ddc6a5;
 }
-
 
 .list .boards_table tr {
 	background-color: #ffffff;
@@ -106,9 +98,13 @@ a:link, a:visited {
 }
 
 .board_pages {
-	background: #e1e1f7;
+	background: #f0e0d6;
 	border-top: 1px solid rgba(255, 255, 255, 0.5);
 	border-left: 1px solid rgba(255, 255, 255, 0.5);
 	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 	border-right: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.post_title {
+	color: #d00;
 }

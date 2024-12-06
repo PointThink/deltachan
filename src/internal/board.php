@@ -1,10 +1,10 @@
 <?php
 include_once "database.php";
 
-function board_create($id, $title, $subtitle = "")
+function board_create($id, $title, $subtitle = "", $nsfw = 0)
 {
 	setup_board_table($id);
-	board_add_info_row($id, $title, $subtitle);
+	board_add_info_row($id, $title, $subtitle, $nsfw);
 
 	if (!is_dir(__DIR__ . "/../$id"))
 	{
@@ -37,6 +37,7 @@ class Board
 	public $id;
 	public $title;
 	public $subtitle;
+	public $nsfw;
 
 	public $posts = array();
 
@@ -78,7 +79,7 @@ function setup_board_table($board_id)
 	");
 }
 
-function board_add_info_row($id, $title, $subtitle)
+function board_add_info_row($id, $title, $subtitle, $nsfw)
 {
 	$database = new Database();
 	$result = $database->query("
@@ -87,12 +88,12 @@ function board_add_info_row($id, $title, $subtitle)
 
 	if ($result->num_rows > 0)
 		return;
-
+	$nsfw = intval($nsfw);
 	$database->query("
 		insert into board_info (
-			id, title, subtitle
+			id, title, subtitle, nsfw
 		) values (
-			'$id', '$title', '$subtitle'
+			'$id', '$title', '$subtitle', $nsfw
 		);
 	");
 }
@@ -110,21 +111,23 @@ function board_list()
 		$board->id = $board_array["id"];
 		$board->title = $board_array["title"];
 		$board->subtitle = $board_array["subtitle"];
+		$board->nsfw = $board_array["nsfw"];
 		array_push($boards, $board);
 	}
 
 	return $boards;
 }
 
-function board_edit_info($id, $title, $subtitle)
+function board_edit_info($id, $title, $subtitle, $nsfw)
 {
 	$database = new Database();
-
-	$database->query("
+	$nsfw = intval($nsfw);
+	$query = "
 		update board_info
-		set title = '$title', subtitle = '$subtitle'
+		set title = '$title', subtitle = '$subtitle', nsfw = $nsfw
 		where id = '$id';
-	");
+	";
+	$database->query($query);
 }
 
 function board_get($board_id, $page = 0)
@@ -142,6 +145,7 @@ function board_get($board_id, $page = 0)
 	$board->id = $board_array["id"];
 	$board->title = $board_array["title"];
 	$board->subtitle = $board_array["subtitle"];
+	$board->nsfw = $board_array["nsfw"];
 
 	$delete_post_range_begin = 10 * $max_pages;
 	

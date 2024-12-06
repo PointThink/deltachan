@@ -142,11 +142,17 @@ body {
 	text-wrap: wrap;
 }
 
-.post .post_id, .post form, .post .hide_replies_button, .action_link {
+.post .post_id, .post form, .post .thread_view, .post .replies_last_5, .action_link {
 	display: inline;
 	font-size: 10pt;
 	margin: 0;
 	margin-right: 0.2cm;
+}
+
+.post .replies_last_5, .post .thread_view {
+	font-size: 9pt;
+	opacity: 0.75;
+	font-style: italic;
 }
 
 .post .name_segment {
@@ -172,7 +178,7 @@ body {
 	color: purple;
 }
 
-.post_form td {
+.post_form .file_upload_row {
 	display: flex;
 	flex-direction: row;
 }
@@ -474,4 +480,27 @@ form .clear_file, form .file_upload {
 
 .catalog_link {
 	margin-left: 0.3cm
+}
+
+.nsfw {
+	margin: 0;
+	margin-left: 0.2cm;
+	padding: 0;
+	color: red;
+	display: inline-block;
+}
+
+.poster_id {
+	font-size: 10pt;
+	color: white;
+	margin-right: 0.2cm;
+	border-radius: 6px;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+.max_upload {
+	margin: 0;
+	font-size: 9pt;
+	display: inline-block;
 }

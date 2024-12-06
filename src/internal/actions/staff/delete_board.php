@@ -13,23 +13,9 @@ if (count($_POST) > 0)
 	$database = new Database();
 
 	// delete all posts from the board
-	function delete_post($id)
-	{
-		global $board;
-		global $database;
-
-		// first delete the file
-		$post = $database->read_post($board, $id);
-		unlink(__DIR__ . "/../../../$post->image_file");
-
-		$database->remove_post($board, $post->id);
-
-		foreach ($post->replies as $reply)
-			delete_post($reply->id);
-	}
-
+	
 	foreach (board_get($board)->posts as $post)
-		delete_post($post->id);
+		post_delete($board, $post->id);
 
 	board_remove($board);
 

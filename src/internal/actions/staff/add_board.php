@@ -8,7 +8,7 @@ if (!staff_session_is_valid() || !staff_is_admin())
 
 if (count($_POST) > 0)
 {
-	board_create($_POST["id"], $_POST["title"], $_POST["subtitle"]);
+	board_create($_POST["id"], $_POST["title"], $_POST["subtitle"], isset($_POST["nsfw"]));
 	header("Location: /" . $_POST["id"] . "/");
 	die();
 }
@@ -32,6 +32,7 @@ if (count($_POST) > 0)
 				->add_text_field("ID", "id")
 				->add_text_field("Title", "title")
 				->add_text_field("Subtitle", "subtitle")
+				->add_checkboxes("Options", array("NSFW" => "nsfw"))
 				->finalize();
 		?>
 		</div>

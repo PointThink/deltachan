@@ -68,6 +68,7 @@ if (!file_exists(__DIR__ . "/../chaninfo.json"))
 	$chan_info->welcome = "Welcome to DeltaChan!";
 	$chan_info->rules = "Your rules go here.";
 	$chan_info->faq = file_get_contents(__DIR__ . "/default_faq.txt");
+	$chan_info->default_theme = "yotsuba-blue.css";
 	chan_info_write($chan_info);
 }
 
@@ -99,6 +100,7 @@ include_once "../update/board.php";
 include_once "../update/account.php";
 update_add_board_catalogs();
 update_account_passwords();
+update_boards_nsfw_row();
 
 unlink(__DIR__ . "/../../first_run");
 header("Location: /index.php");

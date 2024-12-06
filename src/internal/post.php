@@ -56,6 +56,17 @@ class Post
 			echo "<a class=post_attachment_non_image href='/$this->image_file'><img class=post_attachment_non_image alt='attachment' src='/attachment.svg'>$base_name</a>";
 	}
 
+	public function generate_id()
+	{
+		$parent_id = $this->id;
+		if ($this->is_reply)
+			$parent_id = $this->replies_to;
+			
+		$str = $this->board . $parent_id . $this->poster_ip;
+
+		return substr(md5($str), -6);
+	}
+
 	public function format_and_show_text($text)
 	{
 		$text = htmlspecialchars($text);
@@ -115,7 +126,7 @@ class Post
     	echo "</div>\n";
 	}
 
-	public function display($show_hide_replies_button = false, $report_mode = false, $report_view_mode = false)
+	public function display($board_view = false, $report_mode = false, $report_view_mode = false)
 	{
 		if (!$this->is_reply || $report_mode || $report_view_mode)
 			echo "<div class=post id=post_$this->id>";
@@ -139,10 +150,15 @@ class Post
 		echo "<span class=name_segment>";
 
 		if ($this->title != "")
-			echo "<p class=post_title>$this->title</p>";	
-
+		{
+			$sanitized_title = htmlspecialchars($this->title);
+			echo "<p class=post_title>$sanitized_title</p>";	
+		}
 		if (!$this->is_staff_post)
-			echo "<p class=name>$this->name</p>";
+		{
+			$sanitized_name = htmlspecialchars($this->name);
+			echo "<p class=name>$sanitized_name</p>";
+		}
 		else
 		{
 			$role = read_staff_account($this->name)->role;
@@ -152,7 +168,10 @@ class Post
 		if	(isset($_SESSION["user_posts"]) && $_SESSION["users_posts"] != NULL)
 			if (in_array($this->id, $_SESSION["users_posts"]))
 				echo "<p class=your_post>(You)</p>";
-	
+
+		$poster_id = $this->generate_id();
+		echo "<span class=poster_id style='background-color:#$poster_id;'>$poster_id</span>";
+
 		echo "</span>";
 
 		if (!$this->is_reply)
@@ -227,16 +246,21 @@ class Post
 		$this->format_and_show_text($this->body);
 		echo "</div>";
 
-		if (count($this->replies) > 0 & $show_hide_replies_button)
-			echo "<a href='#' class=hide_replies_button id=hide_replies_$this->id onclick='hide_replies(\"$this->id\")'>" . localize("post_replies_hide") . "</a>";
-
+		if (count($this->replies) > 0 & $board_view)
+		{
+			echo "<p class=replies_last_5>" . localize("post_replies_last5") ."</p>";
+			echo "<a href='/$this->board/post.php?id=$this->id' class=thread_view id=hide_replies_$this->id onclick='hide_replies(\"$this->id\")'>" . localize("post_replies_hide") . "</a>";
+		}
 		if (!$report_mode && !$report_view_mode)
 		{
+			$replies = $this->replies;
+			if ($board_view)
+				$replies = array_slice($this->replies, count($this->replies) - 5, 5); 
+
 			echo "<div id=replies_$this->id>";
-			foreach ($this->replies as $reply)
+			foreach ($replies as $reply)
 				$reply->display(true);
 			echo "</div>";
-
 		}
 
 		echo "</div>";
@@ -280,5 +304,5 @@ function post_delete($board, $id)
 	report_delete_for_post($board, $id);
 
 	foreach ($post->replies as $reply)
-		delete_post($reply->id);
+		post_delete($board, $reply->id);
 }

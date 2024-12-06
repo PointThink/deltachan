@@ -17,7 +17,7 @@ include_once "internal/locale.php";
 <html>
 	<head>
 		<?php
-		include "internal/chaninfo.php"; 
+		include_once "internal/chaninfo.php"; 
 	
 		$chan_info = chan_info_read();
 		echo "<title>$chan_info->chan_name</title>";
@@ -65,9 +65,13 @@ include_once "internal/locale.php";
 
 					$query_result = $database->query("select count(distinct poster_ip) from posts_$board->id");
 					$unique_posters = intval($query_result->fetch_assoc()["count(distinct poster_ip)"]);
+					$nsfw_text = "";
 
+					if ($board->nsfw)
+						$nsfw_text = " (NSFW)";
+					
 					echo "<tr>
-					<td class=table_board_id><a href=$board->id/>/$board->id/</a></td>
+					<td class=table_board_id><a href=$board->id/>/$board->id/</a><p class=nsfw>$nsfw_text</p></td>
 					<td class=table_board_title><a href=$board->id/>$board->title</a></td>
 					<td class=table_board_subtitle>$board->subtitle</td>
 					<td class=table_board_post_count>$post_count</td>

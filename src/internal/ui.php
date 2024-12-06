@@ -1,4 +1,6 @@
 <?php
+include_once "turnslite.php";
+
 class PostForm
 {
 	private $buffer = "";
@@ -67,11 +69,24 @@ class PostForm
 
 	public function add_file($label, $name)
 	{
+		$max_upload = ini_get("post_max_size");
 		$this->buffer .= "<tr>";
 		$this->buffer .= "<th>$label</th>";
-		$this->buffer .= "<td><input class=file_upload type=file multiple name=$name><button type=button class=clear_file onclick=clear_file_upload()>Clear</button></td>";
+		$this->buffer .= "<td><div class=file_upload_row><input class=file_upload type=file multiple name=$name><button type=button class=clear_file onclick=clear_file_upload()>Clear</button></div><p class=max_upload>Max size: $max_upload</p></td>";
 		$this->buffer .= "</tr>";
 
+		return $this;
+	}
+
+	public function add_captcha($label, $name)
+	{
+		if (!turnslite_is_enabled())
+			return $this;
+
+		$this->buffer .= "<tr>";
+		$this->buffer .= "<th>$label</th>";
+		$this->buffer .= "<td><div class='cf-turnstile' data-sitekey='" . turnslite_get_site_key() . "'></div></td>";
+		$this->buffer .= "<tr>";
 		return $this;
 	}
 
