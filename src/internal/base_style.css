@@ -291,7 +291,6 @@ form .clear_file, form .file_upload {
 
 .list {
 	border: 1px solid black;
-
 	max-width: 25cm;
 	font-size: 10pt;
 	margin: auto;
@@ -304,7 +303,7 @@ form .clear_file, form .file_upload {
 
 .list .list_content {
 	padding: 0.2cm;
-	margin: 0;
+	margin: 0.3cm;
 }
 
 .list .boards_table {
