@@ -23,8 +23,6 @@
 		    return $files;
 		}
 
-
-
 		$files = scan_dir_sorted(__DIR__ . "/uploads/");
 
 		for ($i = 0; $i < $recent_image_count && $i < count($files); $i++)

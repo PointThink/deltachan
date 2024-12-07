@@ -279,7 +279,7 @@ class Post
 		echo "<br>";
 
 		if ($this->title != "")
-			echo "<b>$this->title</b>";
+			echo "<b>" . htmlspecialchars($this->title) . "</b>";
 
 		echo "<div class=post_comment>";
 		$this->format_and_show_text($this->body);
