@@ -34,7 +34,7 @@
 			$board = $parts[0];
 			$post = $parts[1];
 
-			echo "<a href=/$board/post.php?id=$post><img class=recent_image src=/uploads/" . $files[$i] . ">";
+			echo "<a href=/$board/post.php?id=$post><img class=recent_image src=/uploads/" . $files[$i] . "></a>";
 		}
 	?>
 
