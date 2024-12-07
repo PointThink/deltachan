@@ -32,7 +32,7 @@ include_once "internal/staff_session.php";
 	?>
 	<p>]</p>
 
-	<div id="theme_selector_section">
+	<div style="display: none;" id="theme_selector_section">
 		<p>Theme:</p>
 		<script src="/internal/theme_selector.js"></script>
 
@@ -57,6 +57,10 @@ include_once "internal/staff_session.php";
 			}
 		?>
 		</select>
+
+		<script>
+			document.getElementById("theme_selector_section").style.display = "block";
+		</script>
 	</div>
 </div>
 
