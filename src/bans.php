@@ -1,6 +1,10 @@
 <?php
 include_once "internal/bans.php";
 include_once "internal/ui.php";
+
+$chan_info = chan_info_read();
+if (!$chan_info->show_ban_list)
+    die("This page has been disabled by the site administrator");
 ?>
 
 <!DOCTYPE html>
