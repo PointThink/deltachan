@@ -101,6 +101,7 @@ include_once "../update/account.php";
 update_add_board_catalogs();
 update_account_passwords();
 update_boards_nsfw_row();
+update_ban_list();
 
 unlink(__DIR__ . "/../../first_run");
 header("Location: /index.php");

@@ -280,7 +280,7 @@ form .clear_file, form .file_upload {
 .manage_table {
 	text-align: center;
 	font-size: 10pt;
-	width: 16cm;
+	width: 30cm;
 	margin: auto;
 }
 
@@ -502,4 +502,9 @@ form .clear_file, form .file_upload {
 	margin: 0;
 	font-size: 9pt;
 	display: inline-block;
+}
+
+.no_js_warning {
+	color: brown;
+	font-size: 10pt;	
 }

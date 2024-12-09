@@ -1,31 +1,26 @@
 <?php
-include_once "../bans.php";
-include_once "../ui.php";
-include_once "../staff_session.php";
-
-if (!staff_session_is_valid() || !staff_is_moderator()) 
-	die("You are not allowed here");
+include_once "internal/bans.php";
+include_once "internal/ui.php";
 ?>
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Manage bans</title>
-		<?php include "../link_css.php" ?>
-	</head>
+    <head>
+        <title>Ban list</title>
+        <?php include "internal/link_css.php" ?>
+    </head>
 
-	<body>
-		<?php include "../../topbar.php" ?>
-		
-		<h1 class=title>Manage bans</h1>
+    <body>
+        <?php include "topbar.php" ?>
 
-		<table class=manage_table>
+        <h1 class="title">Public Ban List</h1>
+
+        <table class=manage_table>
 			<tr>
 				<th>IP adress</th>
 				<th>Ban reason</th>
 				<th>Expire date</th>
-				<th>Banned by</th>
-				<th>Unban</th>
+                <th>Banned by</th>
 			</tr>
 
 			<?php
@@ -52,17 +47,12 @@ if (!staff_session_is_valid() || !staff_is_moderator())
                         echo "<td>Permanent</td>";
                     }
 
-					$banner = staff_get_current_user($ban_info->banned_by);
+                    $banner = staff_get_current_user($ban_info->banned_by);
                     echo "<td>$banner->username ## $banner->role</td>";
-
-                    echo "<td>";
-                    (new ActionLink("/internal/actions/staff/unban.php", "unban_$ip", "Unban"))
-                        ->add_data("ip", $ip)
-                        ->finalize();
-                    echo "</td>";
 				}
 			?>
 		</table>
-		<?php include "../../footer.php" ?>
-	</body>
+
+        <?php include "footer.php" ?>
+    </body>
 </html>
