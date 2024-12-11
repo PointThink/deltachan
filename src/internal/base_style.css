@@ -38,6 +38,13 @@ body {
   margin: 0;
 }
 
+.staff_dashboard fieldset {
+	margin: auto;
+	max-width: 20cm;
+
+	font-size: 10pt;
+}
+
 #reply_disclaimer, #staff_disclaimer {
 	margin: 0;
 	font-size: 16px;

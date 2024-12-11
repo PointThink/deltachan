@@ -75,7 +75,7 @@ if (!staff_session_is_valid())
 // dashboard
 else
 {
-    ?>
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -103,48 +103,47 @@ else
 		</div>
 
 		<br>
+        <div class="staff_dashboard">
+        <?php
+            $database = new Database();
 
-		<div class=list>
-			<?php
-				$database = new Database();
+            echo "<fieldset>";
+            echo "<legend>Boards</legend>";
+            echo "<ul>";
 
-				
-				echo "<h4 class=list_title>Boards</h4>";
-				echo "<div class=list_content><ul>";
+            foreach (board_list() as $b)
+                echo "<li><a href=/$b->id/>/$b->id/ - $b->title</a></li>";
 
-				foreach (board_list() as $b)
-					echo "<li><a href=/$b->id/>/$b->id/ - $b->title</a></li>";
+            echo "</ul></fieldset>";
+            
 
-				echo "</ul></div>";
-				
+            if ($current_user->role == "admin")
+            {
+                echo "
+                <fieldset>
+                    <legend>Admin</legend>
+                    <ul>
+                        <li><a href=/internal/actions/staff/chan_setup.php>Setup imageboard</a></li>
+                        <li><a href=/internal/staff_forms/manage_accounts.php>Manage staff accounts</a></li>
+                        <li><a href=/internal/staff_forms/manage_boards.php>Manage boards</a></li>
+                    </ul>
+                </fieldset>";
+            }
 
-				if ($current_user->role == "admin")
-				{
-					echo "<h4 class=list_title>Admin actions</h4>
-					<div class=list_content>
-						<ul>
-							<li><a href=/internal/actions/staff/chan_setup.php>Setup imageboard</a></li>
-							<li><a href=/internal/staff_forms/manage_accounts.php>Manage staff accounts</a></li>
-							<li><a href=/internal/staff_forms/manage_boards.php>Manage boards</a></li>
-						</ul>
-					</div>";
-				}
-
-				if (staff_is_moderator())
-				{
-					echo '
-					<h4 class=list_title>Moderator actions</h4>
-					<div class="list_content">
-						<ul>
-							<li><a href=/internal/staff_forms/approve_posts.php>View unnaproved posts</a></li>
-							<li><a href=/internal/staff_forms/view_reports.php>View reported posts</a></li>
-							<li><a href=/internal/staff_forms/manage_bans.php>Manage bans</a></li>
-						</ul>
-					</div>';
-				}
-			?>
-		</div>
-
+            if (staff_is_moderator())
+            {
+                echo '
+                <fieldset>
+                    <legend>Mod</legend>
+                    <ul>
+                        <li><a href=/internal/staff_forms/approve_posts.php>View unnaproved posts</a></li>
+                        <li><a href=/internal/staff_forms/view_reports.php>View reported posts</a></li>
+                        <li><a href=/internal/staff_forms/manage_bans.php>Manage bans</a></li>
+                    </ul>
+                </fieldset>';
+            }
+        ?>
+        </div>
 		<?php include "footer.php" ?>
 	</body>
 </html>
