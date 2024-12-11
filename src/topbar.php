@@ -9,8 +9,8 @@ $chan_info = chan_info_read();
 		{
 			echo "<p>[</p>";
 			echo "<p>Logged in as " . staff_get_current_user()->username . "</p>";
-			echo "<a href=/internal/actions/staff/logout.php>Logout</a>";
-			echo "<a href=/staff_dashboard.php>Dashboard</a>";
+			echo "<a href=/admin.php?action=logout>Logout</a>";
+			echo "<a href=/admin.php>Dashboard</a>";
 			echo "<p>]</p>";
 		}
 	?>

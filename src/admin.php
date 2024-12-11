@@ -1,14 +1,81 @@
 <?php
-	include_once "internal/staff_session.php";
-	include_once "internal/board.php";
+include_once "internal/staff_session.php";
 
-	if (!staff_session_is_valid())
-	{
-		header("Location: /staff_login.php");
-		die();
-	}
-?>
+if (isset($_GET["action"]))
+{
+    // login
+    if ($_GET["action"] == "login")
+    {
+        $status = staff_login($_POST["username"], $_POST["password"]);
 
+        $status_str = "";
+
+        switch ($status)
+        {
+            case LoginResult::SUCCESS: $status_str = "success"; break;
+            case LoginResult::FAILED_INVALID_USER: $status_str = "invalid_username"; break;
+            case LoginResult::FAILED_INVALID_PASSWORD: $status_str = "invalid_password"; break;
+        }
+
+        header("Location: /" . basename(__FILE__) . "?result=$status_str");
+    }
+
+    // logout
+    if ($_GET["action"] == "logout")
+    {
+        echo "Logout!";
+        staff_logout();
+        header("Location: /" . basename(__FILE__));
+    }
+}
+
+// login screen
+if (!staff_session_is_valid())
+{
+    ?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Staff login</title>
+		<?php include "internal/link_css.php"; ?>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body>
+		<?php
+			include "topbar.php";
+		
+			if (isset($_GET["result"]))
+			{
+				if ($_GET["result"] == "success")
+				{
+					header("Location: /admin.php");
+					die();
+				}
+				else if ($_GET["result"] == "invalid_password")
+					echo '<script async>alert("Wrong password")</script>';
+				else if ($_GET["result"] == "invalid_username")
+					echo '<script async>alert("This user does not exist")</script>';
+
+			}
+			
+			echo "<div class=post_form>";
+			(new PostForm("/admin.php?action=login", "POST"))
+				->add_text_field("Username", "username")
+				->add_password_field("Password", "password")
+				->finalize();
+			echo "</div>";
+
+			include "footer.php";
+		?>
+	</body>
+</html>
+    <?php
+}
+// dashboard
+else
+{
+    ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -26,7 +93,7 @@
 			<?php
 				$current_user = staff_get_current_user();
 				echo "<h4>Logged in as $current_user->username</h4>";
-				echo "<a href=/internal/actions/staff/logout.php>Log out</a>";
+				echo "<a href=/admin.php?action=logout>Log out</a>";
 
 				if ($current_user->needs_update)
 				{
@@ -81,3 +148,5 @@
 		<?php include "footer.php" ?>
 	</body>
 </html>
+<?php
+}
