@@ -41,8 +41,7 @@ function parse_size($size) {
 }
 
 function error_die($error)
-{
-	
+{	
 	if (isset($_POST["is_reply"]))
 		header("Location: /" . $_POST["board"] . "/post.php?error=" . urlencode($error) . "&id=" . $_POST["replies_to"]);
 	else if (!isset($_POST["is_reply"]) && isset($_POST["board"]))		
@@ -66,14 +65,10 @@ if ($_SERVER['CONTENT_LENGTH'] > file_upload_max_size())
 	error_die("Your file is too big. Max size is " . ini_get("upload_max_filesize"));
 
 if ( $_FILES["file"]["size"] <= 0 && !isset($_POST["is_reply"]) )
-{
 	error_die("Your post must contain an image");
-}
 
 if (isset($_POST["is_reply"]) && trim($_POST["comment"]) == "")
-{
 	error_die("Your post must containt a comment");
-}
 
 $file_upload_dir = "uploads/";
 $target_file = "";
@@ -119,26 +114,11 @@ if ($_FILES["file"]["size"] > 0)
 	$target_file = $file_upload_dir . "$result->board-" . strval($result->id) . "." . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
 	move_uploaded_file($_FILES["file"]["tmp_name"], __DIR__ . "/../../" . $target_file);
 	post_update_file($database, $result->board, $result->id, $target_file);
+	$result->image_file = $target_file;
 
 	if (str_starts_with($_FILES["file"]["type"], "image"))
 	{
-		// create image thumbnail
-		$image_data = file_get_contents(__DIR__ . "/../../" . $target_file);
-		$image = imagecreatefromstring($image_data);
-			
-		$width = imagesx($image);
-		$height = imagesy($image);
-
-		$desired_width = 200;
-		$desired_height = floor($height * ($desired_width / $width));
-
-		$virtual_image = imagecreatetruecolor($desired_width, $desired_height);
-		imagealphablending($virtual_image, false);
-		imagesavealpha($virtual_image, true);
-		$color = imagecolorallocatealpha($virtual_image, 0, 0, 0, 127);
-		imagefill($virtual_image, 0, 0, $color);
-		imagecopyresampled($virtual_image, $image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
-		imagewebp($virtual_image, __DIR__ . "/../../" . $file_upload_dir . "$result->board-$result->id-thumb.webp");
+		post_generate_thumbnail($result);
 	}
 }
 

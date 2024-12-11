@@ -82,13 +82,15 @@ function generate_salt($length)
 
 	for ($i = 0; $i < $length; $i++)
 	{
-		$string = $string . substr(mt_rand(0, $strlen - 1), 1);
+		$string = $string . substr($characters, mt_rand(0, $strlen - 1), 1);
 	}
+
+	return $string;
 }
 
 if (!isset($chan_info->password_salt))
 {
-	$salt = generate_salt(64);
+	$chan_info->salt = generate_salt(64);
 	chan_info_write($chan_info);
 }
 

@@ -421,3 +421,24 @@ function post_update_file($database, $board, $id, $file)
 		where id = $id;
 	");
 }
+
+function post_generate_thumbnail($post)
+{
+	// create image thumbnail
+	$image_data = file_get_contents(__DIR__ . "/../" . $post->image_file);
+	$image = imagecreatefromstring($image_data);
+		
+	$width = imagesx($image);
+	$height = imagesy($image);
+
+	$desired_width = 200;
+	$desired_height = floor($height * ($desired_width / $width));
+
+	$virtual_image = imagecreatetruecolor($desired_width, $desired_height);
+	imagealphablending($virtual_image, false);
+	imagesavealpha($virtual_image, true);
+	$color = imagecolorallocatealpha($virtual_image, 0, 0, 0, 127);
+	imagefill($virtual_image, 0, 0, $color);
+	imagecopyresampled($virtual_image, $image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
+	imagewebp($virtual_image, __DIR__ . "/../uploads/" . "$post->board-$post->id-thumb.webp");
+}
