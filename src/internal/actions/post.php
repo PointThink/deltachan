@@ -105,7 +105,8 @@ $title = "";
 if (isset($_POST["title"]))
 	$title = $_POST["title"];
 
-$result = $database->write_post(
+$result = post_create(
+	$database,
 	$_POST["board"], isset($_POST["is_reply"]), $replies_to, $name, trim($title), trim($_POST["comment"]),
 	$_SERVER["REMOTE_ADDR"], $geolocation->country, $is_mod_post
 );
@@ -117,7 +118,7 @@ if ($_FILES["file"]["size"] > 0)
 {	
 	$target_file = $file_upload_dir . "$result->board-" . strval($result->id) . "." . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
 	move_uploaded_file($_FILES["file"]["tmp_name"], __DIR__ . "/../../" . $target_file);
-	$database->update_post_file($result->board, $result->id, $target_file);
+	post_update_file($database, $result->board, $result->id, $target_file);
 
 	if (str_starts_with($_FILES["file"]["type"], "image"))
 	{
@@ -150,7 +151,7 @@ array_push($_SESSION["users_posts"], $result->id);
 if (isset($_POST["is_reply"]))
 {
 	if (!isset($_POST["sage"]))
-		$database->bump_post($result->board, $result->replies_to);
+		post_bump($database, $result->board, $result->replies_to);
 	header("Location: /$result->board/post.php?id=$result->replies_to");
 }
 else

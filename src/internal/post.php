@@ -291,20 +291,133 @@ class Post
 	}
 }
 
-function post_delete($board, $id)
+function post_delete($database, $board, $id)
 {
-	$database = new Database();
-	
 	// first delete the file
-	$post = $database->read_post($board, $id);
+	$post = post_read($database, $id, $board);
 	$file_parts = explode(".", $post->image_file);
 	$thumbnail_path = $file_parts[0] . "-thumb.webp";
 	unlink(__DIR__ . "/../$post->image_file");
 	unlink(__DIR__ . "/../$thumbnail_path");	
 	
-	$database->remove_post($board, $id);
+	$database->query("
+			delete from posts_$board where id = $id;
+		");
+
 	report_delete_for_post($board, $id);
 
 	foreach ($post->replies as $reply)
-		post_delete($board, $reply->id);
+		post_delete($database, $board, $reply->id);
+}
+
+function post_create($database, $board_id, $is_reply, $replies_to, $name, $title, $body, $poster_ip, $poster_country, $is_staff_post)
+{
+	if (!$is_reply) $replies_to = 0;
+	if (!$is_staff_post) $staff_username = "";
+
+	$is_reply = intval($is_reply);
+
+	// prevent sql injection
+	$title = $database->sanitize($title);
+	$body = $database->sanitize($body);
+	$name = $database->sanitize($name);
+
+	$query = "insert into posts_$board_id(
+		is_reply, replies_to, name, title, post_body, poster_ip, poster_country, is_staff_post
+	) values (
+		$is_reply, $replies_to, '$name', '$title', '$body', '$poster_ip', '$poster_country', $is_staff_post
+	);";
+
+	$query_result = $database->query($query);
+
+	// return the newly created post
+	return post_read($database, $database->mysql_connection->insert_id, $board_id);
+}
+
+function post_read($database, $id, $board)
+{
+	$id = $database->sanitize($id);
+	$board = $database->sanitize($board);
+
+	$post = new Post();
+
+	$query_result = $database->query("select * from posts_$board where id = $id;");
+
+	if ($query_result->num_rows <= 0)
+		return null;
+
+	$post_array = $query_result->fetch_array();
+
+	$post->board = $board;
+	$post->id = $id;
+	$post->is_reply = $post_array["is_reply"];
+	$post->replies_to = $post_array["replies_to"];
+	
+	$post->creation_time = $post_array["creation_time"];
+	$post->bump_time = $post_array["bump_time"];
+
+	$post->name = $post_array["name"];
+	$post->body = $post_array["post_body"];
+	$post->title = $post_array["title"];
+	$post->image_file = $post_array["image_file_name"];
+
+	$post->poster_ip = $post_array["poster_ip"];
+	$post->poster_country = $post_array["poster_country"];
+
+	$post->is_staff_post = $post_array["is_staff_post"];
+
+	$post->approved = $post_array["approved"];
+	$post->sticky = $post_array["sticky"];
+
+	if (!$post_array["is_reply"])
+		$post->replies = post_get_replies($database, $id, $board);
+
+	return $post;
+}
+
+function post_get_replies($database, $post, $board)
+{
+	$database = new Database();
+
+	$post = $database->sanitize($post);
+	$board = $database->sanitize($board);
+
+	$replies = array();
+	$id_str = strval($post);
+
+	$result = $database->query("
+		select id from posts_$board where is_reply = 1 and replies_to = $id_str;
+	");
+
+	while ($reply = $result->fetch_assoc())
+		array_push($replies, post_read($database, $reply["id"], $board));
+
+	return $replies;
+}
+
+function post_bump($database, $board, $id)
+{
+	$board = $database->sanitize($board);
+	$id = $database->sanitize($id);
+
+	$database->query("
+		update posts_$board
+		set bump_time = current_timestamp
+		where id = $id;
+	");
+}
+
+function post_update_file($database, $board, $id, $file)
+{
+	$board = $database->sanitize($board);
+	$id = $database->sanitize($id);
+	$file = $database->sanitize($file);
+
+	$file = $database->mysql_connection->real_escape_string($file);
+
+	$database->query("
+		update posts_$board
+		set image_file_name = '$file'
+		where id = $id;
+	");
 }

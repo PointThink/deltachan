@@ -5,7 +5,7 @@ include_once "internal/ui.php";
 include_once "internal/staff_session.php";
 
 $database = new Database();
-$post = $database->read_post($board_id, $_GET["id"]);
+$post = post_read($database, $_GET["id"], $board_id);
 
 if ($post->is_reply)
 {

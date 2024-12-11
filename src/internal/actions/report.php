@@ -38,7 +38,7 @@ if (count($_POST) > 0)
 			echo "<h1 class=title>Reporting post</h1>";
 
 			$database = new Database();
-			$post = $database->read_post($_GET["board"], $_GET["id"]);
+			$post = post_read($database, $_GET["id"], $_GET["board"]);
 			echo "<div id=posts>";
 			$post->display(false, true);
 			echo "</div>";

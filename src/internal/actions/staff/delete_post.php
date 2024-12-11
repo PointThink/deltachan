@@ -11,6 +11,6 @@ if (!staff_session_is_valid())
 
 $database = new Database();
 
-post_delete($board, $id);
+post_delete($database, $board, $id);
 
 header("Location: " . $_SERVER["HTTP_REFERER"]);

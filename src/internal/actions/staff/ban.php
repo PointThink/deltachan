@@ -29,7 +29,7 @@ if (count($_POST) > 0)
             if ($result->num_rows > 0)
             {
                 while ($post_array = $result->fetch_assoc())
-                    post_delete($board->id, $post_array["id"]);
+                    post_delete($database, $board->id, $post_array["id"]);
             }
         }
     }

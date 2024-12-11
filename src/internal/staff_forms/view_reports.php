@@ -35,7 +35,7 @@ if (!staff_session_is_valid() || !staff_is_moderator())
                     ->add_data("report_id", $report->report_id)
                     ->finalize();
 
-                $post = $database->read_post($report->post_board, $report->post_id);
+                $post = post_read($database, $report->post_id, $report->post_board);
                 $post->display(false, false, true);
             }
         ?>
