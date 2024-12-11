@@ -13,7 +13,7 @@ if (count($_POST) > 0)
     if (intval($_POST["duration"]) > 0)
         $duration = intval($_POST["duration"]);
 
-    create_ban($_POST["ip"], $_POST["reason"], $duration);
+    create_ban($_POST["ip"], $_POST["reason"], $duration, staff_get_current_user()->username);
 
 
     if (isset($_POST["delete_posts"]))

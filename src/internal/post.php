@@ -46,11 +46,13 @@ class Post
 		{
 			$file_parts = explode(".", $this->image_file);
 			$thumb_file_name = $file_parts[0] . "-thumb.webp";
-			echo "<img class=post_attachment id=post_image_$this->id
-				src='/$thumb_file_name' onclick='expand_image($this->id)'
+			echo "<a href=/$this->image_file onclick='expand_image($this->id);return false;'>
+			<img class=post_attachment id=post_image_$this->id
+				src='/$thumb_file_name'
 				full_size_image=/$this->image_file
 				thumbnail_image=/$thumb_file_name
-			>";
+			>
+			</a>";
 		}
 		else
 			echo "<a class=post_attachment_non_image href='/$this->image_file'><img class=post_attachment_non_image alt='attachment' src='/attachment.svg'>$base_name</a>";
@@ -246,7 +248,7 @@ class Post
 		$this->format_and_show_text($this->body);
 		echo "</div>";
 
-		if (count($this->replies) > 0 & $board_view)
+		if (count($this->replies) > 5 & $board_view)
 		{
 			echo "<p class=replies_last_5>" . localize("post_replies_last5") ."</p>";
 			echo "<a href='/$this->board/post.php?id=$this->id' class=thread_view id=hide_replies_$this->id onclick='hide_replies(\"$this->id\")'>" . localize("post_replies_hide") . "</a>";
@@ -254,7 +256,7 @@ class Post
 		if (!$report_mode && !$report_view_mode)
 		{
 			$replies = $this->replies;
-			if ($board_view)
+			if ($board_view && count($this->replies) > 5)
 				$replies = array_slice($this->replies, count($this->replies) - 5, 5); 
 
 			echo "<div id=replies_$this->id>";
@@ -279,7 +281,7 @@ class Post
 		echo "<br>";
 
 		if ($this->title != "")
-			echo "<b>$this->title</b>";
+			echo "<b>" . htmlspecialchars($this->title) . "</b>";
 
 		echo "<div class=post_comment>";
 		$this->format_and_show_text($this->body);

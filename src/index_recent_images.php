@@ -23,8 +23,6 @@
 		    return $files;
 		}
 
-
-
 		$files = scan_dir_sorted(__DIR__ . "/uploads/");
 
 		for ($i = 0; $i < $recent_image_count && $i < count($files); $i++)
@@ -34,7 +32,7 @@
 			$board = $parts[0];
 			$post = $parts[1];
 
-			echo "<a href=/$board/post.php?id=$post><img class=recent_image src=/uploads/" . $files[$i] . ">";
+			echo "<a href=/$board/post.php?id=$post><img class=recent_image src=/uploads/" . $files[$i] . "></a>";
 		}
 	?>
 

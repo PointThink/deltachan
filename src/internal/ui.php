@@ -85,7 +85,7 @@ class PostForm
 
 		$this->buffer .= "<tr>";
 		$this->buffer .= "<th>$label</th>";
-		$this->buffer .= "<td><div class='cf-turnstile' data-sitekey='" . turnslite_get_site_key() . "'></div></td>";
+		$this->buffer .= "<td><div class='cf-turnstile' data-sitekey='" . turnslite_get_site_key() . "'></div><noscript class=no_js_warning><p>Turnslite requires JavaScript to be enabled</p></noscript></td>";
 		$this->buffer .= "<tr>";
 		return $this;
 	}

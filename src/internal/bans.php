@@ -7,6 +7,7 @@ class Ban
     public $expires;
     public $date;
     public $duration;
+    public $banned_by;
 }
 
 function is_user_banned()
@@ -43,6 +44,7 @@ function ban_read($ip)
     $ban->expires = $ban_array["duration"] != 0;
     $ban->date = $ban_array["date"];
     $ban->duration = $ban_array["duration"];
+    $ban->banned_by = $ban_array["banned_by"];
 
     return $ban;
 }
@@ -64,7 +66,7 @@ function ban_list_banned_ips()
 
 // duration in seconds
 // durration = 0 means ban is permanent
-function create_ban($ip, $reason, $duration)
+function create_ban($ip, $reason, $duration, $creator)
 {
     $database = new Database();
  
@@ -74,9 +76,9 @@ function create_ban($ip, $reason, $duration)
 
     $database->query("
         insert into bans (
-            ip, reason, duration
+            ip, reason, duration, banned_by
         ) values (
-            '$ip', '$reason', $duration
+            '$ip', '$reason', $duration, '$creator'
         );
     ");
 }

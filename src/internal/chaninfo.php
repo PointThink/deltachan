@@ -10,11 +10,15 @@ class ChanInfo
     public $password_salt;
     public $turnslite_site_key;
     public $turnslite_secret_key;
+    public $show_ban_list = false;
 }
 
 function chan_info_read()
 {
-    return json_decode(file_get_contents(__DIR__ . "/chaninfo.json"));
+    $data = json_decode(file_get_contents(__DIR__ . "/chaninfo.json"));
+    $class = new ChanInfo();
+    foreach ($data as $key => $value) $class->{$key} = $value;
+    return $class;
 }
 
 function chan_info_write($chan_info)

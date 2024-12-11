@@ -1,6 +1,7 @@
 <?php
 include_once "internal/board.php";
 include_once "internal/staff_session.php";
+$chan_info = chan_info_read();
 ?>
 <div id=topbar>
 	<?php
@@ -19,6 +20,10 @@ include_once "internal/staff_session.php";
 	<a href=/settings.php>settings</a>
 	<a href=/rules.php>rules</a>
 	<a href=/faq.php>faq</a>
+	<?php
+		if ($chan_info->show_ban_list)
+			echo "<a href=/bans.php>bans</a>"
+	?>
 	<p>]</p>
 
 	<p>[</p>
@@ -32,7 +37,7 @@ include_once "internal/staff_session.php";
 	?>
 	<p>]</p>
 
-	<div id="theme_selector_section">
+	<div style="display: none;" id="theme_selector_section">
 		<p>Theme:</p>
 		<script src="/internal/theme_selector.js"></script>
 
@@ -57,6 +62,10 @@ include_once "internal/staff_session.php";
 			}
 		?>
 		</select>
+
+		<script>
+			document.getElementById("theme_selector_section").style.display = "block";
+		</script>
 	</div>
 </div>
 

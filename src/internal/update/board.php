@@ -33,3 +33,19 @@ function update_boards_nsfw_row()
         ");
     }
 }
+
+function update_ban_list()
+{
+    $database = new Database();
+
+    $result = $database->query("SHOW COLUMNS FROM `bans` LIKE 'banned_by'");
+    $exists = $result->num_rows ? TRUE:FALSE;
+    
+    if (!$exists)
+    {
+        $database->query("
+            alter table bans add banned_by varchar(30) default null;        
+        ");
+    }
+}
+

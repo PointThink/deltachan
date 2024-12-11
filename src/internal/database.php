@@ -51,7 +51,8 @@ class Database
 				ip varchar(255) not null primary key,
 				reason text not null,
 				date datetime not null default current_timestamp,
-				duration int not null default 0
+				duration int not null default 0,
+				banned_by varchar(30) default null
 			);
 		");
 
