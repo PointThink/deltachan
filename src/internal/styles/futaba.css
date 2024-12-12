@@ -4,18 +4,8 @@
 
 body {
     font-size: 11pt !important;
-	background: #eef2ff;
-	color: black;
-}
-
-hr {
-    border: none;
-    border-top: 1px solid #b7c5d9;
-    height: 0;
-}
-
-.title, .report_header {
-	color: #AF0A0F;
+	background: #ffe;
+	color: #800000;
 }
 
 .post * {
@@ -26,12 +16,14 @@ hr {
     font-size: 9pt !important;
 }
 
-.post .your_post {
-	color: brown;
+hr {
+    border: none;
+    background-color: #91222066;
+    height: 1px;
 }
 
-.reply {
-	background: #d6daf0;
+.post .your_post {
+	color: navy;
 }
 
 .post {
@@ -39,27 +31,26 @@ hr {
     margin: 0;
 }
 
+.reply {
+	background: #f0e0d6;
+}
+
 #topbar {
   border-bottom: 1px solid black;
-  background-color: #d6daf0;
+  background: rgb(231, 231, 220);
   padding: 0.1cm;
 }
 
-#topbar * {
-    font-size: 10pt !important;
-}
-
 .post_form th {
-	background: #9988ee;
+	background: #eeaa88;
 	border: none !important;
     text-align: left;
     padding: 0.1cm !important;
     font-size: 11pt !important;
 }
 
-
 a:link, a:visited {
-  color: #34345c;
+  color: blue;
 }
 
 #staff_dashboard_content {
@@ -69,8 +60,9 @@ a:link, a:visited {
 #reply_disclaimer {
 	margin-left: 2px;
 	margin-right: 3px;
-	background: #0010e0;
-	color: white;
+	border: 1px solid black;
+	background: #40d9ff;
+	color: black;
 }
 
 #staff_disclaimer {
@@ -82,8 +74,8 @@ a:link, a:visited {
 }
 
 .manage_table th {
-    border: 1px solid black;
-	background-color: #9988ee;
+    border: 1px solid #eeaa88;
+	background-color: #eeaa88;
 }
 
 .manage_table td {
@@ -92,17 +84,20 @@ a:link, a:visited {
 
 .list {
 	background: white;
-    border: 1px solid #9988ee !important;
+    border: 1px solid #eeaa88 !important;
 }
 
 .list .list_title {
-	background-color: #9988ee;
+	background-color: #eeaa88;
+}
+
+.post .your_post {
+	color: brown;
 }
 
 .list .boards_table th {
-	background-color: #9988ee;
+	background-color: #eeaa88
 }
-
 
 .list .boards_table tr {
 	background-color: #ffffff;
@@ -113,15 +108,11 @@ a:link, a:visited {
 }
 
 .board_pages {
-	background: #d6daf0;
+	background: #f0e0d6;
 }
 
 .post_title {
-	color: #0F0C5D;
-}
-
-.catalog_post {
-	background: #d6daf0;
+	color: #d00;
 }
 
 .stats {
