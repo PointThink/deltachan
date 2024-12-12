@@ -67,8 +67,8 @@ if ($_SERVER['CONTENT_LENGTH'] > file_upload_max_size())
 if ( $_FILES["file"]["size"] <= 0 && !isset($_POST["is_reply"]) )
 	error_die("Your post must contain an image");
 
-if (isset($_POST["is_reply"]) && trim($_POST["comment"]) == "")
-	error_die("Your post must containt a comment");
+if (isset($_POST["is_reply"]) && trim($_POST["comment"]) == "" && $_FILES["file"]["size"] <= 0)
+	error_die("Your post must containt a comment or image");
 
 $file_upload_dir = "uploads/";
 $target_file = "";

@@ -108,3 +108,11 @@ a:link, a:visited {
 .post_title {
 	color: #0F0C5D;
 }
+
+.catalog_post {
+	background: #d6daf0;
+	border-top: 1px solid rgba(255, 255, 255, 0.5);
+	border-left: 1px solid rgba(255, 255, 255, 0.5);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+	border-right: 1px solid rgba(0, 0, 0, 0.25);
+}

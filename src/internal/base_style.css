@@ -515,3 +515,18 @@ form .clear_file, form .file_upload {
 	color: brown;
 	font-size: 10pt;	
 }
+
+.post_comment {
+	padding: 0.1cm;
+}
+
+.ban {
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: 1fr min-content;
+}
+
+.ban_image, img {
+	text-align: center;
+	max-height: 300px;
+}
