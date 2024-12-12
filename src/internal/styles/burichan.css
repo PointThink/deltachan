@@ -1,0 +1,129 @@
+* {
+    font-family: serif !important;
+}
+
+body {
+    font-size: 11pt !important;
+	background: #eef2ff;
+	color: black;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #b7c5d9;
+    height: 0;
+}
+
+.title, .report_header {
+	color: #AF0A0F;
+}
+
+.post * {
+    font-size: 11pt !important;
+}
+
+.post .your_post {
+	color: brown;
+}
+
+.reply {
+	background: #d6daf0;
+}
+
+.post {
+    background-color: none;
+    margin: 0;
+}
+
+#topbar {
+  border-bottom: 1px solid black;
+  background-color: #d6daf0;
+  padding: 0.1cm;
+}
+
+#topbar * {
+    font-size: 10pt !important;
+}
+
+.post_form th {
+	background: #9988ee;
+	border: none !important;
+    text-align: left;
+    padding: 0.1cm !important;
+    font-size: 11pt !important;
+}
+
+
+a:link, a:visited {
+  color: #34345c;
+}
+
+#staff_dashboard_content {
+  background: white;
+}
+
+#reply_disclaimer {
+	margin-left: 2px;
+	margin-right: 3px;
+	background: #0010e0;
+	color: white;
+}
+
+#staff_disclaimer {
+	margin-left: 2px;
+	margin-right: 3px;
+	border: 1px solid black;
+	background: #ff5a5a;
+	color: black;
+}
+
+.manage_table th {
+    border: 1px solid black;
+	background-color: #9988ee;
+}
+
+.manage_table td {
+	background-color: white;
+}
+
+.list {
+	background: white;
+    border: 1px solid #9988ee !important;
+}
+
+.list .list_title {
+	background-color: #9988ee;
+}
+
+.list .boards_table th {
+	background-color: #9988ee;
+}
+
+
+.list .boards_table tr {
+	background-color: #ffffff;
+}
+
+.list .boards_table tr:nth-of-type(odd) {
+	background-color: #eeeeee;
+}
+
+.board_pages {
+	background: #d6daf0;
+}
+
+.post_title {
+	color: #0F0C5D;
+}
+
+.catalog_post {
+	background: #d6daf0;
+}
+
+.stats {
+	border: 1px solid #5599aa !important;
+}
+
+.recent_images {
+	border: 1px solid #99cc66 !important;
+}

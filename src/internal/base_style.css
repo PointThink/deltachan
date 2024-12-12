@@ -389,26 +389,26 @@ form .clear_file, form .file_upload {
 	margin-right: 0.5cm;
 	width: 7cm;
 	display: inline-block;
-	background-color: #eeeeff !important;
-	color: #000066 !important;
-	border: 1px solid #000066 !important;
+	background-color: #eeeeff;
+	color: #000066;
+	border: 1px solid #000066;
 }
 
 .stats .list_title {
-	background-color: #5599aa !important;
-	color: white !important;
+	background-color: #5599aa;
+	color: white;
 }
 
 .recent_images {
 	width: 100%;
 	display: inline-block;
-	border: 1px solid #006600 !important;
-	background-color: #eeffee !important;
+	border: 1px solid #006600;
+	background-color: #eeffee;
 }
 
 .recent_images .list_title {
-	color: #006600 !important;
-	background-color: #99cc66 !important;
+	color: #006600;
+	background-color: #99cc66;
 }
 
 .recent_image {
