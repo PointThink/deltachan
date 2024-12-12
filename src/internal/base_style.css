@@ -116,6 +116,11 @@ body {
 	box-sizing: border-box;
 }
 
+.post .file_stats {
+	font-size: 8pt;
+	margin: 0;
+}
+
 .post .post_title {
 	font-size: 10pt;
 	font-weight: bold;

@@ -9,6 +9,7 @@ include_once "database.php";
 include_once __DIR__ . "/report.php";
 include_once "locale.php";
 include_once "ui.php";
+include_once "utils.php";
 
 class Post
 {
@@ -34,6 +35,17 @@ class Post
 	public $sticky;
 
 	public $replies = array();
+
+	public function display_file_stats()
+	{
+		$full_link = $_SERVER["SERVER_NAME"] . "/" . $this->image_file;
+		$pretty_name = explode("/", $this->image_file)[1];
+
+		echo "<p class=file_stats>
+		File: <a href=/$this->image_file>$pretty_name</a>
+		(" . format_bytes(filesize(__DIR__ . "/../$this->image_file")) . ")
+		<a href=https://imgops.com/$full_link>ImgOps</a></p>";
+	}
 
 	public function display_attachment()
 	{
@@ -244,6 +256,9 @@ class Post
 			}
 		}
 
+		if ($this->image_file != "")
+			$this->display_file_stats();
+		
 		echo "<div class=post_comment>";
 		$this->format_and_show_text($this->body);
 		echo "</div>";
