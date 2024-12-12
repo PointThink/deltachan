@@ -72,9 +72,19 @@ if ($post->is_reply)
 		</div>
 
 		<div id=posts>
+			<div class="thread_actions">
 			<?php
+				echo "<hr>";
+				
+				echo "<a href=/$board->id>[Return]</a>";
+				echo "<a href=/$board->id/catalog.php>[Catalog]</a>";
+				echo "<a href=# onclick=\"window.scrollTo(0, document.body.scrollHeight); return false;\">[Bottom]</a>";
+
+				echo "<hr></div>";
+
 				$post->display();
 			?>
+			
 		</div>
 
 		<?php include "footer.php" ?>

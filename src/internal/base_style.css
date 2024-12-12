@@ -530,3 +530,8 @@ form .clear_file, form .file_upload {
 	text-align: center;
 	max-height: 300px;
 }
+
+.thread_actions a {
+	margin-right: 0.1cm;
+	font-size: 11pt;
+}
