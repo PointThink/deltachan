@@ -179,7 +179,7 @@ class Post
 			echo "<p class='name staff_name'><b>$this->name</b> ## $role</p>";
 		}
 
-		if	(isset($_SESSION["user_posts"]) && $_SESSION["users_posts"] != NULL)
+		if	(isset($_SESSION["users_posts"]) && $_SESSION["users_posts"] != NULL)
 			if (in_array($this->id, $_SESSION["users_posts"]))
 				echo "<p class=your_post>(You)</p>";
 
