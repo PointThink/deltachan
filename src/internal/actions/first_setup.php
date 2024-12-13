@@ -90,7 +90,7 @@ function generate_salt($length)
 
 if (!isset($chan_info->password_salt))
 {
-	$chan_info->salt = generate_salt(64);
+	$chan_info->password_salt = generate_salt(64);
 	chan_info_write($chan_info);
 }
 
