@@ -172,3 +172,21 @@ class ActionLink
 		return $this;
 	}
 }
+
+function parameter_link($page, $arguments)
+{
+	$link = "$page?";
+
+	foreach ($arguments as $key => $value)
+	{
+		$link .= $key . "=" . urlencode($value) ."&";
+	}
+
+	return $link;
+}
+
+function display_parameter_link($name, $page, $arguments, $class = "", $id = "")
+{
+	$href = parameter_link($page, $arguments);
+	echo "<a href=\"$href\" class=$class>$name</a>";
+}

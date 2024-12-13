@@ -11,6 +11,10 @@ include_once "locale.php";
 include_once "ui.php";
 include_once "utils.php";
 
+/**
+ * Class Post
+ * Represents a single post on a board, including metadata and functionality.
+ */
 class Post
 {
 	public $id;
@@ -39,12 +43,15 @@ class Post
 	public function display_file_stats()
 	{
 		$full_link = $_SERVER["SERVER_NAME"] . "/" . $this->image_file;
-		$pretty_name = explode("/", $this->image_file)[1];
+		$pretty_name = basename($this->image_file);
+		$bytes_format = "(" . format_bytes(filesize(__DIR__ . "/../$this->image_file")) . ")";
 
-		echo "<p class=file_stats>
+		echo <<<HTML
+		<p class=file_stats>
 		File: <a href=/$this->image_file>$pretty_name</a>
-		(" . format_bytes(filesize(__DIR__ . "/../$this->image_file")) . ")
-		<a href=https://imgops.com/$full_link>ImgOps</a></p>";
+		$bytes_format
+		<a href=https://imgops.com/$full_link>ImgOps</a></p>
+		HTML;
 	}
 
 	public function display_attachment()
@@ -193,10 +200,7 @@ class Post
 		else
 			echo "<p class=post_id>>>$this->id | $this->creation_time</p>";
 
-		(new ActionLink("/internal/actions/report.php", "report_$this->id", localize("post_report"), "GET"))
-			->add_data("id", $this->id)
-			->add_data("board", $this->board)
-			->finalize();
+		display_parameter_link("Report", "/internal/actions/report.php", array("id" => $this->id, "board" => $this->board), "action_link");
 
 		if ($this->is_reply)
 		{
@@ -204,55 +208,26 @@ class Post
 			foreach (explode("\n", $this->body) as $line)
 				$quote_content .= ">$line\n";
 
-			(new ActionLink("/$this->board/post.php", "quote_$this->id", localize("post_quote"), "GET"))
-				->add_data("id", $this->replies_to)
-				->add_data("reply_field_content", urlencode($quote_content))
-				->finalize();
-
-			(new ActionLink("/$this->board/post.php", "reply_$this->id", localize("post_reply"), "GET"))
-				->add_data("id", $this->replies_to)
-				->add_data("reply_field_content", urlencode(">>$this->id"))
-				->finalize();
+			display_parameter_link(localize("post_quote"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => $quote_content), "action_link");
+			display_parameter_link(localize("post_reply"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => ">>$this->id"), "action_link");
 		}
 
 		if (staff_session_is_valid())
 		{
-			(new ActionLink("/internal/actions/staff/delete_post.php", "delete_$this->id", "Delete"))
-				->add_data("board", $this->board)
-				->add_data("id", $this->id)
-				->finalize();
+			display_parameter_link("Delete", "/internal/actions/staff/delete_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
+			if (!$this->approved)
+			{
+				display_parameter_link("Approve", "/internal/actions/staff/approve_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
+			}
 		}
 
 		if (staff_session_is_valid() && staff_is_moderator())
 		{
-			(new ActionLink("/internal/actions/staff/ban.php", "ban_$this->id", "Ban", "GET"))
-				->add_data("ip", $this->poster_ip)
-				->finalize();
-
-			if (!$this->approved)
-			{
-				(new ActionLink("/internal/actions/staff/approve_post.php", "approve_$this->id", "Approve"))
-					->add_data("board", $this->board)
-					->add_data("id", $this->id)
-					->finalize();
-			}
+			display_parameter_link("Ban", "/internal/actions/staff/ban.php", array("ip" => $this->poster_ip), "action_link");
 
 			if (!$this->is_reply)
 			{
-				if ($this->sticky)
-				{
-					(new ActionLink("/internal/actions/staff/sticky_post.php", "approve_$this->id", "Unstick"))
-						->add_data("board", $this->board)
-						->add_data("id", $this->id)
-						->finalize();
-				}
-				else
-				{
-					(new ActionLink("/internal/actions/staff/sticky_post.php", "approve_$this->id", "Sticky"))
-						->add_data("board", $this->board)
-						->add_data("id", $this->id)
-						->finalize();
-				}
+				display_parameter_link($this->sticky ? "Unstick" : "Sticky", "/internal/actions/staff/sticky_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
 			}
 		}
 

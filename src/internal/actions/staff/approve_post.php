@@ -7,8 +7,8 @@ if (!staff_session_is_valid())
 
 $database = new Database();
 
-$board = $_POST["board"];
-$post = $_POST["id"];
+$board = $_GET["board"];
+$post = $_GET["id"];
 
 $database->query(
     "update posts_$board
