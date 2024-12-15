@@ -132,19 +132,19 @@ class Post
 
 		$textParts = explode("\n", $ret);
 
-		echo "<div class=post_text>\n";
+		echo "<blockquote>";
     	foreach ($textParts as $part)
     	{
         	if (str_starts_with($part, "&gt"))
-            	echo "<pre class='greentext'>$part</pre>";
+            	echo "<span class='greentext'>$part</span><br>";
         	else if (str_starts_with($part, "&lt"))
-            	echo "<pre class='orangetext'>$part</pre>";
+            	echo "<span class='orangetext'>$part</span><br>";
         	else if (str_starts_with($part, "^"))
-            	echo "<pre class='bluetext'>$part</pre>";
+            	echo "<span class='bluetext'>$part</span><br>";
         	else
-            	echo "<pre>$part</pre>";
+            	echo "$part<br>";
     	}
-    	echo "</div>\n";
+    	echo "</blockquote>";
 	}
 
 	public function display($board_view = false, $report_mode = false, $report_view_mode = false)
@@ -236,10 +236,9 @@ class Post
 		if ($this->image_file != "")
 			$this->display_file_stats();
 		
-		echo "<div class=post_comment>";
-		$this->format_and_show_text($this->body);
-		echo "</div>";
-
+		if ($this->body != "")
+			$this->format_and_show_text($this->body);
+		
 		if (count($this->replies) > 5 & $board_view)
 		{
 			echo "<p class=replies_last_5>" . localize("post_replies_last5") ."</p>";

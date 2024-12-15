@@ -52,6 +52,12 @@ function error_die($error)
 	die();
 }
 
+function generate_tripcode($key_phrase)
+{
+	$salt = chan_info_read()->password_salt;
+	return substr(md5($salt . $key_phrase), -10);
+}
+
 if (!turnslite_verify_response($_POST["cf-turnstile-response"]))
 	error_die("Captcha failed!");
 	
@@ -85,7 +91,19 @@ if (staff_session_is_valid())
 	$is_mod_post = "1";
 }
 else
+{
+	if (str_contains($_POST["name"], "!"))
+		error_die("Name cannot contain !");
+
 	$name = $_POST["name"];
+	if (str_contains($name, "#"))
+	{
+		// tripcode detected
+		$trip_part = explode("#", $name, 2);
+		$key_phrase = $trip_part[1];
+		$name = $trip_part[0] . "!!" . generate_tripcode($key_phrase);
+	}
+}
 
 if (isset($_POST["sage"]))
 	$name .= " SAGE!";
