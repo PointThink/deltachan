@@ -219,6 +219,8 @@ class Post
 			{
 				display_parameter_link("Approve", "/internal/actions/staff/approve_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
 			}
+			if (!$this->is_reply)
+				display_parameter_link("Move thread", "/internal/actions/staff/move_thread.php", array("board" => $this->board, "id" => $this->id), "action_link");
 		}
 
 		if (staff_session_is_valid() && staff_is_moderator())
@@ -281,15 +283,18 @@ class Post
 	}
 }
 
-function post_delete($database, $board, $id)
+function post_delete($database, $board, $id, $delete_images = true)
 {
-	// first delete the file
-	$post = post_read($database, $id, $board);
-	$file_parts = explode(".", $post->image_file);
-	$thumbnail_path = $file_parts[0] . "-thumb.webp";
-	unlink(__DIR__ . "/../$post->image_file");
-	unlink(__DIR__ . "/../$thumbnail_path");	
-	
+	if ($delete_images)
+	{
+		// first delete the file
+		$post = post_read($database, $id, $board);
+		$file_parts = explode(".", $post->image_file);
+		$thumbnail_path = $file_parts[0] . "-thumb.webp";
+		unlink(__DIR__ . "/../$post->image_file");
+		unlink(__DIR__ . "/../$thumbnail_path");	
+	}
+
 	$database->query("
 			delete from posts_$board where id = $id;
 		");
@@ -297,7 +302,7 @@ function post_delete($database, $board, $id)
 	report_delete_for_post($board, $id);
 
 	foreach ($post->replies as $reply)
-		post_delete($database, $board, $reply->id);
+		post_delete($database, $board, $reply->id, $delete_images);
 }
 
 function post_create($database, $board_id, $is_reply, $replies_to, $name, $title, $body, $poster_ip, $poster_country, $is_staff_post)
