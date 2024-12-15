@@ -1,3 +1,17 @@
+function highlight(id)
+{
+    post = document.getElementById("post_" + id);
+    post.classList.add("post_highlighted");
+}
+
+function unhighlight(id)
+{
+    post = document.getElementById("post_" + id);
+
+    if (!post.classList.contains("post_highlighted_by_click"))
+        post.classList.remove("post_highlighted");
+}
+
 function scroll_to_post(id)
 {
     post = document.getElementById("post_" + id);

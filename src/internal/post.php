@@ -127,7 +127,7 @@ class Post
 					$format .= "(OP)";
 			}
 
-			$ret = preg_replace("/$match_string/", "<a href=# onclick=scroll_to_post('$id')>$format</a>", $ret);
+			$ret = preg_replace("/$match_string/", "<a href=# onclick=\"scroll_to_post('$id'); return false;\" onmouseover=highlight('$id') onmouseleave=unhighlight('$id')>$format</a>", $ret);
 		}
 
 		$textParts = explode("\n", $ret);
@@ -196,9 +196,9 @@ class Post
 		echo "</span>";
 
 		if (!$this->is_reply)
-			echo "<a class=post_id href=/$this->board/post.php?id=$this->id>>>$this->id | $this->creation_time</a>";
+			echo "<a class=post_id href=/$this->board/post.php?id=$this->id>No.$this->id | $this->creation_time</a>";
 		else
-			echo "<p class=post_id>>>$this->id | $this->creation_time</p>";
+			echo "<p class=post_id>No.$this->id | $this->creation_time</p>";
 
 		display_parameter_link("Report", "/internal/actions/report.php", array("id" => $this->id, "board" => $this->board), "action_link");
 

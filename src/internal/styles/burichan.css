@@ -131,3 +131,7 @@ a:link, a:visited {
 .recent_images {
 	border: 1px solid #99cc66 !important;
 }
+
+.post_highlighted {
+	background-color: #d6bad0;
+}
