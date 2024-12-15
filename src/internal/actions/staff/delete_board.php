@@ -15,12 +15,13 @@ if (count($_POST) > 0)
 	// delete all posts from the board
 	
 	foreach (board_get($board)->posts as $post)
-		post_delete($board, $post->id);
+		post_delete($database, $board, $post->id);
 
 	board_remove($board);
 
 	unlink(__DIR__ . "/../../../$board/post.php");
 	unlink(__DIR__ . "/../../../$board/index.php");
+	unlink(__DIR__ . "/../../../$board/catalog.php");
 	rmdir(__DIR__ . "/../../../$board");	
 
 	header("Location: /internal/staff_forms/manage_boards.php");
