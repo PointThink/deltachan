@@ -104,3 +104,7 @@ a:link, a:visited {
 .post_title {
 	color: #d00;
 }
+
+.post_highlighted {
+	background-color: #f0c0b0;
+}

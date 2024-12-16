@@ -1,5 +1,10 @@
+* {
+    font-family: serif !important;
+}
+
 body {
-	background: #eef2ff url('/internal/styles/res/fade-blue.png') repeat-x 50% 0%;
+    font-size: 11pt !important;
+	background: #eef2ff;
 	color: black;
 }
 
@@ -11,6 +16,14 @@ hr {
 
 .title, .report_header {
 	color: #AF0A0F;
+}
+
+.post * {
+    font-size: 11pt !important;
+}
+
+.post .file_stats, .post .file_stats a {
+    font-size: 9pt !important;
 }
 
 .post .your_post {
@@ -26,21 +39,24 @@ hr {
     margin: 0;
 }
 
-.reply {
-  border-top: 1px solid rgba(255, 255, 255, 0.5);
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  border-right: 1px solid rgba(0, 0, 0, 0.25);
+#topbar {
+  border-bottom: 1px solid black;
+  background-color: #d6daf0;
+  padding: 0.1cm;
 }
 
-#topbar {
-  border-bottom: none;
+#topbar * {
+    font-size: 10pt !important;
 }
 
 .post_form th {
 	background: #9988ee;
-	border: 1px solid black;
+	border: none !important;
+    text-align: left;
+    padding: 0.1cm !important;
+    font-size: 11pt !important;
 }
+
 
 a:link, a:visited {
   color: #34345c;
@@ -53,9 +69,8 @@ a:link, a:visited {
 #reply_disclaimer {
 	margin-left: 2px;
 	margin-right: 3px;
-	border: 1px solid black;
-	background: #40d9ff;
-	color: black;
+	background: #0010e0;
+	color: white;
 }
 
 #staff_disclaimer {
@@ -77,7 +92,7 @@ a:link, a:visited {
 
 .list {
 	background: white;
-    border: 1px solid black;
+    border: 1px solid #9988ee !important;
 }
 
 .list .list_title {
@@ -99,10 +114,6 @@ a:link, a:visited {
 
 .board_pages {
 	background: #d6daf0;
-	border-top: 1px solid rgba(255, 255, 255, 0.5);
-	border-left: 1px solid rgba(255, 255, 255, 0.5);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-	border-right: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 .post_title {
@@ -111,10 +122,14 @@ a:link, a:visited {
 
 .catalog_post {
 	background: #d6daf0;
-	border-top: 1px solid rgba(255, 255, 255, 0.5);
-	border-left: 1px solid rgba(255, 255, 255, 0.5);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-	border-right: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.stats {
+	border: 1px solid #5599aa !important;
+}
+
+.recent_images {
+	border: 1px solid #99cc66 !important;
 }
 
 .post_highlighted {

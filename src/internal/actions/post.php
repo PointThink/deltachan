@@ -41,8 +41,7 @@ function parse_size($size) {
 }
 
 function error_die($error)
-{
-	
+{	
 	if (isset($_POST["is_reply"]))
 		header("Location: /" . $_POST["board"] . "/post.php?error=" . urlencode($error) . "&id=" . $_POST["replies_to"]);
 	else if (!isset($_POST["is_reply"]) && isset($_POST["board"]))		
@@ -51,6 +50,12 @@ function error_die($error)
 		header("Location:" . parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH) . "?error=" . urlencode($error));
 	
 	die();
+}
+
+function generate_tripcode($key_phrase)
+{
+	$salt = chan_info_read()->password_salt;
+	return substr(md5($salt . $key_phrase), -10);
 }
 
 if (!turnslite_verify_response($_POST["cf-turnstile-response"]))
@@ -66,14 +71,10 @@ if ($_SERVER['CONTENT_LENGTH'] > file_upload_max_size())
 	error_die("Your file is too big. Max size is " . ini_get("upload_max_filesize"));
 
 if ( $_FILES["file"]["size"] <= 0 && !isset($_POST["is_reply"]) )
-{
 	error_die("Your post must contain an image");
-}
 
-if (isset($_POST["is_reply"]) && trim($_POST["comment"]) == "")
-{
-	error_die("Your post must containt a comment");
-}
+if (isset($_POST["is_reply"]) && trim($_POST["comment"]) == "" && $_FILES["file"]["size"] <= 0)
+	error_die("Your post must containt a comment or image");
 
 $file_upload_dir = "uploads/";
 $target_file = "";
@@ -90,7 +91,19 @@ if (staff_session_is_valid())
 	$is_mod_post = "1";
 }
 else
+{
+	if (str_contains($_POST["name"], "!"))
+		error_die("Name cannot contain !");
+
 	$name = $_POST["name"];
+	if (str_contains($name, "#"))
+	{
+		// tripcode detected
+		$trip_part = explode("#", $name, 2);
+		$key_phrase = $trip_part[1];
+		$name = $trip_part[0] . "!!" . generate_tripcode($key_phrase);
+	}
+}
 
 if (isset($_POST["sage"]))
 	$name .= " SAGE!";
@@ -105,7 +118,8 @@ $title = "";
 if (isset($_POST["title"]))
 	$title = $_POST["title"];
 
-$result = $database->write_post(
+$result = post_create(
+	$database,
 	$_POST["board"], isset($_POST["is_reply"]), $replies_to, $name, trim($title), trim($_POST["comment"]),
 	$_SERVER["REMOTE_ADDR"], $geolocation->country, $is_mod_post
 );
@@ -117,27 +131,12 @@ if ($_FILES["file"]["size"] > 0)
 {	
 	$target_file = $file_upload_dir . "$result->board-" . strval($result->id) . "." . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
 	move_uploaded_file($_FILES["file"]["tmp_name"], __DIR__ . "/../../" . $target_file);
-	$database->update_post_file($result->board, $result->id, $target_file);
+	post_update_file($database, $result->board, $result->id, $target_file);
+	$result->image_file = $target_file;
 
 	if (str_starts_with($_FILES["file"]["type"], "image"))
 	{
-		// create image thumbnail
-		$image_data = file_get_contents(__DIR__ . "/../../" . $target_file);
-		$image = imagecreatefromstring($image_data);
-			
-		$width = imagesx($image);
-		$height = imagesy($image);
-
-		$desired_width = 200;
-		$desired_height = floor($height * ($desired_width / $width));
-
-		$virtual_image = imagecreatetruecolor($desired_width, $desired_height);
-		imagealphablending($virtual_image, false);
-		imagesavealpha($virtual_image, true);
-		$color = imagecolorallocatealpha($virtual_image, 0, 0, 0, 127);
-		imagefill($virtual_image, 0, 0, $color);
-		imagecopyresampled($virtual_image, $image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
-		imagewebp($virtual_image, __DIR__ . "/../../" . $file_upload_dir . "$result->board-$result->id-thumb.webp");
+		post_generate_thumbnail($result);
 	}
 }
 
@@ -150,7 +149,7 @@ array_push($_SESSION["users_posts"], $result->id);
 if (isset($_POST["is_reply"]))
 {
 	if (!isset($_POST["sage"]))
-		$database->bump_post($result->board, $result->replies_to);
+		post_bump($database, $result->board, $result->replies_to);
 	header("Location: /$result->board/post.php?id=$result->replies_to");
 }
 else

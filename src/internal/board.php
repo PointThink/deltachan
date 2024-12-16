@@ -188,7 +188,7 @@ function board_get($board_id, $page = 0)
 
 	while ($post_id = $query_result->fetch_assoc())
 	{
-		array_push($board->posts, $database->read_post($board_id, $post_id["id"]));
+		array_push($board->posts, post_read($database, $post_id["id"], $board_id));
 	}
 
 	return $board;

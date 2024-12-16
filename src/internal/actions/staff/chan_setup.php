@@ -24,7 +24,7 @@ if (count($_POST) > 0)
 
     chan_info_write($chan_info);
 
-	header("Location: /staff_dashboard.php");
+	header("Location: /admin.php");
 }
 ?>
 

@@ -5,7 +5,7 @@ include_once "internal/ui.php";
 include_once "internal/staff_session.php";
 
 $database = new Database();
-$post = $database->read_post($board_id, $_GET["id"]);
+$post = post_read($database, $_GET["id"], $board_id);
 
 if ($post->is_reply)
 {
@@ -72,9 +72,19 @@ if ($post->is_reply)
 		</div>
 
 		<div id=posts>
+			<div class="thread_actions">
 			<?php
+				echo "<hr>";
+				
+				echo "<a href=/$board->id>[Return]</a>";
+				echo "<a href=/$board->id/catalog.php>[Catalog]</a>";
+				echo "<a href=# onclick=\"window.scrollTo(0, document.body.scrollHeight); return false;\">[Bottom]</a>";
+
+				echo "<hr></div>";
+
 				$post->display();
 			?>
+			
 		</div>
 
 		<?php include "footer.php" ?>
