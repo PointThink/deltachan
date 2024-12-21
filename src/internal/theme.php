@@ -34,4 +34,4 @@ $css = fread($css_file, filesize(__DIR__ . "/styles/" . $css_file_name));
 
 if (!isset($_SESSION["user_css"]))
     $_SESSION["user_css"] = "";
-echo $css . "\n" . $base_style . "\n" . $_SESSION["user_css"];
+echo $base_style . "\n" . $css . "\n" . $_SESSION["user_css"];

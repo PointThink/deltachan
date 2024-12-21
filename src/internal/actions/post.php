@@ -58,9 +58,14 @@ function generate_tripcode($key_phrase)
 	return substr(md5($salt . $key_phrase), -10);
 }
 
-if (!turnslite_verify_response($_POST["cf-turnstile-response"]))
-	error_die("Captcha failed!");
-	
+if (turnslite_is_enabled())
+{
+	if (!isset($_POST["cf-turnslite-response"]))
+		error_die("Captcha response token not provided");
+
+	if (!turnslite_verify_response($_POST["cf-turnstile-response"]))
+		error_die("Captcha failed!");
+}	
 if (is_user_banned())
 {
 	header("Location: /internal/error_pages/ban.php");

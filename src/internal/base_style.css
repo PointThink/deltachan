@@ -152,6 +152,7 @@ body {
 	font-family: sans-serif;
 	font-size: 13px;
 	text-wrap: wrap;
+	margin: 0.2cm;
 }
 
 .post .post_id, .post form, .post .thread_view, .post .replies_last_5, .action_link {
