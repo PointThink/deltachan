@@ -1,0 +1,150 @@
+body {
+	background: #222633;
+	color: white;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #b7c5d9;
+    height: 0;
+}
+
+.title, .report_header {
+	color: lightcoral;
+}
+
+.name {
+	color: lightgreen !important;
+}
+
+.staff_name {
+	color: violet !important;
+}
+
+.post .your_post {
+	color: red;
+}
+
+.post {
+    background-color: none;
+    margin: 0;
+}
+
+.post_form th {
+	background: #504781;
+	border: 1px solid #614ae0;
+	border-radius: 6px;
+}
+
+.post_form input[type=text], .post_form textarea {
+	border-radius: 6px;
+	border: 1px solid #acacac;
+	color: white;
+	background-color: black;
+}
+
+a:link, a:visited {
+  color: #9eb5ff;
+}
+
+#staff_dashboard_content {
+  background: white;
+}
+
+#reply_disclaimer {
+	margin-left: 2px;
+	margin-right: 3px;
+	border: 1px solid black;
+	background: #40d9ff;
+	color: black;
+}
+
+#staff_disclaimer {
+	margin-left: 2px;
+	margin-right: 3px;
+	border: 1px solid black;
+	background: #ff5a5a;
+	color: black;
+}
+
+.manage_table th {
+    border: 1px solid white;
+	background-color: #504781;
+}
+
+.manage_table td {
+	background-color: black;
+}
+
+.list {
+	background: black;
+    border: 1px solid white;
+}
+
+.list .list_title {
+	background-color: #504781;
+}
+
+.list_title {
+	background-color: none;
+}
+
+.list .boards_table th {
+	background-color: #504781;
+}
+
+
+.list .boards_table tr {
+	background-color: black;
+}
+
+.list .boards_table tr:nth-of-type(odd) {
+	background-color: #eeeeee;
+}
+
+.board_pages, .catalog_post, .reply, .post {
+	background: #2b3040;
+	border: 1px solid #b7c5d9;
+	border-radius: 8px;
+}
+
+#topbar {
+	background: #2b3040;
+	border-bottom: 1px solid #b7c5d9;
+	padding: 0.1cm;
+	box-shadow: 0 0 10px #00000044;
+}
+
+.post {
+	padding: 0.2cm;
+	background: #2f364a;
+	margin-bottom: 0.5cm;
+}
+
+.catalog_post {
+	margin: 0.1cm;
+}
+
+#posts hr {
+	display: none;
+}
+
+.post_title {
+	color: lightblue;
+}
+
+.post_highlighted {
+	background-color: #d6bad0;
+}
+
+.greentext {
+	color: lightgreen;
+}
+
+.orangetext {
+	color: lightcoral;
+}
+
+.bluetext {
+	color: lightskyblue;
+}
