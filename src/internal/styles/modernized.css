@@ -1,0 +1,128 @@
+body {
+	background: #eef2ff;
+	color: black;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #b7c5d9;
+    height: 0;
+}
+
+.title, .report_header {
+	color: #AF0A0F;
+}
+
+.post .your_post {
+	color: brown;
+}
+
+.post {
+    background-color: none;
+    margin: 0;
+}
+
+.post_form th {
+	background: #9988ee;
+	border: 1px solid #674bf5;
+	border-radius: 6px;
+}
+
+.post_form input[type=text], .post_form textarea {
+	border-radius: 6px;
+	border: 1px solid #acacac;
+}
+
+a:link, a:visited {
+  color: #34345c;
+}
+
+#staff_dashboard_content {
+  background: white;
+}
+
+#reply_disclaimer {
+	margin-left: 2px;
+	margin-right: 3px;
+	border: 1px solid black;
+	background: #40d9ff;
+	color: black;
+}
+
+#staff_disclaimer {
+	margin-left: 2px;
+	margin-right: 3px;
+	border: 1px solid black;
+	background: #ff5a5a;
+	color: black;
+}
+
+.manage_table th {
+    border: 1px solid black;
+	background-color: #9988ee;
+}
+
+.manage_table td {
+	background-color: white;
+}
+
+.list {
+	background: white;
+    border: 1px solid black;
+}
+
+.list .list_title {
+	background-color: #9988ee;
+}
+
+.list_title {
+	background-color: none;
+}
+
+.list .boards_table th {
+	background-color: #9988ee;
+}
+
+
+.list .boards_table tr {
+	background-color: #ffffff;
+}
+
+.list .boards_table tr:nth-of-type(odd) {
+	background-color: #eeeeee;
+}
+
+.board_pages, .catalog_post, .reply, .post {
+	background: #c7cdee;
+	border: 1px solid #b7c5d9;
+	border-radius: 8px;
+}
+
+#topbar {
+	background: #c7cdee;
+	border-bottom: 1px solid #b7c5d9;
+	padding: 0.1cm;
+	box-shadow: 0 0 10px #00000044;
+}
+
+.post {
+	padding: 0.2cm;
+	background: #e0e6ff;
+	margin-bottom: 0.5cm;
+}
+
+.catalog_post {
+	margin: 0.1cm;
+}
+
+#posts hr {
+	display: none;
+}
+
+.post_title {
+	color: #0F0C5D;
+}
+
+.post_highlighted {
+	background-color: #d6bad0;
+}
