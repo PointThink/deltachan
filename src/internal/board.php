@@ -39,8 +39,6 @@ class Board
 	public $subtitle;
 	public $nsfw;
 
-	public $posts = array();
-
 	public function get_pages_count()
 	{
 		$database = new Database();
@@ -48,6 +46,40 @@ class Board
 		$post_count = intval($query_result->fetch_assoc()["count(*)"]);
 
 		return ceil($post_count / 10.0);
+	}
+
+	public function get_posts($page = -1)
+	{
+		$post_range_begin = 10 * intval($page);
+		$post_range_end = 10 * intval($page) + 10;
+		$database = new Database();
+		$posts = array();
+		$page = $database->sanitize($page);
+
+		if ($page >= 0)
+		{
+			$query_result = $database->query("
+				select id from posts_$this->id
+				where is_reply = 0
+				order by sticky desc, bump_time desc
+				limit $post_range_begin, $post_range_end;
+			");
+		}
+		else
+		{
+			$query_result = $database->query("
+				select id from posts_$this->id
+				where is_reply = 0
+				order by sticky desc, bump_time desc;
+			");
+		}
+
+		while ($post_id = $query_result->fetch_assoc())
+		{
+			$posts[] = post_read($database, $post_id["id"], $this->id);
+		}
+
+		return $posts;
 	}
 }
 
@@ -113,6 +145,7 @@ function board_list()
 		$board->subtitle = $board_array["subtitle"];
 		$board->nsfw = $board_array["nsfw"];
 		array_push($boards, $board);
+
 	}
 
 	return $boards;
@@ -130,19 +163,18 @@ function board_edit_info($id, $title, $subtitle, $nsfw)
 	$database->query($query);
 }
 
-function board_get($board_id, $page = 0)
+function board_get($board_id)
 {
 	$max_pages = 10;
 	$database = new Database();
 
 	$board_id = $database->sanitize($board_id);
-	$page = $database->sanitize($page);
 
 	$query_result = $database->query("select * from board_info where id = '$board_id';");
 	$board_array = $query_result->fetch_array();
 	$board = new Board();
 
-	$board->id = $board_array["id"];
+	$board->id = $board_id;
 	$board->title = $board_array["title"];
 	$board->subtitle = $board_array["subtitle"];
 	$board->nsfw = $board_array["nsfw"];
@@ -162,33 +194,7 @@ function board_get($board_id, $page = 0)
 
 	while ($post_id = $query_result->fetch_assoc())
 	{
-		post_delete($board_id, $post_id["id"]);
-	}
-
-	$post_range_begin = 10 * intval($page);
-	$post_range_end = 10 * intval($page) + 10;
-
-	if ($page >= 0)
-	{
-		$query_result = $database->query("
-			select id from posts_$board_id
-			where is_reply = 0
-			order by sticky desc, bump_time desc
-			limit $post_range_begin, $post_range_end;
-		");
-	}
-	else
-	{
-		$query_result = $database->query("
-			select id from posts_$board_id
-			where is_reply = 0
-			order by sticky desc, bump_time desc;
-		");
-	}
-
-	while ($post_id = $query_result->fetch_assoc())
-	{
-		array_push($board->posts, post_read($database, $post_id["id"], $board_id));
+		post_delete($database, $board_id, $post_id["id"]);
 	}
 
 	return $board;
