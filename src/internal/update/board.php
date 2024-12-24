@@ -19,7 +19,7 @@ function update_add_board_catalogs()
     }
 }
 
-function update_boards_nsfw_row()
+function update_boards()
 {
     $database = new Database();
 
@@ -30,6 +30,16 @@ function update_boards_nsfw_row()
     {
         $database->query("
             alter table board_info add nsfw int default 0 not null;        
+        ");
+    }
+
+    $result = $database->query("SHOW COLUMNS FROM `board_info` LIKE 'ids'");
+    $exists = $result->num_rows ? TRUE:FALSE;
+    
+    if (!$exists)
+    {
+        $database->query("
+            alter table board_info add ids int default 0 not null;        
         ");
     }
 }

@@ -23,7 +23,7 @@ function show_pages()
 			echo "<a href='?p=$i'>[$i]</a>";
 	}
 
-	echo "<a class=catalog_link href=catalog.php>" . localize("catalog") . "</a>";
+	echo "<a class=catalog_link href=/$board->id/catalog.php>" . localize("catalog") . "</a>";
 
 	echo "</div>";
 }
@@ -39,7 +39,7 @@ function show_pages()
 			if (isset($_GET["p"]))
 				$page = $_GET["p"];
 
-			$board = board_get($board_id, $page);
+			$board = board_get($board_id);
 			echo "<title>/$board->id/ - $board->title</title>";
 		
 			include "internal/link_css.php";
@@ -89,8 +89,9 @@ function show_pages()
 			<?php
 				$sticky_posts = array();
 				$posts = array();
+				$posts_unsorted = $board->get_posts($page);
 
-				foreach ($board->posts as $post)
+				foreach ($posts_unsorted as $post)
 				{
 					if ($post->sticky)
 						array_push($sticky_posts, $post);
