@@ -120,3 +120,10 @@ a:link, a:visited {
 .post_highlighted {
 	background-color: #d6bad0;
 }
+
+#topbar {
+	background: #c7cdee;
+	border-bottom: 1px solid #b7c5d9;
+	padding: 0.1cm;
+	box-shadow: 0 0 10px #00000044;
+}

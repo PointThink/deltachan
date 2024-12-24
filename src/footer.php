@@ -4,3 +4,4 @@
 	<a href="http://www.geoplugin.com/geolocation/" target="_new">IP Geolocation</a> by <a href="http://www.geoplugin.com/" target="_new">geoPlugin</a>
 </div>
 <br>
+</div>

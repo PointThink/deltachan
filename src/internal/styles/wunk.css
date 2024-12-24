@@ -112,3 +112,9 @@ a:link, a:visited {
 .post_title {
 	color: #d00;
 }
+
+#topbar {
+	background: #f5e5cf;
+	padding: 0.1cm;
+	box-shadow: 0 0 10px #00000044;
+}

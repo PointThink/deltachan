@@ -69,6 +69,7 @@ $chan_info = chan_info_read();
 	</div>
 </div>
 
+<div id="content">
 <div id=site_banner>
 	<?php
 		// list all banners

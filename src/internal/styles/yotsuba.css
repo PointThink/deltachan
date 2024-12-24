@@ -108,3 +108,9 @@ a:link, a:visited {
 .post_highlighted {
 	background-color: #f0c0b0;
 }
+
+#topbar {
+	background: #f0e0d6;
+	padding: 0.1cm;
+	box-shadow: 0 0 10px #00000044;
+}
