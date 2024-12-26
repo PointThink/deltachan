@@ -13,12 +13,7 @@ hr {
 	color: navy;
 }
 
-.post {
-    background-color: none;
-    margin: 0;
-}
-
-.reply {
+.reply, .catalog_post, .board_pages {
 	background: #f0e0d6;
   	border-top: 1px solid rgba(255, 255, 255, 0.5);
   	border-left: 1px solid rgba(255, 255, 255, 0.5);
@@ -93,18 +88,16 @@ a:link, a:visited {
 	background-color: #eeeeee;
 }
 
-.board_pages {
-	background: #f0e0d6;
-	border-top: 1px solid rgba(255, 255, 255, 0.5);
-	border-left: 1px solid rgba(255, 255, 255, 0.5);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-	border-right: 1px solid rgba(0, 0, 0, 0.25);
-}
-
 .post_title {
 	color: #d00;
 }
 
 .post_highlighted {
 	background-color: #f0c0b0;
+}
+
+#topbar {
+	background: #f0e0d6;
+	padding: 0.1cm;
+	box-shadow: 0 0 10px #00000044;
 }

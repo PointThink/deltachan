@@ -233,7 +233,13 @@ form .clear_file, form .file_upload {
 }
 
 #topbar {
-	margin-bottom: 0.5cm;
+	width: 100%;
+	position: fixed;
+	top: 0px;
+}
+
+#content {
+	margin-top: 1cm;
 }
 
 #topbar #theme_selector_section {

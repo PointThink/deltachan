@@ -30,7 +30,7 @@ include_once "internal/board.php";
 
         <div class=catalog_posts>
         <?php
-            foreach ($board->posts as $post)
+            foreach ($board->get_posts() as $post)
             {
                 $post->display_catalog();
             }

@@ -28,7 +28,7 @@ if (!staff_session_is_valid() || !staff_is_moderator())
             foreach ($boards as $board_no_posts)
             {
                 $board = board_get($board_no_posts->id);
-                foreach ($board->posts as $post)
+                foreach ($board->get_posts() as $post)
                 {
                     if (!$post->approved)
                         array_push($unapproved_posts, $post);

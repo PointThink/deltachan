@@ -1,6 +1,11 @@
 <?php
 include_once "../../database.php";
 
+if (!staff_session_is_valid())
+{
+    die("You are not allowed here");
+}
+
 $database = new Database();
 
 if (count($_POST) > 0)

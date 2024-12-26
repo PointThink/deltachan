@@ -36,7 +36,7 @@
 
 			<h2>Accounts (<div class=important>Important!</div>)</h2>
 			<p>DeltaChan will create a default admin account with <b>username "admin" and password "admin"</b>.</p>
-			<?php echo "<p>You can log in at <b>" . $_SERVER["HTTP_HOST"] . "/staff_login.php</b></p>" ?>
+			<?php echo "<p>You can log in at <b>" . $_SERVER["HTTP_HOST"] . "/admin.php</b></p>" ?>
 			<p>After logging in create a new account with admin privilages and remove the default account</p>
 			<br>
 

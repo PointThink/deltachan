@@ -32,7 +32,8 @@ class Database
 				id varchar(255) not null primary key,
 				title varchar(255) not null,
 				subtitle varchar(255),
-				nsfw int default 0 not null
+				nsfw int default 0 not null,
+				ids int default 0 not null
 			);
 		");
 

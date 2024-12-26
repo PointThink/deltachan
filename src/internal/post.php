@@ -195,23 +195,25 @@ class Post
 
 		echo "</span>";
 
-		if (!$this->is_reply)
-			echo "<a class=post_id href=/$this->board/post.php?id=$this->id>No.$this->id | $this->creation_time</a>";
-		else
-			echo "<p class=post_id>No.$this->id | $this->creation_time</p>";
+		echo "<p class=post_id>No.$this->id | $this->creation_time</p>";
 
-		display_parameter_link("Report", "/internal/actions/report.php", array("id" => $this->id, "board" => $this->board), "action_link");
-
+		
 		if ($this->is_reply)
 		{
 			$quote_content = "";
 			foreach (explode("\n", $this->body) as $line)
-				$quote_content .= ">$line\n";
-
-			display_parameter_link(localize("post_quote"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => $quote_content), "action_link");
-			display_parameter_link(localize("post_reply"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => ">>$this->id"), "action_link");
+			$quote_content .= ">$line\n";
+		
+		display_parameter_link(localize("post_reply"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => ">>$this->id"), "action_link");
+		display_parameter_link(localize("post_quote"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => $quote_content), "action_link");
 		}
-
+		else
+		{
+			display_parameter_link(localize("post_reply"), "/$this->board/post.php", array("id" => $this->id), "action_link");
+		}
+			
+		display_parameter_link("Report", "/internal/actions/report.php", array("id" => $this->id, "board" => $this->board), "action_link");
+	
 		if (staff_session_is_valid())
 		{
 			display_parameter_link("Delete", "/internal/actions/staff/delete_post.php", array("board" => $this->board, "id" => $this->id), "action_link");

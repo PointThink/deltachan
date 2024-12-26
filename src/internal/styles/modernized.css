@@ -1,5 +1,5 @@
 body {
-	background: #eef2ff url('/internal/styles/res/fade-blue.png') repeat-x 50% 0%;
+	background: #eef2ff;
 	color: black;
 }
 
@@ -17,24 +17,20 @@ hr {
 	color: brown;
 }
 
-.reply {
-	background: #d6daf0;
-}
-
-.reply {
-  border-top: 1px solid rgba(255, 255, 255, 0.5);
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  border-right: 1px solid rgba(0, 0, 0, 0.25);
-}
-
-#topbar {
-  border-bottom: none;
+.post {
+    background-color: none;
+    margin: 0;
 }
 
 .post_form th {
 	background: #9988ee;
-	border: 1px solid black;
+	border: 1px solid #674bf5;
+	border-radius: 6px;
+}
+
+.post_form input[type=text], .post_form textarea {
+	border-radius: 6px;
+	border: 1px solid #acacac;
 }
 
 a:link, a:visited {
@@ -79,6 +75,10 @@ a:link, a:visited {
 	background-color: #9988ee;
 }
 
+.list_title {
+	background-color: none;
+}
+
 .list .boards_table th {
 	background-color: #9988ee;
 }
@@ -92,28 +92,10 @@ a:link, a:visited {
 	background-color: #eeeeee;
 }
 
-.board_pages {
-	background: #d6daf0;
-	border-top: 1px solid rgba(255, 255, 255, 0.5);
-	border-left: 1px solid rgba(255, 255, 255, 0.5);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-	border-right: 1px solid rgba(0, 0, 0, 0.25);
-}
-
-.post_title {
-	color: #0F0C5D;
-}
-
-.catalog_post {
-	background: #d6daf0;
-	border-top: 1px solid rgba(255, 255, 255, 0.5);
-	border-left: 1px solid rgba(255, 255, 255, 0.5);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-	border-right: 1px solid rgba(0, 0, 0, 0.25);
-}
-
-.post_highlighted {
-	background-color: #d6bad0;
+.board_pages, .catalog_post, .reply, .post {
+	background: #c7cdee;
+	border: 1px solid #b7c5d9;
+	border-radius: 8px;
 }
 
 #topbar {
@@ -121,4 +103,26 @@ a:link, a:visited {
 	border-bottom: 1px solid #b7c5d9;
 	padding: 0.1cm;
 	box-shadow: 0 0 10px #00000044;
+}
+
+.post {
+	padding: 0.2cm;
+	background: #e0e6ff;
+	margin-bottom: 0.5cm;
+}
+
+.catalog_post {
+	margin: 0.1cm;
+}
+
+#posts hr {
+	display: none;
+}
+
+.post_title {
+	color: #0F0C5D;
+}
+
+.post_highlighted {
+	background-color: #d6bad0;
 }
