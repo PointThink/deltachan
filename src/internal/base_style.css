@@ -155,7 +155,7 @@ body {
 	margin: 0.2cm;
 }
 
-.post .post_id, .post form, .post .thread_view, .post .replies_last_5, .action_link {
+.post .post_id, .post .creation_time, .post form, .post .thread_view, .post .replies_last_5, .action_link {
 	display: inline;
 	font-size: 10pt;
 	margin: 0;

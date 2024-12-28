@@ -42,9 +42,13 @@ class Post
 
 	public function display_file_stats()
 	{
+		$image_size = getimagesize(__DIR__ . "/../$this->image_file"); 
+		$image_x = $image_size[0];
+		$image_y = $image_size[1];
+
 		$full_link = $_SERVER["SERVER_NAME"] . "/" . $this->image_file;
 		$pretty_name = basename($this->image_file);
-		$bytes_format = "(" . format_bytes(filesize(__DIR__ . "/../$this->image_file")) . ")";
+		$bytes_format = "(" . format_bytes(filesize(__DIR__ . "/../$this->image_file")) . ", {$image_x}x{$image_y})";
 
 		echo <<<HTML
 		<p class=file_stats>
@@ -154,16 +158,6 @@ class Post
 		else
 			echo "<div class=reply id=post_$this->id>";
 
-		if ($this->image_file != "")
-			if ($report_mode)
-			{
-				echo "<div class=report_attachment>";
-				$this->display_attachment();
-				echo "</div>";
-			}
-			else
-				$this->display_attachment();
-
 		if ($this->sticky)
 			echo "<img class=pin src=/pin.png>";
 
@@ -195,8 +189,10 @@ class Post
 
 		echo "</span>";
 
-		echo "<p class=post_id>No.$this->id | $this->creation_time</p>";
+		$time_since_creation = time() - $this->creation_time;
 
+		echo "<p class=post_id>№$this->id</p>";
+		echo "<p class=creation_time>" . format_time_since($time_since_creation) . "</p>";
 		
 		if ($this->is_reply)
 		{
@@ -237,7 +233,17 @@ class Post
 
 		if ($this->image_file != "")
 			$this->display_file_stats();
-		
+
+		if ($this->image_file != "")
+			if ($report_mode)
+			{
+				echo "<div class=report_attachment>";
+				$this->display_attachment();
+				echo "</div>";
+			}
+			else
+				$this->display_attachment();
+
 		if ($this->body != "")
 			$this->format_and_show_text($this->body);
 		
@@ -349,8 +355,8 @@ function post_read($database, $id, $board)
 	$post->is_reply = $post_array["is_reply"];
 	$post->replies_to = $post_array["replies_to"];
 	
-	$post->creation_time = $post_array["creation_time"];
-	$post->bump_time = $post_array["bump_time"];
+	$post->creation_time = $database->get_unix_time($post_array["creation_time"]);
+	$post->bump_time = $database->get_unix_time($post_array["bump_time"]);
 
 	$post->name = $post_array["name"];
 	$post->body = $post_array["post_body"];
@@ -437,4 +443,22 @@ function post_generate_thumbnail($post)
 	imagefill($virtual_image, 0, 0, $color);
 	imagecopyresampled($virtual_image, $image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
 	imagewebp($virtual_image, __DIR__ . "/../uploads/" . "$post->board-$post->id-thumb.webp");
+}
+
+function format_time_since($time_passed)
+{
+	$minutes_passed = round($time_passed / 60);
+	$hours_passed = round($time_passed / (60 * 60));
+	$days_passed = round($time_passed / (60 * 60 * 24));
+	
+	$biggest = "$time_passed seconds";
+
+	if ($days_passed > 0)
+		$biggest = "$days_passed days";
+	else if ($hours_passed > 0)
+		$biggest = "$hours_passed hours";
+	else if ($minutes_passed > 0)
+		$biggest = "$minutes_passed minutes";
+	
+	return "$biggest ago";
 }
