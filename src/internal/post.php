@@ -58,7 +58,7 @@ class Post
 
 		echo <<<HTML
 		<p class=file_stats>
-		File: <a href=/$this->image_file>$pretty_name</a>
+		File: <a href=/$this->image_file>$pretty_name</a> <a href=/$this->image_file download title=Download>📥︎</a>
 		$bytes_format</p>
 		HTML;
 	}
@@ -86,7 +86,7 @@ class Post
 			</a>";
 		}
 		else
-			echo "<a class=post_attachment_non_image href='/$this->image_file'><img class=post_attachment_non_image alt='attachment' src='/attachment.svg'>$base_name</a>";
+			echo "<a class=post_attachment_non_image href='/$this->image_file'><img class=post_attachment_non_image alt='attachment' src='/attachment.svg' download>$base_name</a>";
 	}
 
 	public function display_catalog_attachment()
@@ -330,8 +330,9 @@ function post_delete($database, $board, $id, $delete_images = true)
 
 	report_delete_for_post($board, $id);
 
-	foreach ($post->replies as $reply)
-		post_delete($database, $board, $reply->id, $delete_images);
+	if (!$post->is_reply)
+		foreach ($post->replies as $reply)
+			post_delete($database, $board, $reply->id, $delete_images);
 }
 
 function post_create($database, $board_id, $is_reply, $replies_to, $name, $title, $body, $poster_ip, $poster_country, $is_staff_post)
