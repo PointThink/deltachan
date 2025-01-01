@@ -59,13 +59,15 @@ class Post
 		echo <<<HTML
 		<p class=file_stats>
 		File: <a href=/$this->image_file>$pretty_name</a>
-		$bytes_format
-		<a href=https://imgops.com/$full_link>ImgOps</a></p>
+		$bytes_format</p>
 		HTML;
 	}
 
 	public function display_attachment()
 	{
+		if ($this->image_file != "")
+			$this->display_file_stats();
+		
 		$mime_type = mime_content_type(__DIR__ . "/../$this->image_file");
 		$base_name = basename($this->image_file);
 
@@ -253,9 +255,6 @@ class Post
 				display_parameter_link($this->sticky ? "Unstick" : "Sticky", "/internal/actions/staff/sticky_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
 			}
 		}
-
-		if ($this->image_file != "")
-			$this->display_file_stats();
 
 		if ($this->image_file != "")
 			if ($report_mode)
