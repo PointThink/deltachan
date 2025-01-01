@@ -89,20 +89,23 @@ $allowed_mime_types = array(
 	"audio/"
 );
 
-$upload_mime = mime_content_type($_FILES["file"]["tmp_name"]);
-
-$allowed = false;
-foreach ($allowed_mime_types as $allowed_mime_type)
+if ($_FILES["file"]["size"] > 0)
 {
-	if (str_starts_with(strtolower($upload_mime), $allowed_mime_type))
+	$upload_mime = mime_content_type($_FILES["file"]["tmp_name"]);
+	
+	$allowed = false;
+	foreach ($allowed_mime_types as $allowed_mime_type)
 	{
-		$allowed = true;
-		break;
+		if (str_starts_with(strtolower($upload_mime), $allowed_mime_type))
+		{
+			$allowed = true;
+			break;
+		}
 	}
-}
 
-if (!$allowed)
-	error_die("Files of type $upload_mime are not allowed");
+	if (!$allowed)
+		error_die("Files of type $upload_mime are not allowed");
+}
 
 $file_upload_dir = "uploads/";
 $target_file = "";
