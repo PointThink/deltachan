@@ -80,4 +80,11 @@ class Database
 		$this->mysql_connection->select_db($deltachan_config["database_name"]);
 		return $this->mysql_connection->query($str);
 	}
+
+	public function get_unix_time($str)
+	{
+		$str = $this->sanitize($str);
+		$result = $this->query("select UNIX_TIMESTAMP('$str');");
+		return intval($result->fetch_assoc()["UNIX_TIMESTAMP('$str')"]);
+	}
 }

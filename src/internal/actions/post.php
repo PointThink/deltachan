@@ -81,6 +81,29 @@ if ( $_FILES["file"]["size"] <= 0 && !isset($_POST["is_reply"]) )
 if (isset($_POST["is_reply"]) && trim($_POST["comment"]) == "" && $_FILES["file"]["size"] <= 0)
 	error_die("Your post must containt a comment or image");
 
+// get mime type of uploaded file
+
+$allowed_mime_types = array(
+	"image/",
+	"video/",
+	"audio/"
+);
+
+$upload_mime = mime_content_type($_FILES["file"]["tmp_name"]);
+
+$allowed = false;
+foreach ($allowed_mime_types as $allowed_mime_type)
+{
+	if (str_starts_with(strtolower($upload_mime), $allowed_mime_type))
+	{
+		$allowed = true;
+		break;
+	}
+}
+
+if (!$allowed)
+	error_die("Files of type $upload_mime are not allowed");
+
 $file_upload_dir = "uploads/";
 $target_file = "";
 
