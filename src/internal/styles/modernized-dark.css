@@ -99,7 +99,7 @@ a:link, a:visited {
 }
 
 .list .boards_table tr:nth-of-type(odd) {
-	background-color: #eeeeee;
+	background-color: #151515;
 }
 
 .board_pages, .catalog_post, .reply, .post {
@@ -147,4 +147,30 @@ a:link, a:visited {
 
 .bluetext {
 	color: lightskyblue;
+}
+
+.stats {
+	margin-right: 0.5cm;
+	width: 7cm;
+	display: inline-block;
+	background-color: #2f2f5f;
+	color: #eeeeff;
+	border: 1px solid #eeeeff;
+}
+
+.stats .list_title {
+	background-color: #3e3e80;
+	color: white;
+}
+
+.recent_images {
+	width: 100%;
+	display: inline-block;
+	border: 1px solid #cceeab;
+	background-color: #254b39;
+}
+
+.recent_images .list_title {
+	color: #cceeab;
+	background-color: #1d794e;
 }
