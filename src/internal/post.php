@@ -42,9 +42,15 @@ class Post
 
 	public function display_file_stats()
 	{
-		$image_size = getimagesize(__DIR__ . "/../$this->image_file"); 
-		$image_x = $image_size[0];
-		$image_y = $image_size[1];
+		$image_x = 0;
+		$image_y = 0;
+
+		if (str_starts_with(mime_content_type(__DIR__ . "/../$this->image_file"), "image"))
+		{
+			$image_size = getimagesize(__DIR__ . "/../$this->image_file"); 
+			$image_x = $image_size[0];
+			$image_y = $image_size[1];
+		}
 
 		$full_link = $_SERVER["SERVER_NAME"] . "/" . $this->image_file;
 		$pretty_name = basename($this->image_file);
@@ -76,6 +82,23 @@ class Post
 				thumbnail_image=/$thumb_file_name
 			>
 			</a>";
+		}
+		else
+			echo "<a class=post_attachment_non_image href='/$this->image_file'><img class=post_attachment_non_image alt='attachment' src='/attachment.svg'>$base_name</a>";
+	}
+
+	public function display_catalog_attachment()
+	{
+		$mime_type = mime_content_type(__DIR__ . "/../$this->image_file");
+		$base_name = basename($this->image_file);
+
+		if (str_starts_with($mime_type, "video"))
+			echo "<video class=post_attachment controls preload=metadata src='/$this->image_file'></video>";
+		else if (str_starts_with($mime_type, "image"))
+		{
+			$file_parts = explode(".", $this->image_file);
+			$thumb_file_name = $file_parts[0] . "-thumb.webp";
+			echo "<a href=/$this->board/post.php?id=$this->id'><img class=post_attachment src='/$thumb_file_name'></a>";
 		}
 		else
 			echo "<a class=post_attachment_non_image href='/$this->image_file'><img class=post_attachment_non_image alt='attachment' src='/attachment.svg'>$base_name</a>";
@@ -272,7 +295,7 @@ class Post
 		echo "<div href=/$this->board/?post=$this->id class=catalog_post>";
 
 		if ($this->image_file)
-			$this->display_attachment();
+			$this->display_catalog_attachment();
 		
 		echo "<a href=/$this->board/post.php?id=$this->id>>>$this->id ";
 		echo "r: " . count($this->replies) . "</a>";
