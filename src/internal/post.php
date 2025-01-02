@@ -100,7 +100,7 @@ class Post
 		{
 			$file_parts = explode(".", $this->image_file);
 			$thumb_file_name = $file_parts[0] . "-thumb.webp";
-			echo "<a href=/$this->board/post.php?id=$this->id'><img class=post_attachment src='/$thumb_file_name'></a>";
+			echo "<a href=/$this->board/post.php?id=$this->id><img class=post_attachment src='/$thumb_file_name'></a>";
 		}
 		else
 			echo "<a class=post_attachment_non_image href='/$this->image_file'><img class=post_attachment_non_image alt='attachment' src='/attachment.svg'>$base_name</a>";
@@ -295,9 +295,7 @@ class Post
 
 		if ($this->image_file)
 			$this->display_catalog_attachment();
-		
-		echo "<a href=/$this->board/post.php?id=$this->id>>>$this->id ";
-		echo "r: " . count($this->replies) . "</a>";
+		echo "<p><b>R: " . count($this->replies) . "</b></p>";
 
 		echo "<br>";
 

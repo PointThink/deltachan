@@ -446,6 +446,14 @@ form .clear_file, form .file_upload {
 	grid-template-columns: repeat(2, 1fr);
 }
 
+.catalog_post {
+	font-size: 10pt;
+}
+
+.catalog_post blockquote {
+	margin: 0;
+}
+
 @media (min-width: 700px) {
 	.catalog_posts {
 		grid-auto-rows: minmax(0px, auto);
@@ -490,6 +498,8 @@ form .clear_file, form .file_upload {
 .catalog_post .post_attachment {
 	min-height: 100px;
 	max-height: 100px;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.55);
+  	border: 2px solid rgba(153, 153, 153, 0);
 }
 
 .catalog_link {
