@@ -211,7 +211,6 @@ form .clear_file, form .file_upload {
 
 .post .post_attachment {
 	float: left;
-	border: none;
 	max-height: 200px;
 }
 

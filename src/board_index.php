@@ -51,9 +51,6 @@ function show_pages()
 	<body>
 		<?php
 			include "topbar.php";
-
-			if (isset($_GET["error"]))
-				echo "<script>alert('" . $_GET["error"] . "')</script>"
 		?>
 
 		<div class="title">
