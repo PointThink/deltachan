@@ -1,5 +1,5 @@
 <?php
-	if (is_file("first_run"))
+	if (!is_file("internal/config.php"))
 	{
 		header("Location: /first_setup.php");
 		die();
