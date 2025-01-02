@@ -183,6 +183,7 @@ class Post
 		else
 			echo "<div class=reply id=post_$this->id>";
 
+		echo "<div class=post_upper>";
 		if ($this->sticky)
 			echo "<img class=pin src=/pin.png>";
 
@@ -256,6 +257,9 @@ class Post
 			}
 		}
 
+		echo "</div>";
+		echo "<div class=post_lower>";
+
 		if ($this->image_file != "")
 			if ($report_mode)
 			{
@@ -286,6 +290,7 @@ class Post
 			echo "</div>";
 		}
 
+		echo "</div>";
 		echo "</div>";
 	}
 

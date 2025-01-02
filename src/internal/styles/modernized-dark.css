@@ -121,6 +121,20 @@ a:link, a:visited {
 	margin-bottom: 0.5cm;
 }
 
+.reply {
+	padding: 0;
+}
+
+.reply .post_upper {
+	padding: 0.1cm;
+	border-bottom: 1px solid #b7c5d9;
+	background: #3e4352;
+}
+
+.reply .post_lower, .reply .post_attachment {
+	margin: 0.2cm;
+}
+
 .catalog_post {
 	margin: 0.1cm;
 }
