@@ -8,6 +8,11 @@ include_once "internal/bans.php";
 $database = new Database();
 $post = post_read($database, $_GET["id"], $board_id);
 
+if ($post == null)
+{
+	header("Location: /internal/error_pages/error.php?message=The thread you're looking for does not exist");
+}
+
 if ($post->is_reply)
 {
 	header("Location: /$post->board/post.php?id=$post->replies_to");
