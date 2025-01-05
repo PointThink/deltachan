@@ -4,11 +4,11 @@
     <head>
         <title>Error</title>
 
-        <?php include "internal/link_css.php" ?>
+        <?php include "../../internal/link_css.php" ?>
     </head>
 
     <body>
-        <?php include "topbar.php" ?>
+        <?php include "../../topbar.php" ?>
 
         <div class="title">
             <h1>An error has occured</h1>
@@ -17,6 +17,6 @@
             ?>
         </div>
 
-        <?php include "footer.php" ?>
+        <?php include "../../footer.php" ?>
     </body>
 </html>

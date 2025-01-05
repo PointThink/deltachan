@@ -42,7 +42,7 @@ function parse_size($size) {
 
 function error_die($error)
 {	
-	header("Location: /error.php?message=" . urlencode($error));
+	header("Location: /internal/error_pages/error.php?message=" . urlencode($error));
 	die();
 }
 
