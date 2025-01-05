@@ -49,12 +49,13 @@ if ($post->is_reply)
 		</div>
 
 		<div class=post_form>
+			<fieldset>
 			<?php
+				echo "<legend id=reply_disclaimer>Replying to >>$post->id</legend>";
 				if (!is_user_banned())
 				{
 					if (staff_session_is_valid())
 						echo "<p id=staff_disclaimer>Posting as staff</p>";
-					echo "<p id=reply_disclaimer>Replying to >$post->id</p>";
 
 					$form = (new PostForm("/internal/actions/post.php", "POST"));
 
@@ -74,6 +75,8 @@ if ($post->is_reply)
 						->add_hidden_data("is_reply", 1)
 						->add_hidden_data("replies_to", $post->id)
 						->finalize();
+
+					echo "<p class=rules_disclaimer>Remember to follow the <a href=/rules.php>rules</a></p>";
 				}
 				else
 				{
@@ -81,6 +84,7 @@ if ($post->is_reply)
 					echo "<a href=/internal/error_pages/ban.php>Learn more</a>";
 				}
 			?>
+			</fieldset>
 		</div>
 
 		<div id=posts>

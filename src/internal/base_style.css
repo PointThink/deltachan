@@ -556,6 +556,10 @@ form .clear_file, form .file_upload {
 	font-size: 11pt;
 }
 
+.rules_disclaimer {
+	font-size: 10pt;
+}
+
 @media (max-width: 500px) {
 	.post_attachment {
 		max-height: 150px;

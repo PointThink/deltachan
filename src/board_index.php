@@ -62,7 +62,9 @@ function show_pages()
 		</div>
 
 		<div class=post_form>
+			<fieldset>
 			<?php
+				echo "<legend>Create new thread</legend>";
 				if (staff_session_is_valid())
 					echo "<p id=staff_disclaimer>Posting as staff</p>";
 
@@ -80,6 +82,8 @@ function show_pages()
 						->add_captcha("Captcha", "turnslite")
 						->add_file("File", "file")
 						->finalize();
+
+					echo "<p class=rules_disclaimer>Remember to follow the <a href=/rules.php>rules</a></p>";
 				}
 				else
 				{
@@ -87,6 +91,7 @@ function show_pages()
 					echo "<a href=/internal/error_pages/ban.php>Learn more</a>";
 				}
 			?>
+			</fieldset>
 		</div>
 
 		<?php show_pages(); ?>
