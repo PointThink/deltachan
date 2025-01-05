@@ -18,9 +18,9 @@ function show_pages()
 	for ($i = 0; $i < $page_count; $i++)
 	{
 		if ($i == $page)
-			echo "<a class=selected_page href='?p=$i'>[$i]</a>";
+			echo "<a class=selected_page href='?p=$i'>$i</a>";
 		else
-			echo "<a href='?p=$i'>[$i]</a>";
+			echo "<a href='?p=$i'>$i</a>";
 	}
 
 	echo "<a class=catalog_link href=/$board->id/catalog.php>" . localize("catalog") . "</a>";

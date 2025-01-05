@@ -377,7 +377,7 @@ form .clear_file, form .file_upload {
 	font-size: 10pt;
 }
 
-.board_pages a p {
+.board_pages a, .board_pages p {
 	margin: 0.1cm;
 }
 
