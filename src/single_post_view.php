@@ -28,6 +28,7 @@ if ($post->is_reply)
 		<script src=/internal/post_display.js></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+		<link rel="icon" href="/static/favicon.png">
 	</head>
 	<body>
 		<?php

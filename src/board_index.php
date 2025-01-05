@@ -46,6 +46,7 @@ function show_pages()
 		?>
 		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" href="/static/favicon.png">
 	</head>
 
 	<body>
