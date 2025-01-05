@@ -205,19 +205,20 @@ form .clear_file, form .file_upload {
 }
 
 .post .post_attachment, .post .post_attachment_expand {
+	float: left;
 	margin-right: 0.2cm;
 	background: none;
-}
-
-.post .post_attachment {
-	float: left;
-	max-height: 200px;
 }
 
 .post .post_attachment_expand {
 	display: block;
 	max-height: 700px;
 }
+
+.post .post_attachment {
+	max-height: 200px;
+}
+
 
 .report_attachment {
 	filter: blur(20px);
@@ -233,8 +234,14 @@ form .clear_file, form .file_upload {
 
 #topbar {
 	width: 100%;
-	position: fixed;
-	top: 0px;
+	height: fit-content;
+}
+
+@media (min-width: 500px) {
+	#topbar {
+		position: fixed;
+		top: 0px;
+	}
 }
 
 #content {
@@ -547,4 +554,32 @@ form .clear_file, form .file_upload {
 .thread_actions a {
 	margin-right: 0.1cm;
 	font-size: 11pt;
+}
+
+@media (max-width: 500px) {
+	.post_attachment {
+		max-height: 150px;
+		max-width: 150px;		
+	}
+
+	.post_attachment_expand {
+		max-width: 100%;
+		max-height: 100%;
+	}
+
+	.reply {
+		margin: 0;
+		margin-top: 5px;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	#posts {
+		padding: 3px;
+	}
+
+	.post_form textarea {
+		box-sizing: border-box;
+		width: fit-content;
+	}
 }
