@@ -3,6 +3,7 @@ include_once "internal/database.php";
 include_once "internal/board.php";
 include_once "internal/ui.php";
 include_once "internal/staff_session.php";
+include_once "internal/bans.php";
 
 $database = new Database();
 $post = post_read($database, $_GET["id"], $board_id);
@@ -44,28 +45,36 @@ if ($post->is_reply)
 
 		<div class=post_form>
 			<?php
-				if (staff_session_is_valid())
-					echo "<p id=staff_disclaimer>Posting as staff</p>";
-				echo "<p id=reply_disclaimer>Replying to >$post->id</p>";
+				if (!is_user_banned())
+				{
+					if (staff_session_is_valid())
+						echo "<p id=staff_disclaimer>Posting as staff</p>";
+					echo "<p id=reply_disclaimer>Replying to >$post->id</p>";
 
-				$form = (new PostForm("/internal/actions/post.php", "POST"));
+					$form = (new PostForm("/internal/actions/post.php", "POST"));
 
-				if (!staff_session_is_valid())
-					$form->add_text_field("Name", "name", "Anonymous");
-				
-				$reply_field_content = "";
-				if (isset($_GET["reply_field_content"]))
-					$reply_field_content = urldecode($_GET["reply_field_content"]);
+					if (!staff_session_is_valid())
+						$form->add_text_field("Name", "name", "Anonymous");
+					
+					$reply_field_content = "";
+					if (isset($_GET["reply_field_content"]))
+						$reply_field_content = urldecode($_GET["reply_field_content"]);
 
-				$form
-					->add_text_area("Comment", "comment", $reply_field_content)
-					->add_captcha("Captcha", "turnslite")
-					->add_file("File", "file")	
-					->add_checkboxes("Options", array("Sage!" => "sage"))
-					->add_hidden_data("board", "$board_id")
-					->add_hidden_data("is_reply", 1)
-					->add_hidden_data("replies_to", $post->id)
-					->finalize();
+					$form
+						->add_text_area("Comment", "comment", $reply_field_content)
+						->add_captcha("Captcha", "turnslite")
+						->add_file("File", "file")	
+						->add_checkboxes("Options", array("Sage!" => "sage"))
+						->add_hidden_data("board", "$board_id")
+						->add_hidden_data("is_reply", 1)
+						->add_hidden_data("replies_to", $post->id)
+						->finalize();
+				}
+				else
+				{
+					echo "You cannot post because you have been banned!<br>";
+					echo "<a href=/internal/error_pages/ban.php>Learn more</a>";
+				}
 			?>
 		</div>
 

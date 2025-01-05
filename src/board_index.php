@@ -66,18 +66,26 @@ function show_pages()
 				if (staff_session_is_valid())
 					echo "<p id=staff_disclaimer>Posting as staff</p>";
 
-				$form = (new PostForm("/internal/actions/post.php", "POST"));
+				if (!is_user_banned())
+				{
+					$form = (new PostForm("/internal/actions/post.php", "POST"));
 
-				if (!staff_session_is_valid())
-					$form->add_text_field("Name", "name", "Anonymous");
-					
-				$form
-					->add_text_field("Title", "title")
-					->add_text_area("Comment", "comment")
-					->add_hidden_data("board", "$board_id")
-					->add_captcha("Captcha", "turnslite")
-					->add_file("File", "file")
-					->finalize();
+					if (!staff_session_is_valid())
+						$form->add_text_field("Name", "name", "Anonymous");
+						
+					$form
+						->add_text_field("Title", "title")
+						->add_text_area("Comment", "comment")
+						->add_hidden_data("board", "$board_id")
+						->add_captcha("Captcha", "turnslite")
+						->add_file("File", "file")
+						->finalize();
+				}
+				else
+				{
+					echo "You cannot post because you have been banned!<br>";
+					echo "<a href=/internal/error_pages/ban.php>Learn more</a>";
+				}
 			?>
 		</div>
 

@@ -29,6 +29,7 @@ class Post
 	public $title;
 	public $body;
 	public $image_file;
+	public $original_image_name;
 
 	public $poster_ip;
 	public $poster_country;
@@ -53,12 +54,11 @@ class Post
 		}
 
 		$full_link = $_SERVER["SERVER_NAME"] . "/" . $this->image_file;
-		$pretty_name = basename($this->image_file);
 		$bytes_format = "(" . format_bytes(filesize(__DIR__ . "/../$this->image_file")) . ", {$image_x}x{$image_y})";
 
 		echo <<<HTML
 		<p class=file_stats>
-		File: <a href=/$this->image_file>$pretty_name</a> <a href=/$this->image_file download title=Download>📥︎</a>
+		File: <a href=/$this->image_file>$this->original_image_name</a> <a href=/$this->image_file download=$this->original_image_name title='Download with original name'>📥︎</a>
 		$bytes_format</p>
 		HTML;
 	}
@@ -387,7 +387,14 @@ function post_read($database, $id, $board)
 	$post->name = $post_array["name"];
 	$post->body = $post_array["post_body"];
 	$post->title = $post_array["title"];
-	$post->image_file = $post_array["image_file_name"];
+	
+	$image_parts = explode("|", $post_array["image_file_name"]);
+	$post->image_file = $image_parts[0];
+
+	if (count($image_parts) > 1)
+		$post->original_image_name = $image_parts[1];
+	else
+		$post->original_image_name = basename($image_parts[0]);
 
 	$post->poster_ip = $post_array["poster_ip"];
 	$post->poster_country = $post_array["poster_country"];
