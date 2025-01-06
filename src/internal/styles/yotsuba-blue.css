@@ -118,6 +118,9 @@ a:link, a:visited {
 #topbar {
 	background: #c7cdee;
 	border-bottom: 1px solid #b7c5d9;
-	padding: 0.1cm;
 	box-shadow: 0 0 10px #00000044;
+}
+
+#topbar select {
+	height: auto;
 }
