@@ -148,6 +148,10 @@ body {
 	color: #0062ff;
 }
 
+.glowtext {
+	text-shadow: 0px 0px 40px lightgreen, 0px 0px 2px lightgreen;
+}
+
 .post blockquote {
 	font-family: sans-serif;
 	font-size: 10pt;

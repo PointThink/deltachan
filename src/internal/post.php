@@ -139,6 +139,8 @@ class Post
     	$ret = preg_replace('/\*\*(.+)\*\*/sU', '<b>$1</b>', $ret);
     	// italic
 	    $ret = preg_replace('/\*(.+)\*/sU', '<i>$1</i>', $ret);
+		// glow
+		$ret = preg_replace('/\%\%(.+)\%\%/sU', '<span class=glowtext>$1</span>', $ret);
 
 		preg_match_all('/&gt;&gt;[0-9]+/', $ret, $matches, PREG_OFFSET_CAPTURE);
 		
