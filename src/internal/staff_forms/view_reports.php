@@ -29,7 +29,7 @@ if (!staff_session_is_valid() || !staff_is_moderator())
             foreach ($reports as $report)
             {
                 echo "<hr>";
-                echo "<p class=report_header>Reported for:<br>" . htmlspecialchars($report->reason);
+                echo "<p class=report_header>Reported for:<br>" . htmlspecialchars($report->reason, 0, "UTF-8");
 
                 (new ActionLink("/internal/actions/staff/remove_report.php", "discard_$report->report_id", "Discard"))
                     ->add_data("report_id", $report->report_id)

@@ -119,7 +119,7 @@ class Post
 
 	public function format_and_show_text($text)
 	{
-		$text = htmlspecialchars($text);
+		$text = htmlentities($text);
 
 		$text = preg_replace('#(script|about|applet|activex|chrome):#is', "\\1:", $text);
 
@@ -194,12 +194,12 @@ class Post
 
 		if ($this->title != "")
 		{
-			$sanitized_title = htmlspecialchars($this->title);
+			$sanitized_title = htmlentities($this->title, 0, "UTF-8");
 			echo "<p class=post_title>$sanitized_title</p>";	
 		}
 		if (!$this->is_staff_post)
 		{
-			$sanitized_name = htmlspecialchars($this->name);
+			$sanitized_name = htmlentities($this->name, 0, "UTF-8");
 			echo "<p class=name>$sanitized_name</p>";
 		}
 		else
@@ -222,18 +222,19 @@ class Post
 		echo "<p class=post_id>№$this->id</p>";
 		echo "<p class=creation_time>" . format_time_since($time_since_creation) . "</p>";
 		
+		$quote_content = "";
+		foreach (explode("\n", $this->body) as $line)
+			$quote_content .= ">$line\n";
+
 		if ($this->is_reply)
 		{
-			$quote_content = "";
-			foreach (explode("\n", $this->body) as $line)
-			$quote_content .= ">$line\n";
-		
-		display_parameter_link(localize("post_reply"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => ">>$this->id"), "action_link");
-		display_parameter_link(localize("post_quote"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => $quote_content), "action_link");
+			display_parameter_link(localize("post_reply"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => ">>$this->id"), "action_link");
+			display_parameter_link(localize("post_quote"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => $quote_content), "action_link");
 		}
 		else
 		{
 			display_parameter_link(localize("post_reply"), "/$this->board/post.php", array("id" => $this->id), "action_link");
+			display_parameter_link(localize("post_quote"), "/$this->board/post.php", array("id" => $this->id, "reply_field_content" => $quote_content), "action_link");
 		}
 			
 		display_parameter_link("Report", "/internal/actions/report.php", array("id" => $this->id, "board" => $this->board), "action_link");
@@ -307,7 +308,7 @@ class Post
 		echo "<br>";
 
 		if ($this->title != "")
-			echo "<b>" . htmlspecialchars($this->title) . "</b>";
+			echo "<b>" . htmlspecialchars($this->title, 0, "UTF-8") . "</b>";
 
 		echo "<div class=post_comment>";
 		$this->format_and_show_text($this->body);

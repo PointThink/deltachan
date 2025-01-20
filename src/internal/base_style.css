@@ -149,7 +149,7 @@ body {
 }
 
 .glowtext {
-	text-shadow: 0px 0px 40px lightgreen, 0px 0px 2px lightgreen;
+	text-shadow: 0px 0px 2px lightgreen, 0px 0px 2px lightgreen;
 }
 
 .post blockquote {
@@ -208,8 +208,11 @@ form .clear_file, form .file_upload {
 	margin: 0;
 }
 
-.post .post_attachment, .post .post_attachment_expand {
+.post .post_attachment {
 	float: left;
+}
+
+.post .post_attachment, .post .post_attachment_expand {
 	margin-right: 0.2cm;
 	background: none;
 }
@@ -491,7 +494,7 @@ form .clear_file, form .file_upload {
 	max-height: 5cm;
 	padding: 0.5cm;
 	text-align: center;
-	overflow: scroll;
+	overflow: hidden;
 }
 
 .catalog_post a, .catalog_post pre, .catalog_post p {

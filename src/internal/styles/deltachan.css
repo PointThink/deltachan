@@ -85,8 +85,17 @@ a:link, a:visited {
 }
 
 .list {
+	box-shadow: 0 0 5px #00000044;
 	background: white;
     border: 1px solid #373599;
+}
+
+.recent_images {
+	box-shadow: 0 0 5px #00000044;
+}
+
+.stats {
+	box-shadow: 0 0 5px #00000044;
 }
 
 .list .list_title {
@@ -99,13 +108,13 @@ a:link, a:visited {
     color: white;
 }
 
-
-.list .boards_table tr {
+.list .boards_table td {
 	background-color: #ffffff;
+	border: 1px solid #dedede;
 }
 
-.list .boards_table tr:nth-of-type(odd) {
-	background-color: #eeeeee;
+.list .boards_table {
+	border-collapse: collapse;
 }
 
 .board_pages {
