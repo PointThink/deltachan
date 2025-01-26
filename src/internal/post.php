@@ -120,6 +120,7 @@ class Post
 	public function format_and_show_text($text)
 	{
 		$text = htmlentities($text);
+		$text = strip_tags($text); // in case htmlentities fails
 
 		$text = preg_replace('#(script|about|applet|activex|chrome):#is', "\\1:", $text);
 
