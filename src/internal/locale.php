@@ -1,7 +1,12 @@
 <?php
+include_once "chaninfo.php";
+
+$locale_name = chan_info_read()->locale;
+
 function load_locale()
 {
-    $jsonContent = file_get_contents(__DIR__ . "/locales/en.json");
+    global $locale_name;
+    $jsonContent = file_get_contents(__DIR__ . "/locales/$locale_name.json");
     return json_decode($jsonContent, true);
 }
 

@@ -11,6 +11,7 @@ class ChanInfo
     public $turnslite_site_key;
     public $turnslite_secret_key;
     public $show_ban_list = false;
+    public $locale;
 }
 
 function chan_info_read()
