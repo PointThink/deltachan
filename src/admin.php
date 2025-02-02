@@ -111,8 +111,14 @@ else
             echo "<legend>Boards</legend>";
             echo "<ul>";
 
+            $unapproved_post_count = 0;
+
             foreach (board_list() as $b)
+            {
                 echo "<li><a href=/$b->id/>/$b->id/ - $b->title</a></li>";
+                $restult = $database->query("select count(*) from posts_$b->id where approved = 0;");
+                $unapproved_post_count += $restult->fetch_assoc()["count(*)"];
+            }
 
             echo "</ul></fieldset>";
             
@@ -132,15 +138,19 @@ else
 
             if (staff_is_moderator())
             {
-                echo '
+                // count reports
+                $result = $database->query("select count(*) from reports");
+                $report_count = $result->fetch_assoc()["count(*)"];
+
+                echo "
                 <fieldset>
                     <legend>Mod</legend>
                     <ul>
-                        <li><a href=/internal/staff_forms/approve_posts.php>View unnaproved posts</a></li>
-                        <li><a href=/internal/staff_forms/view_reports.php>View reported posts</a></li>
+                        <li><a href=/internal/staff_forms/approve_posts.php>View unnaproved posts</a> ($unapproved_post_count)</li>
+                        <li><a href=/internal/staff_forms/view_reports.php>View reported posts</a> ($report_count)</li>
                         <li><a href=/internal/staff_forms/manage_bans.php>Manage bans</a></li>
                     </ul>
-                </fieldset>';
+                </fieldset>";
             }
         ?>
         </div>

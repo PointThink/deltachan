@@ -1,4 +1,7 @@
 <?php
+if (is_file(__DIR__ . "/../../internal/config.php"))
+	die("The site has already been set up");
+
 function handle_error($errno, $errstr, $errfile, $errline)
 {
 	$error_string = "An error has occured on line <b>$errline</b> in file <b>$errfile</b>:<br> $errstr";
@@ -37,9 +40,6 @@ $password = $_POST["database_password"];
 $_POST["database_host"] = openssl_encrypt($_POST["database_host"], "aes-256-ecb", $key);
 $_POST["database_user"] = openssl_encrypt($_POST["database_user"], "aes-256-ecb", $key);
 $_POST["database_password"] = openssl_encrypt($_POST["database_password"], "aes-256-ecb", $key);
-
-if (!is_file(__DIR__ . "/../../first_run"))
-	die("The site has already been set up");
 
 $config_template_path = __DIR__ . "/../config.template.php";
 $config_path = __DIR__ . "/../config.php";
@@ -105,5 +105,4 @@ update_account_passwords();
 update_boards();
 update_ban_list();
 
-unlink(__DIR__ . "/../../first_run");
 header("Location: /index.php");

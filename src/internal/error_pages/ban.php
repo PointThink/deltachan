@@ -22,7 +22,8 @@
                         include_once "../bans.php";
                         $ban_info = ban_read($_SERVER["REMOTE_ADDR"]);
 
-                        echo "<p>You have been banned for:<br><pre>$ban_info->reason</pre></p>";
+                        $reason = nl2br(htmlspecialchars($ban_info->reason, 0, "UTF-8"));
+                        echo "<p>You have been banned for:<br><blockquote>$reason</blockquote></p>";
 
                         if ($ban_info->expires)
                         {

@@ -42,13 +42,7 @@ function parse_size($size) {
 
 function error_die($error)
 {	
-	if (isset($_POST["is_reply"]))
-		header("Location: /" . $_POST["board"] . "/post.php?error=" . urlencode($error) . "&id=" . $_POST["replies_to"]);
-	else if (!isset($_POST["is_reply"]) && isset($_POST["board"]))		
-		header("Location: /" . $_POST["board"] . "?error=" . urlencode($error));
-	else
-		header("Location:" . parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH) . "?error=" . urlencode($error));
-	
+	header("Location: /internal/error_pages/error.php?message=" . urlencode($error));
 	die();
 }
 
@@ -107,6 +101,9 @@ if ($_FILES["file"]["size"] > 0)
 		error_die("Files of type $upload_mime are not allowed");
 }
 
+if (str_contains($_FILES["file"]["name"], "|"))
+	error_die("File names cannot contain |");
+
 $file_upload_dir = "uploads/";
 $target_file = "";
 
@@ -162,7 +159,7 @@ if ($_FILES["file"]["size"] > 0)
 {	
 	$target_file = $file_upload_dir . "$result->board-" . strval($result->id) . "." . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
 	move_uploaded_file($_FILES["file"]["tmp_name"], __DIR__ . "/../../" . $target_file);
-	post_update_file($database, $result->board, $result->id, $target_file);
+	post_update_file($database, $result->board, $result->id, "$target_file|" . $_FILES["file"]["name"]);
 	$result->image_file = $target_file;
 
 	if (str_starts_with($_FILES["file"]["type"], "image"))

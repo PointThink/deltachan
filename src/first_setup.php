@@ -9,9 +9,9 @@
 	<body>
 		<div id="setup_page">
 		<?php
-			if (isset($_GET["error"]) && file_exists("first_run"))
+			if (isset($_GET["error"]) && !file_exists("internal/config.php"))
 				echo "<p class=setup_error>" . $_GET["error"] . "</p><br>";
-			if (!file_exists("first_run"))
+			if (file_exists("internal/config.php"))
 				header("Location: /");
 		?>
 		<form method=POST action=/internal/actions/first_setup.php>

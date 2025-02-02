@@ -17,6 +17,7 @@ if (count($_POST) > 0)
 	$chan_info->faq = $_POST["faq"];
 	$chan_info->default_theme = $_POST["default_theme"];
 	$chan_info->show_ban_list = $_POST["show_ban_list"];
+	$chan_info->locale = $_POST["locale"];
 
 	$key = file_get_contents($deltachan_config["crypt_key_path"]);
 	$chan_info->turnslite_site_key = $_POST["turnslite_site_key"];
@@ -44,7 +45,7 @@ if (count($_POST) > 0)
             $chan_info = chan_info_read();
 		?>
 
-		<div class=post_form>
+		<div class="post_form chan_setup">
 			<?php
 			$key = file_get_contents($deltachan_config["crypt_key_path"]);
 
@@ -55,6 +56,7 @@ if (count($_POST) > 0)
 				->add_text_area("FAQ", "faq", htmlspecialchars($chan_info->faq))
 				->add_checkbox("Public ban list enabled", "show_ban_list", $chan_info->show_ban_list)
 				->add_text_field("Default theme", "default_theme", $chan_info->default_theme)
+				->add_dropdown("Locale", "locale", array("en", "pl", "ru"), $chan_info->locale)
 				->add_text_field("Turnslite site key", "turnslite_site_key", $chan_info->turnslite_site_key)
 				->add_text_field("Turnslite secret key", "turnslite_secret_key", openssl_decrypt($chan_info->turnslite_secret_key, "aes-256-ecb", $key))
 				->finalize();

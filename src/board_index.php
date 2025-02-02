@@ -18,9 +18,9 @@ function show_pages()
 	for ($i = 0; $i < $page_count; $i++)
 	{
 		if ($i == $page)
-			echo "<a class=selected_page href='?p=$i'>[$i]</a>";
+			echo "<a class=selected_page href='?p=$i'>$i</a>";
 		else
-			echo "<a href='?p=$i'>[$i]</a>";
+			echo "<a href='?p=$i'>$i</a>";
 	}
 
 	echo "<a class=catalog_link href=/$board->id/catalog.php>" . localize("catalog") . "</a>";
@@ -46,14 +46,12 @@ function show_pages()
 		?>
 		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" href="/static/favicon.png">
 	</head>
 
 	<body>
 		<?php
 			include "topbar.php";
-
-			if (isset($_GET["error"]))
-				echo "<script>alert('" . $_GET["error"] . "')</script>"
 		?>
 
 		<div class="title">
@@ -64,23 +62,36 @@ function show_pages()
 		</div>
 
 		<div class=post_form>
+			<fieldset>
 			<?php
+				echo "<legend>Create new thread</legend>";
 				if (staff_session_is_valid())
 					echo "<p id=staff_disclaimer>Posting as staff</p>";
 
-				$form = (new PostForm("/internal/actions/post.php", "POST"));
+				if (!is_user_banned())
+				{
+					$form = (new PostForm("/internal/actions/post.php", "POST"));
 
-				if (!staff_session_is_valid())
-					$form->add_text_field("Name", "name", "Anonymous");
-					
-				$form
-					->add_text_field("Title", "title")
-					->add_text_area("Comment", "comment")
-					->add_hidden_data("board", "$board_id")
-					->add_captcha("Captcha", "turnslite")
-					->add_file("File", "file")
-					->finalize();
+					if (!staff_session_is_valid())
+						$form->add_text_field("Name", "name", "Anonymous");
+						
+					$form
+						->add_text_field("Title", "title")
+						->add_text_area("Comment", "comment")
+						->add_hidden_data("board", "$board_id")
+						->add_captcha("Captcha", "turnslite")
+						->add_file("File", "file")
+						->finalize();
+
+					echo "<p class=rules_disclaimer>Remember to follow the <a href=/rules.php>rules</a></p>";
+				}
+				else
+				{
+					echo "You cannot post because you have been banned!<br>";
+					echo "<a href=/internal/error_pages/ban.php>Learn more</a>";
+				}
 			?>
+			</fieldset>
 		</div>
 
 		<?php show_pages(); ?>

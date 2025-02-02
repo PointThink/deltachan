@@ -29,6 +29,7 @@ class Post
 	public $title;
 	public $body;
 	public $image_file;
+	public $original_image_name;
 
 	public $poster_ip;
 	public $poster_country;
@@ -53,12 +54,11 @@ class Post
 		}
 
 		$full_link = $_SERVER["SERVER_NAME"] . "/" . $this->image_file;
-		$pretty_name = basename($this->image_file);
 		$bytes_format = "(" . format_bytes(filesize(__DIR__ . "/../$this->image_file")) . ", {$image_x}x{$image_y})";
 
 		echo <<<HTML
 		<p class=file_stats>
-		File: <a href=/$this->image_file>$pretty_name</a> <a href=/$this->image_file download title=Download>📥︎</a>
+		File: <a href=/$this->image_file>$this->original_image_name</a> <a href=/$this->image_file download=$this->original_image_name title='Download with original name'>📥︎</a>
 		$bytes_format</p>
 		HTML;
 	}
@@ -100,7 +100,7 @@ class Post
 		{
 			$file_parts = explode(".", $this->image_file);
 			$thumb_file_name = $file_parts[0] . "-thumb.webp";
-			echo "<a href=/$this->board/post.php?id=$this->id'><img class=post_attachment src='/$thumb_file_name'></a>";
+			echo "<a href=/$this->board/post.php?id=$this->id><img class=post_attachment src='/$thumb_file_name'></a>";
 		}
 		else
 			echo "<a class=post_attachment_non_image href='/$this->image_file'><img class=post_attachment_non_image alt='attachment' src='/attachment.svg'>$base_name</a>";
@@ -119,7 +119,8 @@ class Post
 
 	public function format_and_show_text($text)
 	{
-		$text = htmlspecialchars($text);
+		$text = htmlentities($text);
+		$text = strip_tags($text); // in case htmlentities fails
 
 		$text = preg_replace('#(script|about|applet|activex|chrome):#is', "\\1:", $text);
 
@@ -139,6 +140,8 @@ class Post
     	$ret = preg_replace('/\*\*(.+)\*\*/sU', '<b>$1</b>', $ret);
     	// italic
 	    $ret = preg_replace('/\*(.+)\*/sU', '<i>$1</i>', $ret);
+		// glow
+		$ret = preg_replace('/\%\%(.+)\%\%/sU', '<span class=glowtext>$1</span>', $ret);
 
 		preg_match_all('/&gt;&gt;[0-9]+/', $ret, $matches, PREG_OFFSET_CAPTURE);
 		
@@ -183,6 +186,7 @@ class Post
 		else
 			echo "<div class=reply id=post_$this->id>";
 
+		echo "<div class=post_upper>";
 		if ($this->sticky)
 			echo "<img class=pin src=/pin.png>";
 
@@ -191,12 +195,12 @@ class Post
 
 		if ($this->title != "")
 		{
-			$sanitized_title = htmlspecialchars($this->title);
+			$sanitized_title = htmlentities($this->title, 0, "UTF-8");
 			echo "<p class=post_title>$sanitized_title</p>";	
 		}
 		if (!$this->is_staff_post)
 		{
-			$sanitized_name = htmlspecialchars($this->name);
+			$sanitized_name = htmlentities($this->name, 0, "UTF-8");
 			echo "<p class=name>$sanitized_name</p>";
 		}
 		else
@@ -219,18 +223,19 @@ class Post
 		echo "<p class=post_id>№$this->id</p>";
 		echo "<p class=creation_time>" . format_time_since($time_since_creation) . "</p>";
 		
+		$quote_content = "";
+		foreach (explode("\n", $this->body) as $line)
+			$quote_content .= ">$line\n";
+
 		if ($this->is_reply)
 		{
-			$quote_content = "";
-			foreach (explode("\n", $this->body) as $line)
-			$quote_content .= ">$line\n";
-		
-		display_parameter_link(localize("post_reply"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => ">>$this->id"), "action_link");
-		display_parameter_link(localize("post_quote"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => $quote_content), "action_link");
+			display_parameter_link(localize("post_reply"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => ">>$this->id"), "action_link");
+			display_parameter_link(localize("post_quote"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => $quote_content), "action_link");
 		}
 		else
 		{
 			display_parameter_link(localize("post_reply"), "/$this->board/post.php", array("id" => $this->id), "action_link");
+			display_parameter_link(localize("post_quote"), "/$this->board/post.php", array("id" => $this->id, "reply_field_content" => $quote_content), "action_link");
 		}
 			
 		display_parameter_link("Report", "/internal/actions/report.php", array("id" => $this->id, "board" => $this->board), "action_link");
@@ -255,6 +260,9 @@ class Post
 				display_parameter_link($this->sticky ? "Unstick" : "Sticky", "/internal/actions/staff/sticky_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
 			}
 		}
+
+		echo "</div>";
+		echo "<div class=post_lower>";
 
 		if ($this->image_file != "")
 			if ($report_mode)
@@ -287,6 +295,7 @@ class Post
 		}
 
 		echo "</div>";
+		echo "</div>";
 	}
 
 	public function display_catalog()
@@ -295,14 +304,12 @@ class Post
 
 		if ($this->image_file)
 			$this->display_catalog_attachment();
-		
-		echo "<a href=/$this->board/post.php?id=$this->id>>>$this->id ";
-		echo "r: " . count($this->replies) . "</a>";
+		echo "<p><b>R: " . count($this->replies) . "</b></p>";
 
 		echo "<br>";
 
 		if ($this->title != "")
-			echo "<b>" . htmlspecialchars($this->title) . "</b>";
+			echo "<b>" . htmlspecialchars($this->title, 0, "UTF-8") . "</b>";
 
 		echo "<div class=post_comment>";
 		$this->format_and_show_text($this->body);
@@ -384,7 +391,14 @@ function post_read($database, $id, $board)
 	$post->name = $post_array["name"];
 	$post->body = $post_array["post_body"];
 	$post->title = $post_array["title"];
-	$post->image_file = $post_array["image_file_name"];
+	
+	$image_parts = explode("|", $post_array["image_file_name"]);
+	$post->image_file = $image_parts[0];
+
+	if (count($image_parts) > 1)
+		$post->original_image_name = $image_parts[1];
+	else
+		$post->original_image_name = basename($image_parts[0]);
 
 	$post->poster_ip = $post_array["poster_ip"];
 	$post->poster_country = $post_array["poster_country"];

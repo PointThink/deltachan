@@ -1,0 +1,20 @@
+{
+  "welcome": "Добро пожаловать на",
+
+  "board": "Доска",
+  "title": "Заголовок",
+  "subtitle": "Описание",
+  "posts": "Posts",
+  "unique_posters": "Уникальные постеры",
+
+  "index_stats": "Стата",
+  "index_recent_images": "Последнее",
+
+  "post_report": "Жалоба",
+  "post_quote": "Цитата",
+  "post_reply": "Ответ",
+  "post_replies_hide": "Открыть весь тред",
+  "post_replies_last5": "Показываем последние 5 ответов",
+  
+  "catalog": "Каталог"
+}

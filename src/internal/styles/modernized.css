@@ -44,7 +44,6 @@ a:link, a:visited {
 #reply_disclaimer {
 	margin-left: 2px;
 	margin-right: 3px;
-	border: 1px solid black;
 	background: #40d9ff;
 	color: black;
 }
@@ -109,6 +108,20 @@ a:link, a:visited {
 	padding: 0.2cm;
 	background: #e0e6ff;
 	margin-bottom: 0.5cm;
+}
+
+.reply {
+	padding: 0;
+}
+
+.reply .post_upper {
+	padding: 0.1cm;
+	border-bottom: 1px solid#00000044;
+	background: #c2c6df;
+}
+
+.reply .post_lower, .reply .post_attachment {
+	margin: 0.2cm;
 }
 
 .catalog_post {

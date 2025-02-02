@@ -148,6 +148,10 @@ body {
 	color: #0062ff;
 }
 
+.glowtext {
+	text-shadow: 0px 0px 2px lightgreen, 0px 0px 2px lightgreen;
+}
+
 .post blockquote {
 	font-family: sans-serif;
 	font-size: 10pt;
@@ -204,21 +208,24 @@ form .clear_file, form .file_upload {
 	margin: 0;
 }
 
+.post .post_attachment {
+	float: left;
+}
+
 .post .post_attachment, .post .post_attachment_expand {
 	margin-right: 0.2cm;
 	background: none;
-}
-
-.post .post_attachment {
-	float: left;
-	border: none;
-	max-height: 200px;
 }
 
 .post .post_attachment_expand {
 	display: block;
 	max-height: 700px;
 }
+
+.post .post_attachment {
+	max-height: 200px;
+}
+
 
 .report_attachment {
 	filter: blur(20px);
@@ -234,8 +241,14 @@ form .clear_file, form .file_upload {
 
 #topbar {
 	width: 100%;
-	position: fixed;
-	top: 0px;
+	height: fit-content;
+}
+
+@media (min-width: 500px) {
+	#topbar {
+		position: fixed;
+		top: 0px;
+	}
 }
 
 #content {
@@ -371,7 +384,7 @@ form .clear_file, form .file_upload {
 	font-size: 10pt;
 }
 
-.board_pages a p {
+.board_pages a, .board_pages p {
 	margin: 0.1cm;
 }
 
@@ -446,6 +459,14 @@ form .clear_file, form .file_upload {
 	grid-template-columns: repeat(2, 1fr);
 }
 
+.catalog_post {
+	font-size: 10pt;
+}
+
+.catalog_post blockquote {
+	margin: 0;
+}
+
 @media (min-width: 700px) {
 	.catalog_posts {
 		grid-auto-rows: minmax(0px, auto);
@@ -473,7 +494,7 @@ form .clear_file, form .file_upload {
 	max-height: 5cm;
 	padding: 0.5cm;
 	text-align: center;
-	overflow: scroll;
+	overflow: hidden;
 }
 
 .catalog_post a, .catalog_post pre, .catalog_post p {
@@ -490,6 +511,8 @@ form .clear_file, form .file_upload {
 .catalog_post .post_attachment {
 	min-height: 100px;
 	max-height: 100px;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.55);
+  	border: 2px solid rgba(153, 153, 153, 0);
 }
 
 .catalog_link {
@@ -538,4 +561,36 @@ form .clear_file, form .file_upload {
 .thread_actions a {
 	margin-right: 0.1cm;
 	font-size: 11pt;
+}
+
+.rules_disclaimer {
+	font-size: 10pt;
+}
+
+@media (max-width: 500px) {
+	.post_attachment {
+		max-height: 150px;
+		max-width: 150px;		
+	}
+
+	.post_attachment_expand {
+		max-width: 100%;
+		max-height: 100%;
+	}
+
+	.reply {
+		margin: 0;
+		margin-top: 5px;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	#posts {
+		padding: 3px;
+	}
+
+	.post_form textarea {
+		box-sizing: border-box;
+		width: fit-content;
+	}
 }

@@ -10,6 +10,7 @@ include_once "internal/board.php";
             echo "<title>/$board_id/ catalog</title>";
         ?>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/static/favicon.png">
     </head>
 
     <body>

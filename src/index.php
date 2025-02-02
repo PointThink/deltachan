@@ -1,5 +1,5 @@
 <?php
-	if (is_file("first_run"))
+	if (!is_file("internal/config.php"))
 	{
 		header("Location: /first_setup.php");
 		die();
@@ -24,6 +24,7 @@ include_once "internal/locale.php";
 
 		include "internal/link_css.php";
 		?>
+		<link rel="icon" href="/static/favicon.png">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 
