@@ -22,7 +22,7 @@ $chan_info = chan_info_read();
 	<a href=/faq.php>faq</a>
 	<?php
 		if ($chan_info->show_ban_list)
-			echo "<a href=/bans.php>bans</a>"
+			echo "<p>/</p><a href=/bans.php>bans</a>"
 	?>
 	<p>]</p>
 
