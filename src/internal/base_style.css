@@ -149,6 +149,7 @@ body {
 }
 
 .glowtext {
+	color: green;
 	text-shadow: 0px 0px 2px lightgreen, 0px 0px 2px lightgreen;
 }
 
