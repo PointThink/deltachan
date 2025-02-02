@@ -201,6 +201,11 @@ body {
 	flex-direction: row;
 }
 
+.chan_setup textarea {
+	width: 20cm;
+	height: 5cm;
+}
+
 form .clear_file, form .file_upload {
 	display: inline-block;
 }
