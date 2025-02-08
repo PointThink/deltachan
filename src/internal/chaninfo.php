@@ -12,6 +12,9 @@ class ChanInfo
     public $turnslite_secret_key;
     public $show_ban_list = false;
     public $locale;
+    public $rate_limiting_enabled = false;
+    public $rate_limit_range;
+    public $rate_limit_max_threads;
 }
 
 function chan_info_read()

@@ -66,6 +66,27 @@ if (is_user_banned())
 	die();
 }
 
+$database = new Database();
+$chan_info = chan_info_read();
+
+echo var_dump($chan_info);
+
+if ($chan_info->rate_limiting_enabled)
+{
+	$user_ip = $_SERVER["REMOTE_ADDR"];
+	$board = $_POST["board"];
+	// check if user has made too many threads recently
+	// gather recent threads
+	$result = $database->query("select count(*) from posts_$board where poster_ip = '$user_ip' and creation_time >= NOW() - interval $chan_info->rate_limit_range second;");
+	$timestamps = array();
+
+	$count = $result->fetch_assoc()["count(*)"];
+	echo $count;
+
+	if ($count > $chan_info->rate_limit_max_threads)
+		error_die("Slow down! You're making too many posts!");
+}
+
 if ($_SERVER['CONTENT_LENGTH'] > file_upload_max_size())
 	error_die("Your file is too big. Max size is " . ini_get("upload_max_filesize"));
 
@@ -106,8 +127,6 @@ if (str_contains($_FILES["file"]["name"], "|"))
 
 $file_upload_dir = "uploads/";
 $target_file = "";
-
-$database = new Database();
 
 // If user is logged in as staff create a staff post
 $is_mod_post = "0";

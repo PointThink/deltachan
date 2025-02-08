@@ -149,6 +149,7 @@ body {
 }
 
 .glowtext {
+	color: green;
 	text-shadow: 0px 0px 2px lightgreen, 0px 0px 2px lightgreen;
 }
 
@@ -198,6 +199,11 @@ body {
 .post_form .file_upload_row {
 	display: flex;
 	flex-direction: row;
+}
+
+.chan_setup textarea {
+	width: 20cm;
+	height: 5cm;
 }
 
 form .clear_file, form .file_upload {
