@@ -5,7 +5,6 @@ DeltaChan is a lightweight imageboard software written in PHP.
 ## Instances
 I set up an instance on a free host to show off the software. Feel free to visit. If you host a site with this software feel free to contact me at pointthink@protonmail.com and I will add your chan to this list.
 - [Official DeltaChan Instance](http://deltachan.atwebpages.com)
-- [KobChan](http://kobchan.run.place) - Russian speaking imageboard
 
 ## Install
 ### Requirements
