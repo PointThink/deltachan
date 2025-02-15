@@ -69,8 +69,6 @@ if (is_user_banned())
 $database = new Database();
 $chan_info = chan_info_read();
 
-echo var_dump($chan_info);
-
 if ($chan_info->rate_limiting_enabled)
 {
 	$user_ip = $_SERVER["REMOTE_ADDR"];
