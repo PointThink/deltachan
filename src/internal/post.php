@@ -56,9 +56,11 @@ class Post
 		$full_link = $_SERVER["SERVER_NAME"] . "/" . $this->image_file;
 		$bytes_format = "(" . format_bytes(filesize(__DIR__ . "/../$this->image_file")) . ", {$image_x}x{$image_y})";
 
+		$original_image_name = htmlentities($this->original_image_name);
+
 		echo <<<HTML
 		<p class=file_stats>
-		File: <a href=/$this->image_file>$this->original_image_name</a> <a href=/$this->image_file download=$this->original_image_name title='Download with original name'>📥︎</a>
+		File: <a href=/$this->image_file>$original_image_name</a> <a href=/$this->image_file download=$original_image_name title='Download with original name'>📥︎</a>
 		$bytes_format</p>
 		HTML;
 	}
