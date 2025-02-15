@@ -72,7 +72,7 @@ class PostForm
 		$max_upload = ini_get("upload_max_filesize");
 		$this->buffer .= "<tr>";
 		$this->buffer .= "<th>$label</th>";
-		$this->buffer .= "<td><div class=file_upload_row><input class=file_upload type=file multiple name=$name><button type=button class=clear_file onclick=clear_file_upload()>Clear</button></div><p class=max_upload>Max size: $max_upload</p></td>";
+		$this->buffer .= "<td><div class=file_upload_row><input class=file_upload type=file name=$name><button type=button class=clear_file onclick=clear_file_upload()>Clear</button></div><p class=max_upload>Max size: $max_upload</p></td>";
 		$this->buffer .= "</tr>";
 
 		return $this;
