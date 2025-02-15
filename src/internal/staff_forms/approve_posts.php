@@ -38,7 +38,7 @@ if (!staff_session_is_valid() || !staff_is_moderator())
             foreach ($unapproved_posts as $post)
             {
                 echo "<hr>";
-                $post->display();
+                $post->display(false, false, false, true);
             }
         ?>
         </div>

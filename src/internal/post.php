@@ -181,7 +181,7 @@ class Post
     	echo "</blockquote>";
 	}
 
-	public function display($board_view = false, $report_mode = false, $report_view_mode = false)
+	public function display($board_view = false, $report_mode = false, $report_view_mode = false, $display_unapproved = false)
 	{
 		if (!$this->is_reply || $report_mode || $report_view_mode)
 			echo "<div class=post id=post_$this->id>";
@@ -266,16 +266,23 @@ class Post
 		echo "</div>";
 		echo "<div class=post_lower>";
 
-		if ($this->image_file != "")
-			if ($report_mode)
-			{
-				echo "<div class=report_attachment>";
-				$this->display_attachment();
-				echo "</div>";
-			}
-			else
-				$this->display_attachment();
-
+		if ($this->approved || $display_unapproved)
+		{
+			if ($this->image_file != "")
+				if ($report_mode)
+				{
+					echo "<div class=report_attachment>";
+					$this->display_attachment();
+					echo "</div>";
+				}
+				else
+					$this->display_attachment();
+		}
+		else
+		{
+			echo "<b>Media pending approval</b><br>";
+		}
+		
 		if ($this->body != "")
 			$this->format_and_show_text($this->body);
 		
@@ -292,7 +299,7 @@ class Post
 
 			echo "<div id=replies_$this->id>";
 			foreach ($replies as $reply)
-				$reply->display(true);
+				$reply->display(true, false, false, $display_unapproved);
 			echo "</div>";
 		}
 
