@@ -193,6 +193,8 @@ class Post
 			echo "<img class=pin src=/pin.png>";
 
 
+		echo "<button onclick=hide_thread($this->id)>–</button>";		
+
 		echo "<span class=name_segment>";
 
 		if ($this->title != "")
@@ -280,7 +282,8 @@ class Post
 		}
 		else
 		{
-			echo "<b>Media pending approval</b><br>";
+			if ($this->image_file != "")
+				echo "<b>Media pending approval</b><br>";
 		}
 		
 		if ($this->body != "")

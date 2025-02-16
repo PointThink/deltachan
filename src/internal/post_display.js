@@ -47,3 +47,20 @@ function expand_image(id)
         image.classList.remove("post_attachment_expand");
     }
 }
+
+function hide_thread(id)
+{
+    post = document.querySelector("#post_" + id + " .post_lower");
+    button = document.querySelector("#post_" + id + " button");
+
+    if (post.style.display == "none")
+    {
+        button.innerText = "–"
+        post.style.display = "block";
+    }
+    else
+    {
+        button.innerText = "+";
+        post.style.display = "none";
+    }
+}
