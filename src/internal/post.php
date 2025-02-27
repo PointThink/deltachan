@@ -329,6 +329,26 @@ class Post
 
 		echo "</div>";
 	}
+
+	public function display_index()
+	{
+		echo "<div href=/$this->board/?post=$this->id class=index_post>";
+
+		if ($this->image_file)
+			$this->display_catalog_attachment();
+		echo "<p><b>R: " . count($this->replies) . "</b></p>";
+
+		echo "<br>";
+
+		if ($this->title != "")
+			echo "<b>" . htmlspecialchars($this->title, 0, "UTF-8") . "</b>";
+
+		echo "<div class=post_comment>";
+		$this->format_and_show_text($this->body);
+		echo "</div>"; 
+
+		echo "</div>";
+	}
 }
 
 function post_delete($database, $board, $id, $delete_images = true)
