@@ -334,9 +334,10 @@ class Post
 	{
 		echo "<div href=/$this->board/?post=$this->id class=index_post>";
 
+		echo "<p><b>/$this->board/</b></p><br>";
+
 		if ($this->image_file)
 			$this->display_catalog_attachment();
-		echo "<p><b>R: " . count($this->replies) . "</b></p>";
 
 		echo "<br>";
 

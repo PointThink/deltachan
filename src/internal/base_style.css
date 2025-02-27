@@ -485,8 +485,8 @@ form .clear_file, form .file_upload {
 	overflow: hidden;
 }
 
-.catalog_post a, .catalog_post pre, .catalog_post p
-.index_post a, .index_post pre, .index_post p {
+.catalog_post blockquote,
+.index_post blockquote {
 	display: block;
 	font-size: 10pt;
 	margin: 0;
@@ -578,4 +578,8 @@ form .clear_file, form .file_upload {
 		box-sizing: border-box;
 		width: fit-content;
 	}
+}
+
+.recent_images .list_content {
+	padding: 0;
 }
