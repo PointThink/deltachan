@@ -88,8 +88,12 @@ if ($chan_info->rate_limiting_enabled)
 if ($_SERVER['CONTENT_LENGTH'] > file_upload_max_size())
 	error_die("Your file is too big. Max size is " . ini_get("upload_max_filesize"));
 
-if ( $_FILES["file"]["size"] <= 0 && !isset($_POST["is_reply"]) )
-	error_die("Your post must contain an image");
+if (!$chan_info->allow_text_only_ops)
+	if (trim($_POST["comment"]) == "" && $_FILES["file"]["size"] <= 0)
+		error_die("Your post must containt a comment or image");
+else
+	if ( $_FILES["file"]["size"] <= 0 && !isset($_POST["is_reply"]) )
+		error_die("Your post must contain an image");
 
 if (isset($_POST["is_reply"]) && trim($_POST["comment"]) == "" && $_FILES["file"]["size"] <= 0)
 	error_die("Your post must containt a comment or image");
