@@ -163,27 +163,22 @@ a:link, a:visited {
 }
 
 .stats {
-	margin-right: 0.5cm;
-	width: 7cm;
-	display: inline-block;
-	background-color: #2f2f5f;
-	color: #eeeeff;
-	border: 1px solid #eeeeff;
+	background-color: #2f2f5f !important;
+	color: #eeeeff !important;
+	border: 1px solid #eeeeff !important;
 }
 
 .stats .list_title {
-	background-color: #3e3e80;
-	color: white;
+	background-color: #3e3e80 !important;
+	color: white !important;
 }
 
 .recent_images {
-	width: 100%;
-	display: inline-block;
-	border: 1px solid #cceeab;
-	background-color: #254b39;
+	border: 1px solid #cceeab !important;
+	background-color: #254b39 !important;
 }
 
 .recent_images .list_title {
-	color: #cceeab;
-	background-color: #1d794e;
+	color: #cceeab !important;
+	background-color: #1d794e !important;
 }

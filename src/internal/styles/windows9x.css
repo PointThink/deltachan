@@ -48,8 +48,8 @@ a:link, a:visited {
 .list .boards_table th,
 .manage_table th,
 .recent_images .list_title, .stats .list_title {
-	background-color: #010081;
-	color: white;
+	background-color: #010081 !important;
+	color: white !important;
 }
 
 
@@ -58,12 +58,12 @@ a:link, a:visited {
 }
 
 .reply, .catalog_post, .board_pages, .post_form, .list, .recent_images, .stats, .manage_table td {
-	background: #c3c3c3;
-	color: black;
-	border-top: 2px solid #fdffff;
-	border-left: 2px solid #fdffff;
-	border-bottom: 2px solid #818181;
-	border-right: 2px solid #818181;
+	background: #c3c3c3 !important;
+	color: black !important;
+	border-top: 2px solid #fdffff !important;
+	border-left: 2px solid #fdffff !important;
+	border-bottom: 2px solid #818181 !important;
+	border-right: 2px solid #818181 !important;
 }
 
 .post_form fieldset, .post_form th {
