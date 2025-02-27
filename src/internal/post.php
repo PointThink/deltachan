@@ -312,10 +312,12 @@ class Post
 
 	public function display_catalog()
 	{
+		if (!$this->approved || !$this->image_file)
+			return;
+		
+		
 		echo "<div href=/$this->board/?post=$this->id class=catalog_post>";
-
-		if ($this->image_file)
-			$this->display_catalog_attachment();
+		$this->display_catalog_attachment();
 		echo "<p><b>R: " . count($this->replies) . "</b></p>";
 
 		echo "<br>";
