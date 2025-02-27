@@ -15,6 +15,7 @@ class ChanInfo
     public $rate_limiting_enabled = false;
     public $rate_limit_range;
     public $rate_limit_max_threads;
+    public $allow_text_only_ops = false;
 }
 
 function chan_info_read()

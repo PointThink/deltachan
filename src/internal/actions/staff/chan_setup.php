@@ -21,6 +21,7 @@ if (count($_POST) > 0)
 	$chan_info->rate_limit_max_threads = $_POST["rate_limit_max_threads"];
 	$chan_info->rate_limit_range = $_POST["rate_limit_range"];
 	$chan_info->rate_limiting_enabled = isset($_POST["rate_limiting_enabled"]);
+	$chan_info->allow_text_only_ops = isset($_POST["allow_text_only_ops"]);
 
 	$key = file_get_contents($deltachan_config["crypt_key_path"]);
 	$chan_info->turnslite_site_key = $_POST["turnslite_site_key"];
@@ -55,6 +56,7 @@ if (count($_POST) > 0)
                 ->add_text_area("Welcome message", "welcome", htmlspecialchars($chan_info->welcome))
                 ->add_text_area("Rules", "rules", htmlspecialchars($chan_info->rules))
 				->add_text_area("FAQ", "faq", htmlspecialchars($chan_info->faq))
+				->add_checkbox("Allow text only OPs", "allow_text_only_ops", $chan_info->allow_text_only_ops)
 				->add_checkbox("Public ban list enabled", "show_ban_list", $chan_info->show_ban_list)
 				->add_text_field("Default theme", "default_theme", $chan_info->default_theme)
 				->add_dropdown("Locale", "locale", array("en", "pl", "ru"), $chan_info->locale)

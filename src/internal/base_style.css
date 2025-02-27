@@ -71,7 +71,7 @@ body {
 	max-width: 100%;
 	margin: 0;
 	padding: 0;
-	width: 8cm;
+	width: 12cm;
 	box-sizing: border-box;
 }
 
@@ -154,7 +154,6 @@ body {
 }
 
 .post blockquote {
-	font-family: sans-serif;
 	font-size: 10pt;
 	text-wrap: wrap;
 	margin: 0.2cm;
@@ -175,6 +174,15 @@ body {
 
 .post .name_segment {
 	font-size: 10pt;
+}
+
+.post button {
+	margin: 0;
+	margin-right: 0.2cm;
+	width: 18px;
+	height: 18px;
+	font-size: 8pt;
+	padding: 0;
 }
 
 .post .your_post, .post .your_thread {
@@ -404,73 +412,47 @@ form .clear_file, form .file_upload {
 	font-size: 10pt;
 }
 
-.line {
-	display: flex;
-  width: 25cm;
-	font-size: 10pt;
-	margin: auto;
-	align-items: stretch;
-}
-
 .stats {
-	margin-right: 0.5cm;
-	width: 7cm;
-	display: inline-block;
-	background-color: #eeeeff;
-	color: #000066;
-	border: 1px solid #000066;
+	background-color: #eeeeff !important;
+	color: #000066 !important;
+	border: 1px solid #000066 !important;
 }
 
 .stats .list_title {
-	background-color: #5599aa;
-	color: white;
+	background-color: #5599aa !important;
+	color: white !important;
 }
 
 .recent_images {
-	width: 100%;
-	display: inline-block;
-	border: 1px solid #006600;
-	background-color: #eeffee;
+	border: 1px solid #006600 !important;
+	background-color: #eeffee !important;
 }
 
 .recent_images .list_title {
-	color: #006600;
-	background-color: #99cc66;
-}
-
-.recent_image {
-	padding: 0.1cm;
-	vertical-align: top;
-	max-width: 4cm;
-	border-radius: 16px;
-}
-
-.col .list_title {
-	padding: 0.2cm;
-	margin: 0;
-}
-
-.col .list_content {
-	padding: 0.2cm;
-	margin: 0;
+	color: #006600 !important;
+	background-color: #99cc66 !important;
 }
 
 .setup_error {
 	color: darkred;
 }
 
-.catalog_posts {
+.catalog_posts, .recent_images .list_content {
 	margin: 0.5cm;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 }
 
-.catalog_post {
+.catalog_post, .index_post {
 	font-size: 10pt;
 }
 
 .catalog_post blockquote {
 	margin: 0;
+}
+
+.recent_images .list_content {
+	grid-template-columns: repeat(3, 1fr);
 }
 
 @media (min-width: 700px) {
@@ -496,25 +478,22 @@ form .clear_file, form .file_upload {
 }
 
 
-.catalog_post {
+.catalog_post, .index_post {
 	max-height: 5cm;
 	padding: 0.5cm;
 	text-align: center;
 	overflow: hidden;
 }
 
-.catalog_post a, .catalog_post pre, .catalog_post p {
+.catalog_post blockquote,
+.index_post blockquote {
 	display: block;
 	font-size: 10pt;
 	margin: 0;
 	text-wrap: wrap;
 }
 
-.catalog_post pre {
-	font-size: 8pt;
-}
-
-.catalog_post .post_attachment {
+.catalog_post .post_attachment, .index_post .post_attachment {
 	min-height: 100px;
 	max-height: 100px;
 	box-shadow: 0 0 4px rgba(0, 0, 0, 0.55);
@@ -599,4 +578,8 @@ form .clear_file, form .file_upload {
 		box-sizing: border-box;
 		width: fit-content;
 	}
+}
+
+.recent_images .list_content {
+	padding: 0;
 }

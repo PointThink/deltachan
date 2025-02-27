@@ -11,56 +11,50 @@ function str_starts_with_array_element($needles, $haystack)
 }
 ?>
 
-<div class="recent_images col">
+<div class="recent_images list">
 <?php echo "<h3 class=list_title>" . localize("index_recent_images") . "</h3>"; ?>
 	<div class=list_content>
 	
 	<?php
-		$recent_image_count = 4;
+	$boards_list = board_list();
+	$posts = array();
 
-		// gather list of nsfw boards
-		$boards = board_list();
-		$nsfw_boards = array();
+	// gather list of nsfw boards
+	$boards = board_list();
+	$nsfw_boards = array();
 
-		foreach ($boards as $board)
-		{
-			if ($board->nsfw)
-				$nsfw_boards[] = $board->id;
-		}
+	foreach ($boards as $board)
+	{
+		if ($board->nsfw)
+			$nsfw_boards[] = $board->id;
+	}
 
-		function scan_dir_sorted($dir) {
-		    global $nsfw_boards;
-			
-			$ignored = array('.', '..');
+	foreach ($boards_list as $b)
+	{
+		$posts = array_merge($posts, $b->get_posts());
+	}
 
-		    $files = array();    
-		    foreach (scandir($dir) as $file) {
-		        if (in_array($file, $ignored)) continue;
-		        if (!str_contains($file, "thumb")) continue;
-		        if (!str_starts_with(mime_content_type(__DIR__ . "/uploads/$file"), "image")) continue;
-				if (str_starts_with_array_element($nsfw_boards, $file)) continue;
+	// sort posts by number of replies
+	function cmp($a, $b) {
+		return count($a->replies) < count($b->replies);
+	}
 
-		        $files[$file] = filemtime($dir . '/' . $file);
-		    }
+	$posts_sorted = usort($posts, "cmp");
+	
+	
+	$i = 0;
+	$desired_posts = 6;
+	foreach ($posts as $post)
+	{
+		if (!$post->approved || in_array($post->board, $nsfw_boards))
+			continue;
 
-		    arsort($files);
-		    $files = array_keys($files);
+		$post->display_index();
+		$i++;
 
-		    return $files;
-		}
-
-		$files = scan_dir_sorted(__DIR__ . "/uploads/");
-
-		for ($i = 0; $i < $recent_image_count && $i < count($files); $i++)
-		{
-			$parts = explode(".", $files[$i]);
-			$parts = explode("-", $parts[0]);
-			$board = $parts[0];
-			$post = $parts[1];
-
-			echo "<a href=/$board/post.php?id=$post><img class=recent_image src=/uploads/" . $files[$i] . "></a>";
-		}
+		if ($i == $desired_posts)
+			break;
+	}
 	?>
-
 	</div>
 </div>

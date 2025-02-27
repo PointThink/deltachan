@@ -56,9 +56,11 @@ class Post
 		$full_link = $_SERVER["SERVER_NAME"] . "/" . $this->image_file;
 		$bytes_format = "(" . format_bytes(filesize(__DIR__ . "/../$this->image_file")) . ", {$image_x}x{$image_y})";
 
+		$original_image_name = htmlentities($this->original_image_name);
+
 		echo <<<HTML
 		<p class=file_stats>
-		File: <a href=/$this->image_file>$this->original_image_name</a> <a href=/$this->image_file download=$this->original_image_name title='Download with original name'>📥︎</a>
+		File: <a href=/$this->image_file>$original_image_name</a> <a href=/$this->image_file download=$original_image_name title='Download with original name'>📥︎</a>
 		$bytes_format</p>
 		HTML;
 	}
@@ -179,7 +181,7 @@ class Post
     	echo "</blockquote>";
 	}
 
-	public function display($board_view = false, $report_mode = false, $report_view_mode = false)
+	public function display($board_view = false, $report_mode = false, $report_view_mode = false, $display_unapproved = false)
 	{
 		if (!$this->is_reply || $report_mode || $report_view_mode)
 			echo "<div class=post id=post_$this->id>";
@@ -190,6 +192,8 @@ class Post
 		if ($this->sticky)
 			echo "<img class=pin src=/pin.png>";
 
+
+		echo "<button onclick=hide_thread($this->id)>–</button>";		
 
 		echo "<span class=name_segment>";
 
@@ -264,16 +268,24 @@ class Post
 		echo "</div>";
 		echo "<div class=post_lower>";
 
-		if ($this->image_file != "")
-			if ($report_mode)
-			{
-				echo "<div class=report_attachment>";
-				$this->display_attachment();
-				echo "</div>";
-			}
-			else
-				$this->display_attachment();
-
+		if ($this->approved || $display_unapproved)
+		{
+			if ($this->image_file != "")
+				if ($report_mode)
+				{
+					echo "<div class=report_attachment>";
+					$this->display_attachment();
+					echo "</div>";
+				}
+				else
+					$this->display_attachment();
+		}
+		else
+		{
+			if ($this->image_file != "")
+				echo "<b>Media pending approval</b><br>";
+		}
+		
 		if ($this->body != "")
 			$this->format_and_show_text($this->body);
 		
@@ -290,7 +302,7 @@ class Post
 
 			echo "<div id=replies_$this->id>";
 			foreach ($replies as $reply)
-				$reply->display(true);
+				$reply->display(true, false, false, $display_unapproved);
 			echo "</div>";
 		}
 
@@ -300,11 +312,34 @@ class Post
 
 	public function display_catalog()
 	{
+		if (!$this->approved || !$this->image_file)
+			return;
+		
+		
 		echo "<div href=/$this->board/?post=$this->id class=catalog_post>";
+		$this->display_catalog_attachment();
+		echo "<p><b>R: " . count($this->replies) . "</b></p>";
+
+		echo "<br>";
+
+		if ($this->title != "")
+			echo "<b>" . htmlspecialchars($this->title, 0, "UTF-8") . "</b>";
+
+		echo "<div class=post_comment>";
+		$this->format_and_show_text($this->body);
+		echo "</div>"; 
+
+		echo "</div>";
+	}
+
+	public function display_index()
+	{
+		echo "<div href=/$this->board/?post=$this->id class=index_post>";
+
+		echo "<p><b>/$this->board/</b></p><br>";
 
 		if ($this->image_file)
 			$this->display_catalog_attachment();
-		echo "<p><b>R: " . count($this->replies) . "</b></p>";
 
 		echo "<br>";
 

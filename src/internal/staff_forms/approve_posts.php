@@ -21,24 +21,35 @@ if (!staff_session_is_valid() || !staff_is_moderator())
 
         <div id="posts">
         <?php
-            // find all boards
+            $database = new Database();
             $boards = board_list();
-            $unapproved_posts = array();
+            $posts = array();
 
-            foreach ($boards as $board_no_posts)
+            foreach ($boards as $board)
             {
-                $board = board_get($board_no_posts->id);
-                foreach ($board->get_posts() as $post)
+                $result = $database->query("select id from posts_$board->id where approved = 0;");
+
+                while ($post = $result->fetch_assoc())
                 {
-                    if (!$post->approved)
-                        array_push($unapproved_posts, $post);
+                    $posts[] = post_read($database, $post["id"], $board->id);
                 }
             }
 
-            foreach ($unapproved_posts as $post)
+            foreach ($posts as $post)
             {
                 echo "<hr>";
-                $post->display();
+
+                if ($post->is_reply)
+                {
+                    post_read($database, $post->replies_to, $post->board)->display(false, false, true, true);
+                    echo "<div class=post>";
+                    $post->display();
+                    echo "</post>";
+                }
+                else
+                {
+                    $post->display(false, false, true, true);
+                }
             }
         ?>
         </div>

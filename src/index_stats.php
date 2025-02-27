@@ -1,4 +1,4 @@
-<div class="stats col">
+<div class="stats list">
 	<?php echo "<h3 class=list_title>" . localize("index_stats") . "</h3>"; ?>
 	<div class="list_content">
 		<?php
