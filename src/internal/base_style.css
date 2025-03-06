@@ -201,7 +201,10 @@ body {
 
 .post .staff_name {
 	font-weight: normal;
-	color: purple;
+	background-color: purple;
+	color: white;
+	border-radius: 11px;
+	padding: 0 5px 0 5px;
 }
 
 .post_form .file_upload_row {
