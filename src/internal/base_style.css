@@ -209,8 +209,15 @@ body {
 	flex-direction: row;
 }
 
+.chan_setup table {
+	width: 30cm;
+}
+
+.chan_setup th {
+	width: 5cm;
+}
+
 .chan_setup textarea {
-	width: 20cm;
 	height: 5cm;
 }
 
@@ -586,4 +593,9 @@ form .clear_file, form .file_upload {
 
 .motd {
 	text-align: center;
+}
+
+.table_seperator th {
+	width: 100%;
+	clear: both;
 }

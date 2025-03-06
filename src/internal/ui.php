@@ -129,6 +129,12 @@ class PostForm
 		return $this;
 	}
 
+	public function add_seperator($title)
+	{
+		$this->buffer .= "</table><h2 class=separator>$title</h2><hr><table>";
+		return $this;
+	}
+
 	public function finalize()
 	{
 		$this->buffer .= "</table>";

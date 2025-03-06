@@ -6,7 +6,7 @@
 	<?php
 	include_once "internal/chaninfo.php";
 	$chan_info = chan_info_read();
-	echo $chan_info->footer;
+	echo nl2br($chan_info->footer);
 	?>
 </div>
 <br>
