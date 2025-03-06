@@ -177,12 +177,16 @@ body {
 }
 
 .post button {
-	margin: 0;
-	margin-right: 0.2cm;
-	width: 18px;
-	height: 18px;
-	font-size: 8pt;
+	display: inline;
 	padding: 0;
+	border: 0;
+	font: inherit;
+	text-decoration: underline;
+	cursor: pointer;
+	background: transparent;
+	color: currentColor;
+	margin-right: 0.2cm;
+	font-size: 10pt  
 }
 
 .post .your_post, .post .your_thread {

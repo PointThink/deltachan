@@ -55,12 +55,12 @@ function hide_thread(id)
 
     if (post.style.display == "none")
     {
-        button.innerText = "–"
+        button.innerText = "[–]"
         post.style.display = "block";
     }
     else
     {
-        button.innerText = "+";
+        button.innerText = "[+]";
         post.style.display = "none";
     }
 }

@@ -190,12 +190,10 @@ class Post
 
 		echo "<div class=post_upper>";
 		if ($this->sticky)
-			echo "<img class=pin src=/pin.png>";
-
-
-		echo "<button onclick=hide_thread($this->id)>–</button>";		
+			echo "<img class=pin src=/pin.png>";	
 
 		echo "<span class=name_segment>";
+		echo "<button onclick=hide_thread($this->id)>[–]</button>";
 
 		if ($this->title != "")
 		{
