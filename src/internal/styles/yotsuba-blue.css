@@ -34,7 +34,7 @@ hr {
 
 .post_form th {
 	background: #9988ee;
-	border: none;
+	border: 1px solid black;
 }
 
 a:link, a:visited {
