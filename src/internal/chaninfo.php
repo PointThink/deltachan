@@ -7,6 +7,7 @@ class ChanInfo
     public $rules;
     public $faq;
     public $motd;
+    public $footer;
     public $default_theme;
     public $password_salt;
     public $turnslite_site_key;

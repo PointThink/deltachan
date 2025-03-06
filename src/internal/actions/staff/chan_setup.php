@@ -15,6 +15,7 @@ if (count($_POST) > 0)
     $chan_info->rules = $_POST["rules"];
     $chan_info->welcome = $_POST["welcome"];
 	$chan_info->motd = $_POST["motd"];
+	$chan_info->footer = $_POST["footer"];
 	$chan_info->faq = $_POST["faq"];
 	$chan_info->default_theme = $_POST["default_theme"];
 	$chan_info->show_ban_list = isset($_POST["show_ban_list"]);
@@ -58,6 +59,7 @@ if (count($_POST) > 0)
                 ->add_text_area("Rules", "rules", htmlspecialchars($chan_info->rules))
 				->add_text_area("FAQ", "faq", htmlspecialchars($chan_info->faq))
 				->add_text_field("Message of the day", "motd", htmlspecialchars($chan_info->motd))
+				->add_text_area("Footer text", "footer", htmlspecialchars($chan_info->footer))
 				->add_checkbox("Allow text only OPs", "allow_text_only_ops", $chan_info->allow_text_only_ops)
 				->add_checkbox("Public ban list enabled", "show_ban_list", $chan_info->show_ban_list)
 				->add_text_field("Default theme", "default_theme", $chan_info->default_theme)
