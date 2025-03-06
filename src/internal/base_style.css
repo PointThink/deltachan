@@ -583,3 +583,7 @@ form .clear_file, form .file_upload {
 .recent_images .list_content {
 	padding: 0;
 }
+
+.motd {
+	text-align: center;
+}

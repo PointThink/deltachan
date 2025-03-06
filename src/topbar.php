@@ -84,3 +84,10 @@ $chan_info = chan_info_read();
 		echo "<img src='/static/banners/$banner'>";
 	?>
 </div>
+
+<?php
+if ($chan_info->motd != null)
+{
+	echo "<h3 class=motd>$chan_info->motd</h3>";
+}
+?>
