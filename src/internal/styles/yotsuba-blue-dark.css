@@ -1,0 +1,128 @@
+body {
+	background-color: #393c46;
+	color: white;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #b7c5d9;
+    height: 0;
+}
+
+.title, .report_header {
+	color: #e0474c;
+}
+
+.post .your_post {
+	color: brown;
+}
+
+#topbar {
+  border-bottom: none;
+}
+
+.post_form th {
+	background: #383257;
+	border: 1px solid white;
+}
+
+a:link, a:visited {
+  color: #9d9de5;
+}
+
+#staff_dashboard_content {
+  background: white;
+}
+
+#reply_disclaimer {
+	margin-left: 2px;
+	margin-right: 3px;
+	background: #40d9ff;
+	color: black;
+}
+
+#staff_disclaimer {
+	margin-left: 2px;
+	margin-right: 3px;
+	border: 1px solid black;
+	background: #ff5a5a;
+	color: black;
+}
+
+.manage_table th {
+    border: 1px solid white;
+	background-color: #383257;
+}
+
+.manage_table td {
+	background-color: black;
+}
+
+.list {
+	background: black;
+    border: 1px solid white;
+}
+
+.list .list_title {
+	background-color: #383257;
+}
+
+.list .boards_table th {
+	background-color: #383257;
+}
+
+
+.list .boards_table tr {
+	background-color: black;
+}
+
+.list .boards_table tr:nth-of-type(odd) {
+	background-color: #202020;
+}
+
+.reply, .board_pages, .catalog_post {
+	background: #414249;
+	border-top: 1px solid rgba(255, 255, 255, 0.5);
+	border-left: 1px solid rgba(255, 255, 255, 0.5);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+	border-right: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.post_title {
+	color: #a09deb;
+}
+
+.post_highlighted {
+	background-color: #d6bad0;
+}
+
+#topbar {
+	background: #414249;
+	border-bottom: 1px solid #b7c5d9;
+	box-shadow: 0 0 10px #00000044;
+}
+
+#topbar select {
+	height: auto;
+}
+
+.stats {
+	background-color: #2f2f5f !important;
+	color: #eeeeff !important;
+	border: 1px solid #eeeeff !important;
+}
+
+.stats .list_title {
+	background-color: #3e3e80 !important;
+	color: white !important;
+}
+
+.recent_images {
+	border: 1px solid #cceeab !important;
+	background-color: #254b39 !important;
+}
+
+.recent_images .list_title {
+	color: #cceeab !important;
+	background-color: #1d794e !important;
+}
