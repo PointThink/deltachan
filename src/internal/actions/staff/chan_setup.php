@@ -18,6 +18,7 @@ if (count($_POST) > 0)
 	$chan_info->footer = $_POST["footer"];
 	$chan_info->faq = $_POST["faq"];
 	$chan_info->default_theme = $_POST["default_theme"];
+	$chan_info->default_nsfw_theme = $_POST["default_nsfw_theme"];
 	$chan_info->show_ban_list = isset($_POST["show_ban_list"]);
 	$chan_info->locale = $_POST["locale"];
 	$chan_info->rate_limit_max_threads = $_POST["rate_limit_max_threads"];
@@ -65,6 +66,7 @@ if (count($_POST) > 0)
 				->add_checkbox("Allow text only OPs", "allow_text_only_ops", $chan_info->allow_text_only_ops)
 				->add_checkbox("Public ban list enabled", "show_ban_list", $chan_info->show_ban_list)
 				->add_text_field("Default theme", "default_theme", $chan_info->default_theme)
+				->add_text_field("Default NSFW board theme", "default_nsfw_theme", $chan_info->default_nsfw_theme)
 				->add_dropdown("Locale", "locale", array("en", "pl", "ru"), $chan_info->locale)
 				->add_seperator("Security")
 				->add_checkbox("Post rate limiting enabled", "rate_limiting_enabled", $chan_info->rate_limiting_enabled)

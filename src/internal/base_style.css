@@ -163,7 +163,8 @@ body {
 	display: inline;
 	font-size: 10pt;
 	margin: 0;
-	margin-right: 0.2cm;
+	margin-right: 0.2cm !important;
+	text-decoration: none;
 }
 
 .post .replies_last_5, .post .thread_view {
@@ -174,6 +175,13 @@ body {
 
 .post .name_segment {
 	font-size: 10pt;
+}
+
+.post_upper img {
+	width: 10pt;
+	height: 10pt;
+	vertical-align: middle;
+	margin-right: 0.05cm;
 }
 
 .post button {

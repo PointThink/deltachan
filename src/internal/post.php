@@ -189,8 +189,6 @@ class Post
 			echo "<div class=reply id=post_$this->id>";
 
 		echo "<div class=post_upper>";
-		if ($this->sticky)
-			echo "<img class=pin src=/pin.png>";	
 
 		echo "<span class=name_segment>";
 		echo "<button onclick=hide_thread($this->id)>[–]</button>";
@@ -215,6 +213,10 @@ class Post
 			if (in_array($this->id, $_SESSION["users_posts"]))
 				echo "<p class=your_post>(You)</p>";
 
+		if ($this->sticky)
+			echo "<img class=pin src=/pin.png>";	
+
+
 		$poster_id = $this->generate_id();
 		echo "<span class=poster_id style='background-color:#$poster_id;'>$poster_id</span>";
 
@@ -222,7 +224,12 @@ class Post
 
 		$time_since_creation = time() - $this->creation_time;
 
-		echo "<p class=post_id>№$this->id</p>";
+		// echo "";
+		if ($this->is_reply)
+			display_parameter_link("№$this->id", "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => ">>$this->id"), "action_link");
+		else
+			display_parameter_link("№$this->id", "/$this->board/post.php", array("id" => $this->id, "reply_field_content" => ">>$this->id"), "action_link");
+
 		echo "<p class=creation_time>" . format_time_since($time_since_creation) . "</p>";
 		
 		$quote_content = "";
@@ -231,16 +238,15 @@ class Post
 
 		if ($this->is_reply)
 		{
-			display_parameter_link(localize("post_reply"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => ">>$this->id"), "action_link");
-			display_parameter_link(localize("post_quote"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => $quote_content), "action_link");
+			display_parameter_link("[" . localize("post_quote") . "]", "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => $quote_content), "action_link");
 		}
 		else
 		{
-			display_parameter_link(localize("post_reply"), "/$this->board/post.php", array("id" => $this->id), "action_link");
-			display_parameter_link(localize("post_quote"), "/$this->board/post.php", array("id" => $this->id, "reply_field_content" => $quote_content), "action_link");
+			display_parameter_link("[" . localize("post_reply") . "]", "/$this->board/post.php", array("id" => $this->id), "action_link");
+			display_parameter_link("[" . localize("post_quote") . "]", "/$this->board/post.php", array("id" => $this->id, "reply_field_content" => $quote_content), "action_link");
 		}
 			
-		display_parameter_link("Report", "/internal/actions/report.php", array("id" => $this->id, "board" => $this->board), "action_link");
+		display_parameter_link("[" . "Report" . "]", "/internal/actions/report.php", array("id" => $this->id, "board" => $this->board), "action_link");
 	
 		if (staff_session_is_valid())
 		{

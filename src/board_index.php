@@ -42,7 +42,7 @@ function show_pages()
 			$board = board_get($board_id);
 			echo "<title>/$board->id/ - $board->title</title>";
 		
-			include "internal/link_css.php";
+			echo "<link rel=stylesheet type=text/css href=/internal/theme.php?nsfw=$board->nsfw>";
 		?>
 		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">

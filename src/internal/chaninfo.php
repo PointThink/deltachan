@@ -8,7 +8,8 @@ class ChanInfo
     public $faq;
     public $motd;
     public $footer;
-    public $default_theme;
+    public $default_theme = "yotusuba-blue.css";
+    public $default_nsfw_theme = "yotsuba.css";
     public $password_salt;
     public $turnslite_site_key;
     public $turnslite_secret_key;
