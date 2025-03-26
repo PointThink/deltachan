@@ -2,7 +2,7 @@
 include_once "internal/board.php";
 include_once "internal/staff_session.php";
 $chan_info = chan_info_read();
-ini_set("show_errors", 0);
+ini_set("display_errors", 0);
 
 ?>
 <div id=topbar>

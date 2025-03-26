@@ -1,6 +1,7 @@
 <?php
 session_start();
 header("Content-type: text/css");
+ini_set("display_errors", 0);
 
 include_once "chaninfo.php";
 
