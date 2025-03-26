@@ -62,12 +62,12 @@ if ($post->is_reply)
 				echo "<h3 id=reply_disclaimer></h3>";
 				if (!is_user_banned())
 				{
-					if (staff_session_is_valid())
+					if (staff_session_is_valid() && staff_is_janny())
 						echo "<p id=staff_disclaimer>Posting as staff</p>";
 
 					$form = (new PostForm("/internal/actions/post.php", "POST"));
 
-					if (!staff_session_is_valid())
+					if (!staff_is_janny())
 						$form->add_text_field("Name", "name", "Anonymous");
 					
 					$reply_field_content = "";

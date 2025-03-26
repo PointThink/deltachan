@@ -125,7 +125,7 @@ else
             <fieldset>
                 <legend>Your account</legend>
                 <ul>
-                    <li><a href="/internal/actions/staff/change_password.php">Change password (TODO)</a></li>
+                    <li><a href="/internal/actions/staff/change_password.php">Change password</a></li>
                 </ul>
             </fieldset>
 

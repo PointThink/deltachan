@@ -381,7 +381,7 @@ function post_delete($database, $board, $id, $delete_images = true)
 			post_delete($database, $board, $reply->id, $delete_images);
 }
 
-function post_create($database, $board_id, $is_reply, $replies_to, $name, $title, $body, $poster_ip, $poster_country, $is_staff_post)
+function post_create($database, $board_id, $is_reply, $replies_to, $name, $title, $body, $poster_ip, $poster_country, $is_staff_post, $trusted)
 {
 	if (!$is_reply) $replies_to = 0;
 	if (!$is_staff_post) $staff_username = "";
@@ -394,9 +394,9 @@ function post_create($database, $board_id, $is_reply, $replies_to, $name, $title
 	$name = $database->sanitize($name);
 
 	$query = "insert into posts_$board_id(
-		is_reply, replies_to, name, title, post_body, poster_ip, poster_country, is_staff_post
+		is_reply, replies_to, name, title, post_body, poster_ip, poster_country, is_staff_post, approved
 	) values (
-		$is_reply, $replies_to, '$name', '$title', '$body', '$poster_ip', '$poster_country', $is_staff_post
+		$is_reply, $replies_to, '$name', '$title', '$body', '$poster_ip', '$poster_country', $is_staff_post, $trusted
 	);";
 
 	$query_result = $database->query($query);

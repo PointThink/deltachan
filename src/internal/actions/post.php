@@ -132,12 +132,18 @@ $target_file = "";
 
 // If user is logged in as staff create a staff post
 $is_mod_post = "0";
+$trusted = "0";
 
 if (staff_session_is_valid())
 {
 	$user = staff_get_current_user();
-	$name = $user->username;
-	$is_mod_post = "1";
+	$trusted = "1";
+
+	if ($user->role != "trusted")
+	{
+		$is_mod_post = "1";
+		$name = $user->username;
+	}
 }
 else
 {
@@ -170,8 +176,9 @@ if (isset($_POST["title"]))
 $result = post_create(
 	$database,
 	$_POST["board"], isset($_POST["is_reply"]), $replies_to, $name, trim($title), trim($_POST["comment"]),
-	$_SERVER["REMOTE_ADDR"], $geolocation->country, $is_mod_post
+	$_SERVER["REMOTE_ADDR"], $geolocation->country, $is_mod_post, $trusted
 );
+
 
 if (!is_dir(__DIR__ . "/../../" . $file_upload_dir))
 	mkdir(__DIR__ . "/../../" . $file_upload_dir);

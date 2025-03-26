@@ -72,14 +72,14 @@ function show_pages()
 			</div>
 
 			<?php
-				if (staff_session_is_valid())
+				if (staff_session_is_valid() && staff_is_janny())
 					echo "<p id=staff_disclaimer>Posting as staff</p>";
 
 				if (!is_user_banned())
 				{
 					$form = (new PostForm("/internal/actions/post.php", "POST"));
 
-					if (!staff_session_is_valid())
+					if (!staff_is_janny())
 						$form->add_text_field("Name", "name", "Anonymous");
 						
 					$form
