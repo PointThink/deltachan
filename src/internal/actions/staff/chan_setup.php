@@ -14,8 +14,11 @@ if (count($_POST) > 0)
     $chan_info->chan_name = $_POST["name"];
     $chan_info->rules = $_POST["rules"];
     $chan_info->welcome = $_POST["welcome"];
+	$chan_info->motd = $_POST["motd"];
+	$chan_info->footer = $_POST["footer"];
 	$chan_info->faq = $_POST["faq"];
 	$chan_info->default_theme = $_POST["default_theme"];
+	$chan_info->default_nsfw_theme = $_POST["default_nsfw_theme"];
 	$chan_info->show_ban_list = isset($_POST["show_ban_list"]);
 	$chan_info->locale = $_POST["locale"];
 	$chan_info->rate_limit_max_threads = $_POST["rate_limit_max_threads"];
@@ -52,14 +55,20 @@ if (count($_POST) > 0)
 			$key = file_get_contents($deltachan_config["crypt_key_path"]);
 
 			(new PostForm("/internal/actions/staff/chan_setup.php", "POST"))
+				->add_seperator("Texts")
                 ->add_text_field("Chan name", "name", $chan_info->chan_name)
                 ->add_text_area("Welcome message", "welcome", htmlspecialchars($chan_info->welcome))
                 ->add_text_area("Rules", "rules", htmlspecialchars($chan_info->rules))
 				->add_text_area("FAQ", "faq", htmlspecialchars($chan_info->faq))
+				->add_text_field("Message of the day", "motd", htmlspecialchars($chan_info->motd))
+				->add_text_area("Footer text", "footer", htmlspecialchars($chan_info->footer))
+				->add_seperator("Features & looks")
 				->add_checkbox("Allow text only OPs", "allow_text_only_ops", $chan_info->allow_text_only_ops)
 				->add_checkbox("Public ban list enabled", "show_ban_list", $chan_info->show_ban_list)
 				->add_text_field("Default theme", "default_theme", $chan_info->default_theme)
+				->add_text_field("Default NSFW board theme", "default_nsfw_theme", $chan_info->default_nsfw_theme)
 				->add_dropdown("Locale", "locale", array("en", "pl", "ru"), $chan_info->locale)
+				->add_seperator("Security")
 				->add_checkbox("Post rate limiting enabled", "rate_limiting_enabled", $chan_info->rate_limiting_enabled)
 				->add_number("Rate limit range (seconds)", "rate_limit_range", $chan_info->rate_limit_range)
 				->add_number("Max posts in range", "rate_limit_max_threads", $chan_info->rate_limit_max_threads)

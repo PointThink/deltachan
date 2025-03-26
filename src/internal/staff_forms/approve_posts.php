@@ -2,7 +2,7 @@
 include_once "../database.php";
 include_once "../staff_session.php";
 
-if (!staff_session_is_valid() || !staff_is_moderator()) 
+if (!staff_session_is_valid() || !staff_is_janny()) 
 	die("You are not allowed here");
 ?>
 

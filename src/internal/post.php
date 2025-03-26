@@ -181,21 +181,17 @@ class Post
     	echo "</blockquote>";
 	}
 
-	public function display($board_view = false, $report_mode = false, $report_view_mode = false, $display_unapproved = false)
+	public function display($board_view = false, $blur_image = false, $single_post_view = false, $display_unapproved = false, $open_in_single_view = false)
 	{
-		if (!$this->is_reply || $report_mode || $report_view_mode)
+		if (!$this->is_reply || $blur_image || $single_post_view)
 			echo "<div class=post id=post_$this->id>";
 		else
 			echo "<div class=reply id=post_$this->id>";
 
 		echo "<div class=post_upper>";
-		if ($this->sticky)
-			echo "<img class=pin src=/pin.png>";
-
-
-		echo "<button onclick=hide_thread($this->id)>–</button>";		
 
 		echo "<span class=name_segment>";
+		echo "<button onclick=hide_thread($this->id)>[–]</button>";
 
 		if ($this->title != "")
 		{
@@ -217,6 +213,10 @@ class Post
 			if (in_array($this->id, $_SESSION["users_posts"]))
 				echo "<p class=your_post>(You)</p>";
 
+		if ($this->sticky)
+			echo "<img class=pin src=/pin.png>";	
+
+
 		$poster_id = $this->generate_id();
 		echo "<span class=poster_id style='background-color:#$poster_id;'>$poster_id</span>";
 
@@ -224,7 +224,23 @@ class Post
 
 		$time_since_creation = time() - $this->creation_time;
 
-		echo "<p class=post_id>№$this->id</p>";
+		// echo "";
+		/*
+		if ($this->is_reply)
+			display_parameter_link("№$this->id", "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => ">>$this->id"), "action_link");
+		else
+			display_parameter_link("№$this->id", "/$this->board/post.php", array("id" => $this->id, "reply_field_content" => ">>$this->id"), "action_link");
+		*/
+		if ($open_in_single_view)
+			echo "<a class=action_link href=# onclick=\"reply($this->id); return false;\">№$this->id</a>";
+		else
+		{
+			if ($this->is_reply)
+				display_parameter_link("№$this->id", "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => ">>$this->id"), "action_link");
+			else
+				display_parameter_link("№$this->id", "/$this->board/post.php", array("id" => $this->id, "reply_field_content" => ">>$this->id"), "action_link");
+		}
+
 		echo "<p class=creation_time>" . format_time_since($time_since_creation) . "</p>";
 		
 		$quote_content = "";
@@ -233,35 +249,34 @@ class Post
 
 		if ($this->is_reply)
 		{
-			display_parameter_link(localize("post_reply"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => ">>$this->id"), "action_link");
-			display_parameter_link(localize("post_quote"), "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => $quote_content), "action_link");
+			display_parameter_link("[" . localize("post_quote") . "]", "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => $quote_content), "action_link");
 		}
 		else
 		{
-			display_parameter_link(localize("post_reply"), "/$this->board/post.php", array("id" => $this->id), "action_link");
-			display_parameter_link(localize("post_quote"), "/$this->board/post.php", array("id" => $this->id, "reply_field_content" => $quote_content), "action_link");
+			display_parameter_link("[" . localize("post_reply") . "]", "/$this->board/post.php", array("id" => $this->id), "action_link");
+			display_parameter_link("[" . localize("post_quote") . "]", "/$this->board/post.php", array("id" => $this->id, "reply_field_content" => $quote_content), "action_link");
 		}
 			
-		display_parameter_link("Report", "/internal/actions/report.php", array("id" => $this->id, "board" => $this->board), "action_link");
+		display_parameter_link("[" . "Report" . "]", "/internal/actions/report.php", array("id" => $this->id, "board" => $this->board), "action_link");
 	
-		if (staff_session_is_valid())
+		if (staff_session_is_valid() && staff_is_janny())
 		{
-			display_parameter_link("Delete", "/internal/actions/staff/delete_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
+			display_parameter_link("[Delete]", "/internal/actions/staff/delete_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
 			if (!$this->approved)
 			{
-				display_parameter_link("Approve", "/internal/actions/staff/approve_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
+				display_parameter_link("[Approve]", "/internal/actions/staff/approve_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
 			}
 			if (!$this->is_reply)
-				display_parameter_link("Move thread", "/internal/actions/staff/move_thread.php", array("board" => $this->board, "id" => $this->id), "action_link");
+				display_parameter_link("[Move thread]", "/internal/actions/staff/move_thread.php", array("board" => $this->board, "id" => $this->id), "action_link");
 		}
 
 		if (staff_session_is_valid() && staff_is_moderator())
 		{
-			display_parameter_link("Ban", "/internal/actions/staff/ban.php", array("ip" => $this->poster_ip), "action_link");
+			display_parameter_link("[Ban]", "/internal/actions/staff/ban.php", array("ip" => $this->poster_ip), "action_link");
 
 			if (!$this->is_reply)
 			{
-				display_parameter_link($this->sticky ? "Unstick" : "Sticky", "/internal/actions/staff/sticky_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
+				display_parameter_link($this->sticky ? "[Unstick]" : "[Sticky]", "/internal/actions/staff/sticky_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
 			}
 		}
 
@@ -271,7 +286,7 @@ class Post
 		if ($this->approved || $display_unapproved)
 		{
 			if ($this->image_file != "")
-				if ($report_mode)
+				if ($blur_image)
 				{
 					echo "<div class=report_attachment>";
 					$this->display_attachment();
@@ -294,7 +309,7 @@ class Post
 			echo "<p class=replies_last_5>" . localize("post_replies_last5") ."</p>";
 			echo "<a href='/$this->board/post.php?id=$this->id' class=thread_view id=hide_replies_$this->id onclick='hide_replies(\"$this->id\")'>" . localize("post_replies_hide") . "</a>";
 		}
-		if (!$report_mode && !$report_view_mode)
+		if (!$blur_image && !$single_post_view)
 		{
 			$replies = $this->replies;
 			if ($board_view && count($this->replies) > 5)
@@ -377,7 +392,7 @@ function post_delete($database, $board, $id, $delete_images = true)
 			post_delete($database, $board, $reply->id, $delete_images);
 }
 
-function post_create($database, $board_id, $is_reply, $replies_to, $name, $title, $body, $poster_ip, $poster_country, $is_staff_post)
+function post_create($database, $board_id, $is_reply, $replies_to, $name, $title, $body, $poster_ip, $poster_country, $is_staff_post, $trusted)
 {
 	if (!$is_reply) $replies_to = 0;
 	if (!$is_staff_post) $staff_username = "";
@@ -390,9 +405,9 @@ function post_create($database, $board_id, $is_reply, $replies_to, $name, $title
 	$name = $database->sanitize($name);
 
 	$query = "insert into posts_$board_id(
-		is_reply, replies_to, name, title, post_body, poster_ip, poster_country, is_staff_post
+		is_reply, replies_to, name, title, post_body, poster_ip, poster_country, is_staff_post, approved
 	) values (
-		$is_reply, $replies_to, '$name', '$title', '$body', '$poster_ip', '$poster_country', $is_staff_post
+		$is_reply, $replies_to, '$name', '$title', '$body', '$poster_ip', '$poster_country', $is_staff_post, $trusted
 	);";
 
 	$query_result = $database->query($query);

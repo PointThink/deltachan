@@ -55,12 +55,45 @@ function hide_thread(id)
 
     if (post.style.display == "none")
     {
-        button.innerText = "–"
+        button.innerText = "[–]"
         post.style.display = "block";
     }
     else
     {
-        button.innerText = "+";
+        button.innerText = "[+]";
         post.style.display = "none";
     }
 }
+
+function expand_post_field(replyId)
+{
+    form = document.getElementsByClassName("post_form")[0];
+    form.style.display = "block";
+}
+
+function hide_post_field(replyId)
+{
+    let form = document.getElementsByClassName("post_form")[0];
+    form.style.display = "none";
+}
+
+function reply(id)
+{
+    expand_post_field();
+    let textbox = document.querySelector(".post_form textarea");
+    textbox.innerHTML += ">>" + id + "\n";
+}
+
+document.getElementsByClassName("post_form")[0].style.display = "none";
+document.getElementsByClassName("post_form")[0].classList.add("thread_form");
+
+jsOnly = document.getElementsByClassName("js_only");
+
+for (let item of jsOnly)
+{
+    item.style.display = "inline-block";
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get("reply_field_content") != undefined)
+    expand_post_field();

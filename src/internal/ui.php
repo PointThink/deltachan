@@ -9,7 +9,7 @@ class PostForm
 	public function __construct($form_action, $action_method)
 	{
 		$this->buffer .= "<form action='$form_action' method=$action_method enctype=multipart/form-data>";
-		$this->buffer .= "<table>";
+		$this->buffer .= "<table cellspacing=3 cellpadding=3>";
 	}
 
 	public function add_text_field($label, $name, $value = "")
@@ -126,6 +126,12 @@ class PostForm
 
 		$this->buffer .= "</td></tr>";
 
+		return $this;
+	}
+
+	public function add_seperator($title)
+	{
+		$this->buffer .= "</table><h2 class=separator>$title</h2><hr><table>";
 		return $this;
 	}
 

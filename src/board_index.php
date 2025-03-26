@@ -42,7 +42,7 @@ function show_pages()
 			$board = board_get($board_id);
 			echo "<title>/$board->id/ - $board->title</title>";
 		
-			include "internal/link_css.php";
+			echo "<link rel=stylesheet type=text/css href=/internal/theme.php?nsfw=$board->nsfw>";
 		?>
 		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,18 +61,25 @@ function show_pages()
 			?>
 		</div>
 
+		<div class="center">
+			<button class="form_button link_button js_only" onclick="expand_post_field();">Create new thread</button>
+		</div>
+
 		<div class=post_form>
-			<fieldset>
+			<div class="form_topbar">
+				<b>Creating new thread</b>
+				<button onclick="hide_post_field();" class="js_only">Close</button>
+			</div>
+
 			<?php
-				echo "<legend>Create new thread</legend>";
-				if (staff_session_is_valid())
+				if (staff_session_is_valid() && staff_is_janny())
 					echo "<p id=staff_disclaimer>Posting as staff</p>";
 
 				if (!is_user_banned())
 				{
 					$form = (new PostForm("/internal/actions/post.php", "POST"));
 
-					if (!staff_session_is_valid())
+					if (!staff_is_janny())
 						$form->add_text_field("Name", "name", "Anonymous");
 						
 					$form
@@ -91,7 +98,6 @@ function show_pages()
 					echo "<a href=/internal/error_pages/ban.php>Learn more</a>";
 				}
 			?>
-			</fieldset>
 		</div>
 
 		<?php show_pages(); ?>

@@ -22,10 +22,16 @@ hr {
     margin: 0;
 }
 
-.post_form th {
+.post_form th, .form_topbar {
 	background: #9988ee;
 	border: 1px solid #674bf5;
 	border-radius: 6px;
+}
+
+.form_topbar
+{
+	margin: 0.5cm;
+	margin-bottom: 0;
 }
 
 .post_form input[type=text], .post_form textarea {
@@ -91,7 +97,7 @@ a:link, a:visited {
 	background-color: #eeeeee;
 }
 
-.board_pages, .catalog_post, .reply, .post {
+.board_pages, .catalog_post, .reply, .post, .post_form {
 	background: #c7cdee;
 	border: 1px solid #b7c5d9;
 	border-radius: 8px;

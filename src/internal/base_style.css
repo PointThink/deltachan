@@ -57,8 +57,17 @@ body {
 	text-align: center;	
 }
 
+.thread_form {
+	position: fixed;
+	top: 1cm;
+	left: 50%;
+	transform: translate(-50%, 0%);
+
+	box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
+}
+
 .post_form th {
-	font-size: 12px;
+	font-size: 10pt;
 	padding-left: 0.2cm;
 	padding-right: 0.2cm;
 	border: 1px solid black;
@@ -159,11 +168,12 @@ body {
 	margin: 0.2cm;
 }
 
-.post .post_id, .post .creation_time, .post form, .post .thread_view, .post .replies_last_5, .action_link {
+.post .post_id, .post .creation_time, .post .thread_view, .post .replies_last_5, .action_link {
 	display: inline;
 	font-size: 10pt;
 	margin: 0;
-	margin-right: 0.2cm;
+	margin-right: 0.2cm !important;
+	text-decoration: none;
 }
 
 .post .replies_last_5, .post .thread_view {
@@ -176,13 +186,24 @@ body {
 	font-size: 10pt;
 }
 
+.post_upper img {
+	width: 10pt;
+	height: 10pt;
+	vertical-align: middle;
+	margin-right: 0.05cm;
+}
+
 .post button {
-	margin: 0;
-	margin-right: 0.2cm;
-	width: 18px;
-	height: 18px;
-	font-size: 8pt;
+	display: inline;
 	padding: 0;
+	border: 0;
+	font: inherit;
+	text-decoration: underline;
+	cursor: pointer;
+	background: transparent;
+	color: currentColor;
+	margin-right: 0.2cm;
+	font-size: 10pt  
 }
 
 .post .your_post, .post .your_thread {
@@ -201,7 +222,10 @@ body {
 
 .post .staff_name {
 	font-weight: normal;
-	color: purple;
+	background-color: purple;
+	color: white;
+	border-radius: 11px;
+	padding: 0 5px 0 5px;
 }
 
 .post_form .file_upload_row {
@@ -209,8 +233,15 @@ body {
 	flex-direction: row;
 }
 
+.chan_setup table {
+	width: 30cm;
+}
+
+.chan_setup th {
+	width: 5cm;
+}
+
 .chan_setup textarea {
-	width: 20cm;
 	height: 5cm;
 }
 
@@ -278,10 +309,11 @@ form .clear_file, form .file_upload {
 #topbar a, #topbar p {
 	padding: 0;
 	margin: 0;
-	margin-right: 0.1cm;
-	margin-left: 0.1cm;
-	font-size: 9pt;
+	margin-right: 0.2cm;
+	margin-left: 0.2cm;
+	font-size: 10pt;
 	display: inline-block;
+	text-decoration: none;
 }
 
 #setup_page {
@@ -582,4 +614,65 @@ form .clear_file, form .file_upload {
 
 .recent_images .list_content {
 	padding: 0;
+}
+
+.motd {
+	text-align: center;
+}
+
+.table_seperator th {
+	width: 100%;
+	clear: both;
+}
+
+.center
+{
+	text-align: center;
+}
+
+.form_button
+{
+	display: inline-block;
+}
+
+.link_button
+{
+	padding: 0.1cm;
+	font-size: 11pt;
+}
+
+.post_form .link_button {
+	margin-bottom: 0.5cm;
+}
+
+.post_form .form_topbar
+{
+	display: flex;
+	padding-left: 0.2cm;
+}
+
+.post_form button
+{
+	margin-left: auto;
+}
+
+.post_form table {
+	padding: 0.5cm;
+	padding-bottom: 0;
+}
+
+.post_form .form_topbar b
+{
+	vertical-align: bottom;
+	font-size: 12pt;
+	margin: 0;
+	padding: 0;
+}
+
+.js_only {
+	display: none;
+}
+
+.post_form button[type=submit] {
+	margin-bottom: 0.5cm;
 }

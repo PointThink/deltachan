@@ -31,8 +31,9 @@ hr {
     margin: 0;
 }
 
-.reply, #topbar {
+.reply, #topbar, .post_form {
 	background: #f0e0d6;
+	box-shadow: none;
 }
 
 #topbar {
@@ -40,7 +41,7 @@ hr {
   padding: 0.1cm;
 }
 
-.post_form th {
+.post_form th, .form_topbar {
 	background: #eeaa88;
 	border: none !important;
     text-align: left;
@@ -59,7 +60,6 @@ a:link, a:visited {
 #reply_disclaimer {
 	margin-left: 2px;
 	margin-right: 3px;
-	border: 1px solid black;
 	background: #40d9ff;
 	color: black;
 }

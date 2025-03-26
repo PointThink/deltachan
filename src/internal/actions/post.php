@@ -132,15 +132,21 @@ $target_file = "";
 
 // If user is logged in as staff create a staff post
 $is_mod_post = "0";
+$trusted = "0";
 
-if (staff_session_is_valid())
+$user = staff_get_current_user();
+
+if (staff_session_is_valid() && $user->role != "trusted")
 {
-	$user = staff_get_current_user();
-	$name = $user->username;
+	$trusted = "1";
 	$is_mod_post = "1";
+	$name = $user->username;
 }
 else
 {
+	if ($user->role == "trusted")
+		$trusted = "1";
+
 	if (str_contains($_POST["name"], "!"))
 		error_die("Name cannot contain !");
 
@@ -170,8 +176,9 @@ if (isset($_POST["title"]))
 $result = post_create(
 	$database,
 	$_POST["board"], isset($_POST["is_reply"]), $replies_to, $name, trim($title), trim($_POST["comment"]),
-	$_SERVER["REMOTE_ADDR"], $geolocation->country, $is_mod_post
+	$_SERVER["REMOTE_ADDR"], $geolocation->country, $is_mod_post, $trusted
 );
+
 
 if (!is_dir(__DIR__ . "/../../" . $file_upload_dir))
 	mkdir(__DIR__ . "/../../" . $file_upload_dir);

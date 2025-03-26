@@ -2,44 +2,38 @@
 include_once "internal/board.php";
 include_once "internal/staff_session.php";
 $chan_info = chan_info_read();
+ini_set("show_errors", 0);
+
 ?>
 <div id=topbar>
 	<?php
 		if (staff_session_is_valid())
 		{
-			echo "<p>[</p>";
 			echo "<p>Logged in as " . staff_get_current_user()->username . "</p>";
 			echo "<a href=/admin.php?action=logout>Logout</a>";
 			echo "<a href=/admin.php>Dashboard</a>";
-			echo "<p>]</p>";
+			echo "<p>|</p>";
 		}
 	?>
 
-	<p>[</p>
-	<a href=/>home</a><p>•</p>
-	<a href=/settings.php>settings</a><p>•</p> 
-	<a href=/rules.php>rules</a><p>•</p>
-	<a href=/faq.php>faq</a>
+	<a href=/>Home</>
+	<a href=/settings.php>Settings</a> 
+	<a href=/rules.php>Rules</a>
+	<a href=/faq.php>FAQ</a>
+	<a href="/admin.php">Account</a>
 	<?php
 		if ($chan_info->show_ban_list)
-			echo "<p>•</p><a href=/bans.php>bans</a>"
+			echo "<a href=/bans.php>Bans</a>"
 	?>
-	<p>]</p>
-
-	<p>[</p>
+	<p>|</p>
 	<?php
 		$boards = board_list();
 
 		foreach ($boards as $b)
 		{
-			echo "<a href=/$b->id/>$b->id</a>";
-			$last_board = $boards[count($boards) - 1];
-
-			if ($b != $last_board)
-				echo "<p>•</p>";
+			echo "<a href=/$b->id/>/$b->id/</a>";
 		}
 	?>
-	<p>]</p>
 
 	<div style="display: none;" id="theme_selector_section">
 		<p>Theme:</p>
@@ -84,3 +78,10 @@ $chan_info = chan_info_read();
 		echo "<img src='/static/banners/$banner'>";
 	?>
 </div>
+
+<?php
+if ($chan_info->motd != null)
+{
+	echo "<h3 class=motd>$chan_info->motd</h3>";
+}
+?>

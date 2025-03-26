@@ -30,8 +30,9 @@ hr {
 	color: brown;
 }
 
-.reply {
+.reply, .post_form {
 	background: #d6daf0;
+	box-shadow: none;
 }
 
 .post {
@@ -49,7 +50,7 @@ hr {
     font-size: 10pt !important;
 }
 
-.post_form th {
+.post_form th, .form_topbar {
 	background: #9988ee;
 	border: none !important;
     text-align: left;

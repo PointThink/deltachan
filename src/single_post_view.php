@@ -28,10 +28,10 @@ if ($post->is_reply)
 			$board = board_get($board_id);
 			echo "<title>/$board->id/ - $post->title</title>";
 			
-			include "internal/link_css.php";
+			echo "<link rel=stylesheet type=text/css href=/internal/theme.php?nsfw=$board->nsfw>";
 		?>
 
-		<script src=/internal/post_display.js></script>
+		<script src=/internal/post_display.js defer></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 		<link rel="icon" href="/static/favicon.png">
@@ -48,18 +48,26 @@ if ($post->is_reply)
 			?>
 		</div>
 
+		<div class="center">
+			<button class="form_button link_button js_only" onclick="expand_post_field();">Create new reply</button>
+		</div>
+
 		<div class=post_form>
-			<fieldset>
+			<div class="form_topbar">
+				<?php echo "<b>Replying to >>$post->id</b>"?>
+				<button onclick="hide_post_field();" class="js_only">Close</button>
+			</div>
+
 			<?php
-				echo "<legend id=reply_disclaimer>Replying to >>$post->id</legend>";
+				echo "<h3 id=reply_disclaimer></h3>";
 				if (!is_user_banned())
 				{
-					if (staff_session_is_valid())
+					if (staff_session_is_valid() && staff_is_janny())
 						echo "<p id=staff_disclaimer>Posting as staff</p>";
 
 					$form = (new PostForm("/internal/actions/post.php", "POST"));
 
-					if (!staff_session_is_valid())
+					if (!staff_is_janny())
 						$form->add_text_field("Name", "name", "Anonymous");
 					
 					$reply_field_content = "";
@@ -84,7 +92,6 @@ if ($post->is_reply)
 					echo "<a href=/internal/error_pages/ban.php>Learn more</a>";
 				}
 			?>
-			</fieldset>
 		</div>
 
 		<div id=posts>
@@ -98,9 +105,13 @@ if ($post->is_reply)
 
 				echo "<hr></div>";
 
-				$post->display();
+				$post->display(false, false, false, false, true);
 			?>
 			
+		</div>
+
+		<div class="center">
+			<button class="form_button link_button js_only" onclick="expand_post_field();">Create new reply</button>
 		</div>
 
 		<?php include "footer.php" ?>

@@ -11,15 +11,15 @@ if (!isset($_COOKIE["theme"]))
 {
     setcookie("theme", "default", time() + 60*60*24*30, "/");
 
-    if ($chan_info->default_theme == null)
-        $css_file_name = "yotsuba-blue.css";
+    if ($_GET["nsfw"])
+        $css_file_name = $chan_info->default_nsfw_theme;
     else
         $css_file_name = $chan_info->default_theme;
 }
 else if ($_COOKIE["theme"] == "default")
 {
-    if ($chan_info->default_theme == null)
-        $css_file_name = "yotsuba-blue.css";
+    if ($_GET["nsfw"])
+        $css_file_name = $chan_info->default_nsfw_theme;
     else
         $css_file_name = $chan_info->default_theme;
 }

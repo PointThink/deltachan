@@ -14,7 +14,7 @@ if (count($_POST) > 0)
 
 	// delete all posts from the board
 	
-	foreach (board_get($board)->posts as $post)
+	foreach (board_get($board)->get_posts() as $post)
 		post_delete($database, $board, $post->id);
 
 	board_remove($board);
