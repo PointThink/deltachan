@@ -15,31 +15,24 @@ $chan_info = chan_info_read();
 		}
 	?>
 
-	<p>[</p>
-	<a href=/>home</a><p>•</p>
-	<a href=/settings.php>settings</a><p>•</p> 
-	<a href=/rules.php>rules</a><p>•</p>
-	<a href=/faq.php>faq</a>
+	<a href=/>Home</>
+	<a href=/settings.php>Settings</a> 
+	<a href=/rules.php>Rules</a>
+	<a href=/faq.php>FAQ</a>
+	<a href="/admin.php">Account</a>
 	<?php
 		if ($chan_info->show_ban_list)
-			echo "<p>•</p><a href=/bans.php>bans</a>"
+			echo "<a href=/bans.php>Bans</a>"
 	?>
-	<p>]</p>
-
-	<p>[</p>
+	<p>|</p>
 	<?php
 		$boards = board_list();
 
 		foreach ($boards as $b)
 		{
-			echo "<a href=/$b->id/>$b->id</a>";
-			$last_board = $boards[count($boards) - 1];
-
-			if ($b != $last_board)
-				echo "<p>•</p>";
+			echo "<a href=/$b->id/>/$b->id/</a>";
 		}
 	?>
-	<p>]</p>
 
 	<div style="display: none;" id="theme_selector_section">
 		<p>Theme:</p>

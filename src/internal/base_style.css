@@ -55,10 +55,17 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;	
+
+	position: fixed;
+	top: 1cm;
+	left: 50%;
+	transform: translate(-50%, 0%);
+
+	box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
 }
 
 .post_form th {
-	font-size: 12px;
+	font-size: 10pt;
 	padding-left: 0.2cm;
 	padding-right: 0.2cm;
 	border: 1px solid black;
@@ -159,7 +166,7 @@ body {
 	margin: 0.2cm;
 }
 
-.post .post_id, .post .creation_time, .post form, .post .thread_view, .post .replies_last_5, .action_link {
+.post .post_id, .post .creation_time, .post .thread_view, .post .replies_last_5, .action_link {
 	display: inline;
 	font-size: 10pt;
 	margin: 0;
@@ -300,10 +307,11 @@ form .clear_file, form .file_upload {
 #topbar a, #topbar p {
 	padding: 0;
 	margin: 0;
-	margin-right: 0.1cm;
-	margin-left: 0.1cm;
-	font-size: 9pt;
+	margin-right: 0.2cm;
+	margin-left: 0.2cm;
+	font-size: 10pt;
 	display: inline-block;
+	text-decoration: none;
 }
 
 #setup_page {
@@ -613,4 +621,48 @@ form .clear_file, form .file_upload {
 .table_seperator th {
 	width: 100%;
 	clear: both;
+}
+
+.center
+{
+	text-align: center;
+}
+
+.form_button
+{
+	display: inline-block;
+}
+
+.link_button
+{
+	padding: 0.1cm;
+	font-size: 11pt;
+}
+
+.post_form .link_button {
+	margin-bottom: 0.5cm;
+}
+
+.post_form .form_topbar
+{
+	display: flex;
+	padding-left: 0.2cm;
+}
+
+.post_form button
+{
+	margin-left: auto;
+}
+
+.post_form table {
+	padding: 0.5cm;
+	padding-bottom: 0;
+}
+
+.post_form .form_topbar b
+{
+	vertical-align: bottom;
+	font-size: 12pt;
+	margin: 0;
+	padding: 0;
 }

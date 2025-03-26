@@ -64,3 +64,17 @@ function hide_thread(id)
         post.style.display = "none";
     }
 }
+
+function expand_post_field(replyId)
+{
+    form = document.getElementsByClassName("post_form")[0];
+    form.style.display = "block";
+}
+
+function hide_post_field(replyId)
+{
+    form = document.getElementsByClassName("post_form")[0];
+    form.style.display = "none";
+}
+
+document.getElementsByClassName("post_form")[0].style.display = "none";

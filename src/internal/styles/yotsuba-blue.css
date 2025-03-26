@@ -21,18 +21,19 @@ hr {
 	background: #d6daf0;
 }
 
-.reply {
-  border-top: 1px solid rgba(255, 255, 255, 0.5);
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  border-right: 1px solid rgba(0, 0, 0, 0.25);
+.reply, .post_form, .board_pages {
+	background: #d6daf0;
+	border-top: 1px solid rgba(255, 255, 255, 0.5);
+	border-left: 1px solid rgba(255, 255, 255, 0.5);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+	border-right: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 #topbar {
   border-bottom: none;
 }
 
-.post_form th {
+.post_form th, .post_form .form_topbar {
 	background: #9988ee;
 	border: 1px solid black;
 }
@@ -89,14 +90,6 @@ a:link, a:visited {
 
 .list .boards_table tr:nth-of-type(odd) {
 	background-color: #eeeeee;
-}
-
-.board_pages {
-	background: #d6daf0;
-	border-top: 1px solid rgba(255, 255, 255, 0.5);
-	border-left: 1px solid rgba(255, 255, 255, 0.5);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-	border-right: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 .post_title {

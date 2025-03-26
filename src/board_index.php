@@ -61,10 +61,17 @@ function show_pages()
 			?>
 		</div>
 
+		<div class="center">
+			<button class="form_button link_button" onclick="expand_post_field();">Create new thread</button>
+		</div>
+
 		<div class=post_form>
-			<fieldset>
+			<div class="form_topbar">
+				<b>Creating new thread</b>
+				<button onclick="hide_post_field();">Close</button>
+			</div>
+
 			<?php
-				echo "<legend>Create new thread</legend>";
 				if (staff_session_is_valid())
 					echo "<p id=staff_disclaimer>Posting as staff</p>";
 
@@ -91,7 +98,6 @@ function show_pages()
 					echo "<a href=/internal/error_pages/ban.php>Learn more</a>";
 				}
 			?>
-			</fieldset>
 		</div>
 
 		<?php show_pages(); ?>

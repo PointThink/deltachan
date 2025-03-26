@@ -30,10 +30,16 @@ hr {
     margin: 0;
 }
 
-.post_form th {
+.post_form th, .form_topbar {
 	background: #504781;
 	border: 1px solid #614ae0;
 	border-radius: 6px;
+}
+
+.form_topbar
+{
+	margin: 0.5cm;
+	margin-bottom: 0;
 }
 
 .post_form input[type=text], .post_form textarea {
@@ -101,7 +107,7 @@ a:link, a:visited {
 	background-color: #151515;
 }
 
-.board_pages, .catalog_post, .reply, .post {
+.board_pages, .catalog_post, .reply, .post, .post_form {
 	background: #2b3040;
 	border: 1px solid #b7c5d9;
 	border-radius: 8px;

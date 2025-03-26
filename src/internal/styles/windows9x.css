@@ -70,7 +70,7 @@ a:link, a:visited {
 	border: none;
 }
 
-.post_form th {
+.post_form th, .form_topbar {
 	background-color: #010081;
 	color: white;
 	text-align: left;

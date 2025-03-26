@@ -49,7 +49,7 @@ a:link, a:visited {
 	color: black;
 }
 
-.manage_table th {
+.manage_table th, .form_topbar {
     border: 1px solid white;
 	background-color: #383257;
 }
@@ -80,7 +80,7 @@ a:link, a:visited {
 	background-color: #202020;
 }
 
-.reply, .board_pages, .catalog_post {
+.reply, .board_pages, .catalog_post, .post_form {
 	background: #414249;
 	border-top: 1px solid rgba(255, 255, 255, 0.5);
 	border-left: 1px solid rgba(255, 255, 255, 0.5);
