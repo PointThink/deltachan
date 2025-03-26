@@ -9,11 +9,10 @@ ini_set("show_errors", 0);
 	<?php
 		if (staff_session_is_valid())
 		{
-			echo "<p>[</p>";
 			echo "<p>Logged in as " . staff_get_current_user()->username . "</p>";
 			echo "<a href=/admin.php?action=logout>Logout</a>";
 			echo "<a href=/admin.php>Dashboard</a>";
-			echo "<p>]</p>";
+			echo "<p>|</p>";
 		}
 	?>
 

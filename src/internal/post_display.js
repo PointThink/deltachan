@@ -77,13 +77,23 @@ function hide_post_field(replyId)
     form.style.display = "none";
 }
 
+function reply(id)
+{
+    expand_post_field();
+    let textbox = document.querySelector(".post_form textarea");
+    textbox.innerHTML += ">>" + id + "\n";
+}
+
 document.getElementsByClassName("post_form")[0].style.display = "none";
 document.getElementsByClassName("post_form")[0].classList.add("thread_form");
 
 jsOnly = document.getElementsByClassName("js_only");
-console.log(jsOnly)
 
 for (let item of jsOnly)
 {
     item.style.display = "inline-block";
 }
+
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get("reply_field_content") != undefined)
+    expand_post_field();

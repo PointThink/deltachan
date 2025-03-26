@@ -105,7 +105,7 @@ if ($post->is_reply)
 
 				echo "<hr></div>";
 
-				$post->display();
+				$post->display(false, false, false, false, true);
 			?>
 			
 		</div>

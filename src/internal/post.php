@@ -181,9 +181,9 @@ class Post
     	echo "</blockquote>";
 	}
 
-	public function display($board_view = false, $report_mode = false, $report_view_mode = false, $display_unapproved = false)
+	public function display($board_view = false, $blur_image = false, $single_post_view = false, $display_unapproved = false, $open_in_single_view = false)
 	{
-		if (!$this->is_reply || $report_mode || $report_view_mode)
+		if (!$this->is_reply || $blur_image || $single_post_view)
 			echo "<div class=post id=post_$this->id>";
 		else
 			echo "<div class=reply id=post_$this->id>";
@@ -225,10 +225,21 @@ class Post
 		$time_since_creation = time() - $this->creation_time;
 
 		// echo "";
+		/*
 		if ($this->is_reply)
 			display_parameter_link("№$this->id", "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => ">>$this->id"), "action_link");
 		else
 			display_parameter_link("№$this->id", "/$this->board/post.php", array("id" => $this->id, "reply_field_content" => ">>$this->id"), "action_link");
+		*/
+		if ($open_in_single_view)
+			echo "<a class=action_link href=# onclick=\"reply($this->id); return false;\">№$this->id</a>";
+		else
+		{
+			if ($this->is_reply)
+				display_parameter_link("№$this->id", "/$this->board/post.php", array("id" => $this->replies_to, "reply_field_content" => ">>$this->id"), "action_link");
+			else
+				display_parameter_link("№$this->id", "/$this->board/post.php", array("id" => $this->id, "reply_field_content" => ">>$this->id"), "action_link");
+		}
 
 		echo "<p class=creation_time>" . format_time_since($time_since_creation) . "</p>";
 		
@@ -275,7 +286,7 @@ class Post
 		if ($this->approved || $display_unapproved)
 		{
 			if ($this->image_file != "")
-				if ($report_mode)
+				if ($blur_image)
 				{
 					echo "<div class=report_attachment>";
 					$this->display_attachment();
@@ -298,7 +309,7 @@ class Post
 			echo "<p class=replies_last_5>" . localize("post_replies_last5") ."</p>";
 			echo "<a href='/$this->board/post.php?id=$this->id' class=thread_view id=hide_replies_$this->id onclick='hide_replies(\"$this->id\")'>" . localize("post_replies_hide") . "</a>";
 		}
-		if (!$report_mode && !$report_view_mode)
+		if (!$blur_image && !$single_post_view)
 		{
 			$replies = $this->replies;
 			if ($board_view && count($this->replies) > 5)
