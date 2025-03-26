@@ -134,19 +134,19 @@ $target_file = "";
 $is_mod_post = "0";
 $trusted = "0";
 
-if (staff_session_is_valid())
-{
-	$user = staff_get_current_user();
-	$trusted = "1";
+$user = staff_get_current_user();
 
-	if ($user->role != "trusted")
-	{
-		$is_mod_post = "1";
-		$name = $user->username;
-	}
+if (staff_session_is_valid() && $user->role != "trusted")
+{
+	$trusted = "1";
+	$is_mod_post = "1";
+	$name = $user->username;
 }
 else
 {
+	if ($user->role == "trusted")
+		$trusted = "1";
+
 	if (str_contains($_POST["name"], "!"))
 		error_die("Name cannot contain !");
 

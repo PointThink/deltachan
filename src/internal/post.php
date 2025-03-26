@@ -248,7 +248,7 @@ class Post
 			
 		display_parameter_link("[" . "Report" . "]", "/internal/actions/report.php", array("id" => $this->id, "board" => $this->board), "action_link");
 	
-		if (staff_session_is_valid())
+		if (staff_session_is_valid() && staff_is_janny())
 		{
 			display_parameter_link("Delete", "/internal/actions/staff/delete_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
 			if (!$this->approved)
