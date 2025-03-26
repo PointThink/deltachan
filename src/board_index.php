@@ -62,13 +62,13 @@ function show_pages()
 		</div>
 
 		<div class="center">
-			<button class="form_button link_button" onclick="expand_post_field();">Create new thread</button>
+			<button class="form_button link_button js_only" onclick="expand_post_field();">Create new thread</button>
 		</div>
 
 		<div class=post_form>
 			<div class="form_topbar">
 				<b>Creating new thread</b>
-				<button onclick="hide_post_field();">Close</button>
+				<button onclick="hide_post_field();" class="js_only">Close</button>
 			</div>
 
 			<?php

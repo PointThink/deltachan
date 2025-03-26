@@ -49,13 +49,13 @@ if ($post->is_reply)
 		</div>
 
 		<div class="center">
-			<button class="form_button link_button" onclick="expand_post_field();">Create new reply</button>
+			<button class="form_button link_button js_only" onclick="expand_post_field();">Create new reply</button>
 		</div>
 
 		<div class=post_form>
 			<div class="form_topbar">
 				<?php echo "<b>Replying to >>$post->id</b>"?>
-				<button onclick="hide_post_field();">Close</button>
+				<button onclick="hide_post_field();" class="js_only">Close</button>
 			</div>
 
 			<?php
@@ -111,7 +111,7 @@ if ($post->is_reply)
 		</div>
 
 		<div class="center">
-			<button class="form_button link_button" onclick="expand_post_field();">Create new reply</button>
+			<button class="form_button link_button js_only" onclick="expand_post_field();">Create new reply</button>
 		</div>
 
 		<?php include "footer.php" ?>

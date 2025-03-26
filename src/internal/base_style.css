@@ -55,7 +55,9 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;	
+}
 
+.thread_form {
 	position: fixed;
 	top: 1cm;
 	left: 50%;
@@ -665,4 +667,8 @@ form .clear_file, form .file_upload {
 	font-size: 12pt;
 	margin: 0;
 	padding: 0;
+}
+
+.js_only {
+	display: none;
 }
