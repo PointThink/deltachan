@@ -41,7 +41,8 @@ if (count($_POST) > 0)
 				->add_dropdown("Role", "role", array(
 					"admin",
 					"mod",
-					"janny"), "admin")
+					"janny",
+					"trusted"), "trusted")
 				->finalize();
 			?>
 		</div>

@@ -119,10 +119,17 @@ else
                 $restult = $database->query("select count(*) from posts_$b->id where approved = 0;");
                 $unapproved_post_count += $restult->fetch_assoc()["count(*)"];
             }
-
             echo "</ul></fieldset>";
-            
+            ?>
 
+            <fieldset>
+                <legend>Your account</legend>
+                <ul>
+                    <li><a href="/internal/actions/staff/change_password.php">Change password (TODO)</a></li>
+                </ul>
+            </fieldset>
+
+            <?php
             if ($current_user->role == "admin")
             {
                 echo "
@@ -146,9 +153,18 @@ else
                 <fieldset>
                     <legend>Mod</legend>
                     <ul>
-                        <li><a href=/internal/staff_forms/approve_posts.php>View unnaproved posts</a> ($unapproved_post_count)</li>
                         <li><a href=/internal/staff_forms/view_reports.php>View reported posts</a> ($report_count)</li>
                         <li><a href=/internal/staff_forms/manage_bans.php>Manage bans</a></li>
+                    </ul>
+                </fieldset>";
+            }
+            if (staff_is_janny())
+            {
+                echo "
+                <fieldset>
+                    <legend>Janitor</legend>
+                    <ul>
+                        <li><a href=/internal/staff_forms/approve_posts.php>View unnaproved posts</a> ($unapproved_post_count)</li>
                     </ul>
                 </fieldset>";
             }

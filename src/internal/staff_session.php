@@ -105,6 +105,12 @@ function staff_is_moderator()
 	return $user->role == "admin" || $user->role == "mod";
 }
 
+function staff_is_janny()
+{
+	$user = staff_get_current_user();
+	return $user->role == "janny" || $user->role == "admin" || $user->role == "mod";;
+}
+
 function write_staff_account($username, $password_hash, $role, $contact_email = "")
 {
 	$database = new Database();

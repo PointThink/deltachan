@@ -672,3 +672,7 @@ form .clear_file, form .file_upload {
 .js_only {
 	display: none;
 }
+
+.post_form button[type=submit] {
+	margin-bottom: 0.5cm;
+}
