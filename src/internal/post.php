@@ -250,22 +250,22 @@ class Post
 	
 		if (staff_session_is_valid() && staff_is_janny())
 		{
-			display_parameter_link("Delete", "/internal/actions/staff/delete_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
+			display_parameter_link("[Delete]", "/internal/actions/staff/delete_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
 			if (!$this->approved)
 			{
-				display_parameter_link("Approve", "/internal/actions/staff/approve_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
+				display_parameter_link("[Approve]", "/internal/actions/staff/approve_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
 			}
 			if (!$this->is_reply)
-				display_parameter_link("Move thread", "/internal/actions/staff/move_thread.php", array("board" => $this->board, "id" => $this->id), "action_link");
+				display_parameter_link("[Move thread]", "/internal/actions/staff/move_thread.php", array("board" => $this->board, "id" => $this->id), "action_link");
 		}
 
 		if (staff_session_is_valid() && staff_is_moderator())
 		{
-			display_parameter_link("Ban", "/internal/actions/staff/ban.php", array("ip" => $this->poster_ip), "action_link");
+			display_parameter_link("[Ban]", "/internal/actions/staff/ban.php", array("ip" => $this->poster_ip), "action_link");
 
 			if (!$this->is_reply)
 			{
-				display_parameter_link($this->sticky ? "Unstick" : "Sticky", "/internal/actions/staff/sticky_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
+				display_parameter_link($this->sticky ? "[Unstick]" : "[Sticky]", "/internal/actions/staff/sticky_post.php", array("board" => $this->board, "id" => $this->id), "action_link");
 			}
 		}
 
