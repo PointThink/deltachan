@@ -54,7 +54,7 @@ body {
 	max-width: fit-content;
 	margin-left: auto;
 	margin-right: auto;
-	text-align: center;	
+	text-align: center;
 }
 
 .thread_form {
@@ -62,8 +62,6 @@ body {
 	top: 1cm;
 	left: 50%;
 	transform: translate(-50%, 0%);
-
-	box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
 }
 
 .post_form th {
@@ -582,6 +580,7 @@ form .clear_file, form .file_upload {
 
 .rules_disclaimer {
 	font-size: 10pt;
+	margin: 0.1cm;
 }
 
 @media (max-width: 500px) {
@@ -657,7 +656,6 @@ form .clear_file, form .file_upload {
 }
 
 .post_form table {
-	padding: 0.5cm;
 	padding-bottom: 0;
 }
 
@@ -671,8 +669,4 @@ form .clear_file, form .file_upload {
 
 .js_only {
 	display: none;
-}
-
-.post_form button[type=submit] {
-	margin-bottom: 0.5cm;
 }

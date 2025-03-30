@@ -9,7 +9,7 @@ class PostForm
 	public function __construct($form_action, $action_method)
 	{
 		$this->buffer .= "<form action='$form_action' method=$action_method enctype=multipart/form-data>";
-		$this->buffer .= "<table cellspacing=3 cellpadding=3>";
+		$this->buffer .= "<table cellspacing=1>";
 	}
 
 	public function add_text_field($label, $name, $value = "")

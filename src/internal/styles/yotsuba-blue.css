@@ -9,6 +9,10 @@ hr {
     height: 0;
 }
 
+#banner {
+	border: 1px solid #B7C5D9;
+}
+
 .title, .report_header {
 	color: #AF0A0F;
 }
@@ -21,7 +25,7 @@ hr {
 	background: #d6daf0;
 }
 
-.reply, .post_form, .board_pages, .catalog_post, .form_button {
+.reply, .post_form, .board_pages, .catalog_post {
 	background-color: #D6DAF0;
 	border: 1px solid #B7C5D9;
 	border-left: none;
@@ -29,8 +33,13 @@ hr {
 }
 
 .form_button {
+	background: linear-gradient(#e5e9ff, #d6daf0);
+	border-radius: 3px;
+	border: 1px solid #c7cbe1;
+	color: #383960;
 	padding: 0.2cm;
-	color: #34345c;
+	font-weight: bold;
+	font-size: 10pt;
 }
 
 #topbar {

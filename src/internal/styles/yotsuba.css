@@ -9,6 +9,10 @@ hr {
     height: 1px;
 }
 
+#banner {
+	border: 1px solid #d9bfb7;
+}
+
 .post .your_post {
 	color: navy;
 }
@@ -23,6 +27,16 @@ hr {
 .form_button {
 	padding: 0.2cm;
 	color: blue;
+}
+
+.form_button {
+	background: linear-gradient(#ffefe5, #f0e0d6);
+	border-radius: 3px;
+	border: 1px solid #d2c2b8;
+	color: blue;
+	padding: 0.2cm;
+	font-weight: bold;
+	font-size: 10pt;
 }
 
 #topbar {

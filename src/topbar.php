@@ -75,7 +75,7 @@ ini_set("display_errors", 0);
 		sort($banners);
 		$banner_number = rand(0, count($banners) - 1);
 		$banner = $banners[$banner_number];
-		echo "<img src='/static/banners/$banner'>";
+		echo "<img id=banner src='/static/banners/$banner'>";
 	?>
 </div>
 
