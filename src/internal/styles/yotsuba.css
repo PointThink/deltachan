@@ -13,12 +13,16 @@ hr {
 	color: navy;
 }
 
-.reply, .catalog_post, .board_pages, .post_form {
+.reply, .catalog_post, .board_pages, .post_form, .form_button {
 	background: #f0e0d6;
-  	border-top: 1px solid rgba(255, 255, 255, 0.5);
-  	border-left: 1px solid rgba(255, 255, 255, 0.5);
-  	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  	border-right: 1px solid rgba(0, 0, 0, 0.25);
+	border-color: #d9bfb7;
+	border-width: 1px;
+  	border-style: none solid solid none;
+}
+
+.form_button {
+	padding: 0.2cm;
+	color: blue;
 }
 
 #topbar {
@@ -98,4 +102,12 @@ a:link, a:visited {
 #topbar {
 	background: #f0e0d6;
 	box-shadow: 0 0 10px #00000044;
+}
+
+button:hover {
+	color: red;
+}
+
+a:hover {
+	color: red;
 }

@@ -21,12 +21,16 @@ hr {
 	background: #d6daf0;
 }
 
-.reply, .post_form, .board_pages {
-	background: #d6daf0;
-	border-top: 1px solid rgba(255, 255, 255, 0.5);
-	border-left: 1px solid rgba(255, 255, 255, 0.5);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-	border-right: 1px solid rgba(0, 0, 0, 0.25);
+.reply, .post_form, .board_pages, .catalog_post, .form_button {
+	background-color: #D6DAF0;
+	border: 1px solid #B7C5D9;
+	border-left: none;
+	border-top: none;
+}
+
+.form_button {
+	padding: 0.2cm;
+	color: #34345c;
 }
 
 #topbar {
@@ -61,11 +65,6 @@ a:link, a:visited {
 	color: black;
 }
 
-.manage_table th {
-    border: 1px solid black;
-	background-color: #9988ee;
-}
-
 .manage_table td {
 	background-color: white;
 }
@@ -96,14 +95,6 @@ a:link, a:visited {
 	color: #0F0C5D;
 }
 
-.catalog_post {
-	background: #d6daf0;
-	border-top: 1px solid rgba(255, 255, 255, 0.5);
-	border-left: 1px solid rgba(255, 255, 255, 0.5);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-	border-right: 1px solid rgba(0, 0, 0, 0.25);
-}
-
 .post_highlighted {
 	background-color: #d6bad0;
 }
@@ -116,4 +107,12 @@ a:link, a:visited {
 
 #topbar select {
 	height: auto;
+}
+
+button:hover {
+	color: red;
+}
+
+a:hover {
+	color: red;
 }
