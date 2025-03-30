@@ -130,10 +130,6 @@ function show_pages()
 			?>	
 		</div>
 
-		
-		<script src="/internal/board_index.js"></script>	
-		<script src=/internal/post_display.js></script>
-
 		<?php show_pages(); ?>
 
 		<?php include "footer.php" ?>

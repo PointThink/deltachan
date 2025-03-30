@@ -28,7 +28,6 @@ if (count($_POST) > 0)
 	<head>
 		<title>Reporting post</title>
 		<?php include "../link_css.php" ?>
-		<script src=/internal/post_display.js></script>
 	</head>
 
 	<body>

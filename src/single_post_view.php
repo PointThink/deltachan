@@ -30,8 +30,6 @@ if ($post->is_reply)
 			
 			echo "<link rel=stylesheet type=text/css href=/internal/theme.php?nsfw=$board->nsfw>";
 		?>
-
-		<script src=/internal/post_display.js defer></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 		<link rel="icon" href="/static/favicon.png">

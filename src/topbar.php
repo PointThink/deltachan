@@ -5,6 +5,8 @@ $chan_info = chan_info_read();
 ini_set("display_errors", 0);
 
 ?>
+<script defer src="/internal/deltachan.js"></script>
+
 <div id=topbar>
 	<?php
 		if (staff_session_is_valid())
@@ -37,7 +39,6 @@ ini_set("display_errors", 0);
 
 	<div style="display: none;" id="theme_selector_section">
 		<p>Theme:</p>
-		<script src="/internal/theme_selector.js"></script>
 
 		<select onchange="selectThemeFromPicker();" id="theme_selector" autocomplete="off">
 		<?php
