@@ -2,31 +2,17 @@
 include_once __DIR__ . "/config.php";
 include_once __DIR__ . "/post.php";
 
+$key = file_get_contents($deltachan_config["crypt_key_path"]);
+$host = openssl_decrypt($deltachan_config["database_host"], "aes-256-ecb", $key);
+$user = openssl_decrypt($deltachan_config["database_user"], "aes-256-ecb", $key);
+$password = openssl_decrypt($deltachan_config["database_password"], "aes-256-ecb", $key);
+
+$mysql_connection = new mysqli($host, $user, $password);
+
 class Database
 {
-	public $mysql_connection;
-
-	public function __construct($host = "", $user = "", $password = "")
-	{
-		global $deltachan_config;
-		$key = file_get_contents($deltachan_config["crypt_key_path"]);
-
-		if ($host == "" || $user == "" || $password == "")
-		{
-			// decrypt credentials
-			$host = openssl_decrypt($deltachan_config["database_host"], "aes-256-ecb", $key);
-			$user = openssl_decrypt($deltachan_config["database_user"], "aes-256-ecb", $key);
-			$password = openssl_decrypt($deltachan_config["database_password"], "aes-256-ecb", $key);
-		}
-
-		$this->mysql_connection = new mysqli($host, $user, $password);
-	}
-
 	public function setup_meta_info_database()
-	{
-		global $deltachan_config;
-		// $this->mysql_connection->query("create database if not exists " . $deltachan_config["database_name"] . ";");
-		
+	{		
 		$this->query("
 			create table if not exists board_info (
 				id varchar(255) not null primary key,
@@ -71,14 +57,16 @@ class Database
 
 	public function sanitize($str)
 	{
-		return $this->mysql_connection->real_escape_string($str);
+		global $mysql_connection;
+		return $mysql_connection->real_escape_string($str);
 	}
 
 	public function query($str)
 	{
 		global $deltachan_config;
-		$this->mysql_connection->select_db($deltachan_config["database_name"]);
-		return $this->mysql_connection->query($str);
+		global $mysql_connection;
+		$mysql_connection->select_db($deltachan_config["database_name"]);
+		return $mysql_connection->query($str);
 	}
 
 	public function get_unix_time($str)
@@ -86,5 +74,11 @@ class Database
 		$str = $this->sanitize($str);
 		$result = $this->query("select UNIX_TIMESTAMP('$str');");
 		return intval($result->fetch_assoc()["UNIX_TIMESTAMP('$str')"]);
+	}
+
+	public function insert_id()
+	{
+		global $mysql_connection;
+		return $mysql_connection->insert_id;
 	}
 }

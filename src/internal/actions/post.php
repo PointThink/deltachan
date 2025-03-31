@@ -3,6 +3,7 @@ session_set_cookie_params(3600 * 24 * 30); // 30 days
 session_start();
 
 include_once "../database.php";
+include_once "../post.php";
 include_once "../bans.php";
 include_once "../staff_session.php";
 include_once "../geolocation.php";
@@ -79,7 +80,6 @@ if ($chan_info->rate_limiting_enabled)
 	$timestamps = array();
 
 	$count = $result->fetch_assoc()["count(*)"];
-	echo $count;
 
 	if ($count > $chan_info->rate_limit_max_threads)
 		error_die("Slow down! You're making too many posts!");

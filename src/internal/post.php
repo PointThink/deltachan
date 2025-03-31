@@ -6,7 +6,6 @@ if (session_status() != PHP_SESSION_ACTIVE)
 }
 
 include_once "database.php";
-include_once __DIR__ . "/report.php";
 include_once "locale.php";
 include_once "ui.php";
 include_once "utils.php";
@@ -413,7 +412,7 @@ function post_create($database, $board_id, $is_reply, $replies_to, $name, $title
 	$query_result = $database->query($query);
 
 	// return the newly created post
-	return post_read($database, $database->mysql_connection->insert_id, $board_id);
+	return post_read($database, $database->insert_id(), $board_id);
 }
 
 function post_read($database, $id, $board)
@@ -502,7 +501,7 @@ function post_update_file($database, $board, $id, $file)
 	$id = $database->sanitize($id);
 	$file = $database->sanitize($file);
 
-	$file = $database->mysql_connection->real_escape_string($file);
+	$file = $database->sanitize($file);
 
 	$database->query("
 		update posts_$board

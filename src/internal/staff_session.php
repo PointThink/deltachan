@@ -172,7 +172,7 @@ function read_staff_account($username)
 	$database = new Database();
 	$username = $database->sanitize($username);
 	$account_info = new StaffAccountInfo();
-	$username = $database->mysql_connection->real_escape_string($username);
+	$username = $database->sanitize($username);
 
 	$result = $database->query("
 		select * from staff_accounts where username='$username'
